@@ -1,5 +1,6 @@
 package com.example.pos.service;
 
+import com.example.pos.model.Autor;
 import com.example.pos.model.Carte;
 import com.example.pos.repository.CarteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
 
 @Transactional
 @Service
@@ -28,6 +30,20 @@ public class CarteService {
 
     public void deleteCarteByISBN(String ISBN) {
         carteRepository.deleteCarteByISBN(ISBN);
+    }
+
+    public Set<Autor> getAutori(String ISBN)
+    {
+        Carte carte=findByISBN(ISBN);
+        if (carte==null)
+        {
+            return null;
+        }
+        else
+        {
+            return carte.getAutori();
+        }
+
     }
 
     public Carte putCarte(Carte newCarte, String ISBN)

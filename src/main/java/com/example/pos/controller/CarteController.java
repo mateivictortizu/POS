@@ -1,6 +1,7 @@
 package com.example.pos.controller;
 
 import com.example.pos.exceptions.CarteNotFoundException;
+import com.example.pos.model.Autor;
 import com.example.pos.model.Carte;
 import com.example.pos.service.CarteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,17 @@ public class CarteController {
 
         return (carteService.putCarte(newCarte,ISBN) !=null)? new ResponseEntity<>(carteService.putCarte(newCarte,ISBN), HttpStatus.OK):new ResponseEntity<>(new CarteNotFoundException(ISBN), HttpStatus.NO_CONTENT);
 
+    }
+
+    @GetMapping("/{ISBN}/authors")
+    ResponseEntity<?>authors(@PathVariable String ISBN){
+        return (carteService.getAutori(ISBN) !=null)? new ResponseEntity<>(carteService.getAutori(ISBN), HttpStatus.OK):new ResponseEntity<>(new CarteNotFoundException(ISBN),HttpStatus.NO_CONTENT) ;
+    }
+
+    @PostMapping("/{ISBN}/authors")
+    ResponseEntity<?>addautor(@PathVariable String ISBN, @RequestBody Autor autor){
+        //should be implemented later
+        return null;
     }
 
     @DeleteMapping("/{ISBN}")

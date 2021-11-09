@@ -1,10 +1,12 @@
 package com.example.pos.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
+@Table( name = "carte")
 public class Carte {
     @Id
     private String ISBN;
@@ -12,6 +14,12 @@ public class Carte {
     private String editura;
     private Integer an_publicare;
     private String gen_literar;
+
+    @ManyToMany(mappedBy = "carti", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Set<Autor> autori = new HashSet<>();
+
+    public Carte() {
+    }
 
     public String getISBN(){
         return this.ISBN;
@@ -53,6 +61,10 @@ public class Carte {
         this.gen_literar=gen_literar;
     }
 
+    public Set<Autor> getAutori()
+    {
+        return this.autori;
+    }
 
     @Override
     public boolean equals(Object o) {

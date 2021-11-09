@@ -1,18 +1,35 @@
 package com.example.pos.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
+@Table(name="autor")
 public class Autor {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer ID;
     private String prenume;
     private String nume;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "autor_carte",
+            joinColumns = {@JoinColumn(name = "autor_id")},
+            inverseJoinColumns = {@JoinColumn(name = "carte_isbn")}
+    )
+    private Set<Carte> carti = new HashSet<>();
+
+    public Autor() {
+    }
+
+    public Autor(Integer id, String prenume, String nume) {
+        this.ID = id;
+        this.nume = nume;
+        this.prenume=prenume;
+    }
 
     public Integer getID() {
         return this.ID;
