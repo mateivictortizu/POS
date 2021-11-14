@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table( name = "carte")
 public class Carte {
     @Id
     private String ISBN;
@@ -15,8 +14,8 @@ public class Carte {
     private Integer an_publicare;
     private String gen_literar;
 
-    @ManyToMany(mappedBy = "carti", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private Set<Autor> autori = new HashSet<>();
+    @OneToMany(mappedBy = "autor")
+    private Set<CarteAutor> autor = new HashSet<CarteAutor>();
 
     public Carte() {
     }
@@ -59,11 +58,6 @@ public class Carte {
 
     public void setGen_literar(String gen_literar){
         this.gen_literar=gen_literar;
-    }
-
-    public Set<Autor> getAutori()
-    {
-        return this.autori;
     }
 
     @Override

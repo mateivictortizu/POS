@@ -1,7 +1,5 @@
 package com.example.pos.controller;
 
-import com.example.pos.exceptions.CarteNotFoundException;
-import com.example.pos.model.Autor;
 import com.example.pos.model.Carte;
 import com.example.pos.service.CarteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,57 +7,53 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
-
+import java.util.List;
 
 @RestController
-@Transactional
-@RequestMapping(path="/api/bookcollecton/books")
+@RequestMapping("/api")
 public class CarteController {
+
     @Autowired
-    private CarteService carteService;
+    CarteService carteService;
 
-    CarteController( CarteService carteService){
-        this.carteService=carteService;
+    @GetMapping("/bookcollection/books/{ISBN}")
+    ResponseEntity<?> getbook(@PathVariable String ISBN)
+    {
+        Carte carte = carteService.one(ISBN);
+        if(carte!=null){
+            return new ResponseEntity<>(carte, HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }
     }
 
-    @GetMapping()
-    ResponseEntity<?> all(){
-        return (carteService.findAll() !=null)? new ResponseEntity<>(carteService.findAll(), HttpStatus.OK):new ResponseEntity<>(new CarteNotFoundException(), HttpStatus.NO_CONTENT);
+    @PostMapping("/bookcollection/books")
+    ResponseEntity<?> addbook(@RequestBody Carte carte){
+        return new ResponseEntity<>(carteService.add(carte),HttpStatus.CREATED);
     }
 
-    @PostMapping()
-    ResponseEntity<?> newCarte(@RequestBody Carte newCarte){
-        return new ResponseEntity<>(carteService.save(newCarte), HttpStatus.CREATED);
-    }
-
-    @GetMapping("/{ISBN}")
-    ResponseEntity<?> one(@PathVariable String ISBN){
-        return (carteService.findByISBN(ISBN) !=null)? new ResponseEntity<>(carteService.findByISBN(ISBN), HttpStatus.OK):new ResponseEntity<>(new CarteNotFoundException(ISBN),HttpStatus.NO_CONTENT) ;
-    }
-
-    @PutMapping("/{ISBN}")
-    ResponseEntity<?> replaceCarte(@RequestBody Carte newCarte, @PathVariable String ISBN) {
-
-        return (carteService.putCarte(newCarte,ISBN) !=null)? new ResponseEntity<>(carteService.putCarte(newCarte,ISBN), HttpStatus.OK):new ResponseEntity<>(new CarteNotFoundException(ISBN), HttpStatus.NO_CONTENT);
-
-    }
-
-    @GetMapping("/{ISBN}/authors")
-    ResponseEntity<?>authors(@PathVariable String ISBN){
-        return (carteService.getAutori(ISBN) !=null)? new ResponseEntity<>(carteService.getAutori(ISBN), HttpStatus.OK):new ResponseEntity<>(new CarteNotFoundException(ISBN),HttpStatus.NO_CONTENT) ;
-    }
-
-    @PostMapping("/{ISBN}/authors")
-    ResponseEntity<?>addautor(@PathVariable String ISBN, @RequestBody Autor autor){
-        //should be implemented later
-        return null;
-    }
-
-    @DeleteMapping("/{ISBN}")
-    void deleteCarte(@PathVariable String ISBN) {
-        carteService.deleteCarteByISBN(ISBN);
+    @GetMapping("/bookcollection/books")
+    ResponseEntity<?> getbooks()
+    {
+        List<Carte> books = carteService.all();
+        if(books.size()==0)
+        {
+            return new ResponseEntity<>(books,HttpStatus.NO_CONTENT);
+        }
+        else
+        {
+            return new ResponseEntity<>(books,HttpStatus.OK);
+        }
     }
 
 
+    @DeleteMapping("/bookcollection/books/{ISBN}")
+    ResponseEntity<?> deletebooks(@PathVariable String ISBN)
+    {
+        carteService.delete(ISBN);
+        return new ResponseEntity<>("Book deleted",HttpStatus.OK);
+
+    }
 }

@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name="autor")
 public class Autor {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -14,13 +13,8 @@ public class Autor {
     private String prenume;
     private String nume;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "autor_carte",
-            joinColumns = {@JoinColumn(name = "autor_id")},
-            inverseJoinColumns = {@JoinColumn(name = "carte_isbn")}
-    )
-    private Set<Carte> carti = new HashSet<>();
+    @OneToMany(mappedBy = "carte")
+    private final Set<CarteAutor> carti = new HashSet<CarteAutor>();
 
     public Autor() {
     }

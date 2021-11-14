@@ -2,62 +2,57 @@ package com.example.pos.service;
 
 import com.example.pos.model.Autor;
 import com.example.pos.model.Carte;
+import com.example.pos.repository.CarteAutorRepository;
 import com.example.pos.repository.CarteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Set;
 
-@Transactional
 @Service
 public class CarteService {
-    @Autowired
-    CarteRepository carteRepository;
 
-    public List<Carte> findAll(){
-        return (List<Carte>) carteRepository.findAll();
+    private final CarteRepository carteRepository;
+
+
+    public CarteService(CarteRepository carteRepository) {
+        this.carteRepository = carteRepository;
     }
 
-    public Carte save(Carte carte) {
-        return carteRepository.save(carte);
-    }
-
-    public Carte findByISBN(String ISBN) {
+    public Carte one (String ISBN){
         return carteRepository.findByISBN(ISBN);
     }
 
-    public void deleteCarteByISBN(String ISBN) {
-        carteRepository.deleteCarteByISBN(ISBN);
+    public List<Carte> all () {
+        return (List<Carte>) carteRepository.findAll();
     }
 
-    public Set<Autor> getAutori(String ISBN)
+    public Carte replace (Carte newCarte, String ISBN)
     {
-        Carte carte=findByISBN(ISBN);
-        if (carte==null)
+        Carte carte = carteRepository.findByISBN(ISBN);
+        if(carte == null)
         {
-            return null;
+            newCarte.setISBN(ISBN);
+            return carteRepository.save(newCarte);
         }
-        else
-        {
-            return carte.getAutori();
-        }
-
-    }
-
-    public Carte putCarte(Carte newCarte, String ISBN)
-    {
-        Carte carte=carteRepository.findByISBN(ISBN);
-        if (carte == null)
-        {
-            return null;
-        }
-        carte.setISBN(newCarte.getISBN());
         carte.setTitlu(newCarte.getTitlu());
         carte.setEditura(newCarte.getEditura());
         carte.setAn_publicare(newCarte.getAn_publicare());
         carte.setGen_literar(newCarte.getGen_literar());
         return carteRepository.save(carte);
+    }
+
+    public Carte add (Carte newCarte)
+    {
+        return carteRepository.save(newCarte);
+    }
+
+    @Transactional
+    public void delete (String ISBN)
+    {
+        Carte carte = carteRepository.findByISBN(ISBN);
+        if(carte != null) {
+            carteRepository.deleteCarteByISBN(ISBN);
+        }
     }
 }
