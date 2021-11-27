@@ -37,8 +37,8 @@ public class CarteService {
         }
         carte.setTitlu(newCarte.getTitlu());
         carte.setEditura(newCarte.getEditura());
-        carte.setAn_publicare(newCarte.getAn_publicare());
-        carte.setGen_literar(newCarte.getGen_literar());
+        carte.setAnpublicare(newCarte.getAnpublicare());
+        carte.setGenliterar(newCarte.getGenliterar());
         return carteRepository.save(carte);
     }
 
@@ -46,6 +46,12 @@ public class CarteService {
     {
         return carteRepository.save(newCarte);
     }
+
+    public List<Carte> findbyAn(Integer an){return carteRepository.findByanpublicare(an);}
+
+    public List<Carte> findByGen(String gen){return carteRepository.findBygenliterar(gen);}
+
+    public List<Carte> findByAnAndGen(Integer an, String gen){return carteRepository.findCarteByAnpublicareAndGenliterar(an,gen);}
 
     @Transactional
     public void delete (String ISBN)

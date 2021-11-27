@@ -11,8 +11,8 @@ public class Carte {
     private String ISBN;
     private String titlu;
     private String editura;
-    private Integer an_publicare;
-    private String gen_literar;
+    private Integer anpublicare;
+    private String genliterar;
 
     @OneToMany(mappedBy = "autor")
     private Set<CarteAutor> autor = new HashSet<CarteAutor>();
@@ -44,20 +44,20 @@ public class Carte {
         this.editura=editura;
     }
 
-    public Integer getAn_publicare(){
-        return this.an_publicare;
+    public Integer getAnpublicare(){
+        return this.anpublicare;
     }
 
-    public void setAn_publicare(Integer an_editura){
-        this.an_publicare =an_editura;
+    public void setAnpublicare(Integer an_editura){
+        this.anpublicare =an_editura;
     }
 
-    public String getGen_literar(){
-        return this.gen_literar;
+    public String getGenliterar(){
+        return this.genliterar;
     }
 
-    public void setGen_literar(String gen_literar){
-        this.gen_literar=gen_literar;
+    public void setGenliterar(String gen_literar){
+        this.genliterar=gen_literar;
     }
 
     @Override
@@ -69,18 +69,18 @@ public class Carte {
             return false;
         Carte carte = (Carte) o;
         return Objects.equals(this.ISBN, carte.ISBN) && Objects.equals(this.titlu, carte.titlu)
-                && Objects.equals(this.editura, carte.editura) && Objects.equals(this.an_publicare, carte.an_publicare)
-                && Objects.equals(this.gen_literar, carte.gen_literar);
+                && Objects.equals(this.editura, carte.editura) && Objects.equals(this.anpublicare, carte.anpublicare)
+                && Objects.equals(this.genliterar, carte.genliterar);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.ISBN, this.titlu, this.editura, this.an_publicare, this.gen_literar);
+        return Objects.hash(this.ISBN, this.titlu, this.editura, this.anpublicare, this.genliterar);
     }
 
     @Override
     public String toString() {
         return "Carte{" + "ISBN=" + this.ISBN + ", titlu='" + this.titlu + ", editura=" + this.editura +
-                ", an publicare=" + this.an_publicare + ", gen literar=" + this.gen_literar +'}';
+                ", an publicare=" + this.anpublicare + ", gen literar=" + this.genliterar +'}';
     }
 }
