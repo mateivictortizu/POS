@@ -4,6 +4,7 @@ import com.example.pos.model.Carte;
 import com.example.pos.model.CarteProjection;
 import com.example.pos.service.CarteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -121,4 +122,17 @@ public class CarteController {
             }
         }
     }
+
+    @RequestMapping (value="/bookcollection", method = RequestMethod.OPTIONS)
+    ResponseEntity<?> getAll()
+    {
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @RequestMapping (value = "/bookcollection/books", method = RequestMethod.OPTIONS)
+    ResponseEntity<?> getRelativeToBook()
+    {
+        return null;
+    }
+
 }

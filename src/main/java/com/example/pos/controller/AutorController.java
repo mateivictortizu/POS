@@ -30,4 +30,9 @@ public class AutorController {
     {
         return new ResponseEntity<>(autorService.add(autor),HttpStatus.CREATED);
     }
+
+    @RequestMapping (value = "/bookcollection/authors", method = RequestMethod.OPTIONS)
+    ResponseEntity <?> getRelativeToAuthors(){
+        return null;
+    }
 }

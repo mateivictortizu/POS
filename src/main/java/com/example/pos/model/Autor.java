@@ -1,12 +1,14 @@
 package com.example.pos.model;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class Autor {
+public class Autor extends RepresentationModel<Autor>{
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer ID;

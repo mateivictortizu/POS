@@ -1,11 +1,13 @@
 package com.example.pos.model;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class CarteAutorPK implements Serializable {
+public class CarteAutorPK extends RepresentationModel<CarteAutorPK> implements Serializable {
 
     @Column(name = "AUTOR_ID")
     private Integer autor_id;

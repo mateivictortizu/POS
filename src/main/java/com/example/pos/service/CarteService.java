@@ -1,9 +1,7 @@
 package com.example.pos.service;
 
-import com.example.pos.model.Autor;
 import com.example.pos.model.Carte;
 import com.example.pos.model.CarteProjection;
-import com.example.pos.repository.CarteAutorRepository;
 import com.example.pos.repository.CarteRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

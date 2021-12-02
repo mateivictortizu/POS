@@ -1,10 +1,13 @@
 package com.example.pos.model;
 
+
+import org.springframework.hateoas.RepresentationModel;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class CarteAutor implements Serializable {
+public class CarteAutor extends RepresentationModel<CarteAutor> implements Serializable {
 
     public CarteAutor(){
     }
