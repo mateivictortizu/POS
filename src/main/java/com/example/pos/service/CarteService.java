@@ -2,6 +2,7 @@ package com.example.pos.service;
 
 import com.example.pos.model.Autor;
 import com.example.pos.model.Carte;
+import com.example.pos.model.CarteProjection;
 import com.example.pos.repository.CarteAutorRepository;
 import com.example.pos.repository.CarteRepository;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,6 @@ import java.util.List;
 public class CarteService {
 
     private final CarteRepository carteRepository;
-
 
     public CarteService(CarteRepository carteRepository) {
         this.carteRepository = carteRepository;
@@ -60,5 +60,9 @@ public class CarteService {
         if(carte != null) {
             carteRepository.deleteCarteByISBN(ISBN);
         }
+    }
+
+    public CarteProjection getbyisbn (String isbn){
+        return carteRepository.getbyisbn(isbn);
     }
 }

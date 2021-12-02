@@ -1,6 +1,7 @@
 package com.example.pos.controller;
 
 import com.example.pos.model.Carte;
+import com.example.pos.model.CarteProjection;
 import com.example.pos.service.CarteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,16 +17,27 @@ public class CarteController {
     @Autowired
     CarteService carteService;
 
+    @GetMapping("/test")
+    ResponseEntity <?> getbook(@RequestParam String ISBN){
+        return new ResponseEntity<>(carteService.getbyisbn(ISBN),HttpStatus.OK);
+    }
+
     @GetMapping("/bookcollection/books/{ISBN}")
-    ResponseEntity<?> getbook(@PathVariable String ISBN)
-    {
-        Carte carte = carteService.one(ISBN);
-        if(carte!=null){
-            return new ResponseEntity<>(carte, HttpStatus.OK);
-        }
-        else
-        {
-            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+    ResponseEntity<?> getbook(@PathVariable String ISBN, @RequestParam (required = false) String verbose) {
+        if (verbose == null) {
+            Carte carte = carteService.one(ISBN);
+            if (carte != null) {
+                return new ResponseEntity<>(carte, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+        } else {
+            CarteProjection carte=carteService.getbyisbn(ISBN);
+            if (carte != null) {
+                return new ResponseEntity<>(carte, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
         }
     }
 
