@@ -1,7 +1,9 @@
 package com.example.pos.service;
 
+import com.example.pos.model.Autor;
 import com.example.pos.model.Carte;
 import com.example.pos.model.CarteProjection;
+import com.example.pos.repository.AutorRepository;
 import com.example.pos.repository.CarteRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,12 +11,28 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class CarteService {
-
+public class ABService {
+    private final AutorRepository autorRepository;
     private final CarteRepository carteRepository;
 
-    public CarteService(CarteRepository carteRepository) {
+    public ABService(AutorRepository autorRepository, CarteRepository carteRepository) {
+        this.autorRepository = autorRepository;
         this.carteRepository = carteRepository;
+    }
+
+    public List<Autor> findbyName(String name)
+    {
+        return autorRepository.findAutorByNumeContains(name);
+    }
+
+    public List<Autor> findbyNameMatch(String name)
+    {
+        return autorRepository.findAutorByNume(name);
+    }
+
+    public Autor add (Autor newAutor)
+    {
+        return autorRepository.save(newAutor);
     }
 
     public Carte one (String ISBN){

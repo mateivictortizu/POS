@@ -1,10 +1,11 @@
 package com.example.pos.controller;
 
+import com.example.pos.model.Autor;
 import com.example.pos.model.Carte;
 import com.example.pos.model.CarteProjection;
-import com.example.pos.service.CarteService;
+import com.example.pos.service.ABService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,27 +14,39 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class CarteController {
+public class ABController {
 
     @Autowired
-    CarteService carteService;
+    ABService abService;
 
-    @GetMapping("/test")
-    ResponseEntity <?> getbook(@RequestParam String ISBN){
-        return new ResponseEntity<>(carteService.getbyisbn(ISBN),HttpStatus.OK);
+    @GetMapping("/authors")
+    ResponseEntity<?> getautor(@RequestParam String name, @RequestParam (required = false) String match)
+    {
+        if(match == null)
+            return new ResponseEntity<>(abService.findbyName(name), HttpStatus.OK);
+        else
+        {
+            return new ResponseEntity<>(abService.findbyNameMatch(name),HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/authors")
+    ResponseEntity<?> addAutor(@RequestBody Autor autor)
+    {
+        return new ResponseEntity<>(abService.add(autor),HttpStatus.CREATED);
     }
 
     @GetMapping("/bookcollection/books/{ISBN}")
     ResponseEntity<?> getbook(@PathVariable String ISBN, @RequestParam (required = false) String verbose) {
         if (verbose == null) {
-            Carte carte = carteService.one(ISBN);
+            Carte carte = abService.one(ISBN);
             if (carte != null) {
                 return new ResponseEntity<>(carte, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
         } else {
-            CarteProjection carte=carteService.getbyisbn(ISBN);
+            CarteProjection carte=abService.getbyisbn(ISBN);
             if (carte != null) {
                 return new ResponseEntity<>(carte, HttpStatus.OK);
             } else {
@@ -44,13 +57,13 @@ public class CarteController {
 
     @PostMapping("/bookcollection/books")
     ResponseEntity<?> addbook(@RequestBody Carte carte){
-        return new ResponseEntity<>(carteService.add(carte),HttpStatus.CREATED);
+        return new ResponseEntity<>(abService.add(carte),HttpStatus.CREATED);
     }
 
     @DeleteMapping("/bookcollection/books/{ISBN}")
     ResponseEntity<?> deletebooks(@PathVariable String ISBN)
     {
-        carteService.delete(ISBN);
+        abService.delete(ISBN);
         return new ResponseEntity<>("Book deleted",HttpStatus.OK);
 
     }
@@ -58,18 +71,18 @@ public class CarteController {
     @GetMapping("/bookcollection/books")
     ResponseEntity <?> getBooksFiltred(@RequestParam(required = false) String genre, @RequestParam(required = false)
             Integer year, @RequestParam(required = false)
-            Integer page, @RequestParam(required = false)
-            Integer items_per_page)
+                                               Integer page, @RequestParam(required = false)
+                                               Integer items_per_page)
     {
         if(items_per_page==null)
             items_per_page=20;
         List<Carte> books;
         if (genre!=null && year!=null)
         {
-            books=carteService.findByAnAndGen(year,genre);
+            books=abService.findByAnAndGen(year,genre);
             if(books.size()==0)
             {
-             return new ResponseEntity<>(books,HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(books,HttpStatus.NO_CONTENT);
             }
             else {
                 if (page!=null) {
@@ -85,16 +98,16 @@ public class CarteController {
         {
             if (genre!=null)
             {
-                books=carteService.findByGen(genre);
+                books=abService.findByGen(genre);
                 return getResponseEntity(page, items_per_page, books);
             }
             if(year!=null)
             {
-                books = carteService.findbyAn(year);
+                books = abService.findbyAn(year);
                 return getResponseEntity(page, items_per_page, books);
             }
         }
-        books = carteService.all();
+        books = abService.all();
         return getResponseEntity(page, items_per_page, books);
     }
 
@@ -126,13 +139,17 @@ public class CarteController {
     @RequestMapping (value="/bookcollection", method = RequestMethod.OPTIONS)
     ResponseEntity<?> getAll()
     {
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return ResponseEntity.ok().allow(HttpMethod.OPTIONS).build();
     }
 
     @RequestMapping (value = "/bookcollection/books", method = RequestMethod.OPTIONS)
     ResponseEntity<?> getRelativeToBook()
     {
-        return null;
+        return ResponseEntity.ok().allow(HttpMethod.OPTIONS, HttpMethod.GET, HttpMethod.POST).build();
     }
 
+    @RequestMapping (value = "/bookcollection/authors", method = RequestMethod.OPTIONS)
+    ResponseEntity <?> getRelativeToAuthors(){
+        return ResponseEntity.ok().allow(HttpMethod.OPTIONS, HttpMethod.POST, HttpMethod.GET).build();
+    }
 }
