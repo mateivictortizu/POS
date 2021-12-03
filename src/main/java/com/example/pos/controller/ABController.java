@@ -5,12 +5,16 @@ import com.example.pos.model.Carte;
 import com.example.pos.model.CarteProjection;
 import com.example.pos.service.ABService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api")
@@ -20,10 +24,17 @@ public class ABController {
     ABService abService;
 
     @GetMapping("/authors")
-    ResponseEntity<?> getautor(@RequestParam String name, @RequestParam (required = false) String match)
+    ResponseEntity<?> getautor(@RequestParam String name, @RequestParam Boolean match)
     {
-        if(match == null)
-            return new ResponseEntity<>(abService.findbyName(name), HttpStatus.OK);
+        if(match) {
+            List<Autor> a = abService.findbyName(name);
+            for (Autor autor: a)
+            {
+                Link selflink = linkTo(methodOn(ABController.class).getautor(name,match)).withSelfRel();
+                autor.add(selflink);
+            }
+            return new ResponseEntity<>(a, HttpStatus.OK);
+        }
         else
         {
             return new ResponseEntity<>(abService.findbyNameMatch(name),HttpStatus.OK);
@@ -151,5 +162,11 @@ public class ABController {
     @RequestMapping (value = "/bookcollection/authors", method = RequestMethod.OPTIONS)
     ResponseEntity <?> getRelativeToAuthors(){
         return ResponseEntity.ok().allow(HttpMethod.OPTIONS, HttpMethod.POST, HttpMethod.GET).build();
+    }
+
+    @PostMapping (value="/bookcollection/books/{ISBN}/inventorytransactions")
+    ResponseEntity <?> blockStock()
+    {
+        return null;
     }
 }

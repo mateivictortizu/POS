@@ -15,6 +15,7 @@ public class Carte extends RepresentationModel<Carte> {
     private String editura;
     private Integer anpublicare;
     private String genliterar;
+    private Integer stock;
 
     @OneToMany(mappedBy = "autor")
     private Set<CarteAutor> autor = new HashSet<CarteAutor>();
@@ -61,6 +62,16 @@ public class Carte extends RepresentationModel<Carte> {
     public void setGenliterar(String gen_literar){
         this.genliterar=gen_literar;
     }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock){
+        this.stock=stock;
+
+    }
+
 
     @Override
     public boolean equals(Object o) {
