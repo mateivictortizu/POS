@@ -1,8 +1,6 @@
 package com.example.pos.model;
 
-
 import org.springframework.hateoas.RepresentationModel;
-
 import javax.persistence.*;
 import java.io.Serializable;
 

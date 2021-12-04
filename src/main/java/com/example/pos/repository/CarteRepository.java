@@ -2,14 +2,11 @@ package com.example.pos.repository;
 
 import com.example.pos.model.Carte;
 import com.example.pos.model.CarteProjection;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.Optional;
 
 public interface CarteRepository extends CrudRepository<Carte,Integer> {
 
