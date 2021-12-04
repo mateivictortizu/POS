@@ -2,8 +2,8 @@ package com.example.pos.controller;
 
 import com.example.pos.model.Autor;
 import com.example.pos.model.Carte;
-import com.example.pos.model.CarteProjection;
 import com.example.pos.service.ABService;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -42,7 +42,11 @@ public class ABController {
             return new ResponseEntity<>(EntityModel.of(x,links), HttpStatus.OK);
         } else {
             // TODO:Should return partial info about books
-            CarteProjection x = abService.getbyisbn(ISBN);
+            Carte x = abService.getByIsbn(ISBN);
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("isbn", x.getISBN());
+            jsonObj.put("titlu", x.getTitlu());
+            jsonObj.put("genliterar", x.getGenliterar());
             links.add(linkTo(methodOn(ABController.class).getbookByISBN(ISBN, false)).withSelfRel());
             links.add(linkTo(methodOn(ABController.class).getbookByISBN(ISBN, true)).withRel("more_info"));
             Map<String, Object> parameters = new HashMap<>();
@@ -51,7 +55,7 @@ public class ABController {
             parameters.put("page", null);
             parameters.put("items_per_page", null);
             links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withRel("all_books").expand(parameters));
-            return new ResponseEntity<>(EntityModel.of(x, links), HttpStatus.OK);
+            return new ResponseEntity<>(EntityModel.of(jsonObj,links), HttpStatus.OK);
         }
     }
 
