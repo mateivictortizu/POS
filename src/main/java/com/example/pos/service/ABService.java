@@ -37,6 +37,8 @@ public class ABService {
 
     public List<Autor> getAuthorByNameMatch(String name) { return autorRepository.findAutorByNume(name); }
 
+    public  Autor getAuthorByID(Integer ID) {return autorRepository.findByID(ID);}
+
     public Autor addAuthor(Autor newAutor) { return autorRepository.save(newAutor); }
 
     public Carte addBook(Carte newCarte)

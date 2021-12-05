@@ -246,6 +246,13 @@ public class ABController {
         return new ResponseEntity<>(abService.addAuthor(autor),HttpStatus.CREATED);
     }
 
+    @GetMapping("/authors/{ID}")
+    ResponseEntity<?> getAuthorsById(@PathVariable Integer ID)
+    {
+        Autor a = abService.getAuthorByID(ID);
+        return new ResponseEntity<>(a,HttpStatus.OK);
+    }
+
     @DeleteMapping ("/authors/{ID}")
     ResponseEntity<?> deleteauthors(@PathVariable Integer ID)
     {
