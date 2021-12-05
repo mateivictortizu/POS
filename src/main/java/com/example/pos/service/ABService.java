@@ -23,35 +23,35 @@ public class ABService {
         this.carteAutorRepository = carteAutorRepository;
     }
 
-    public Carte getByIsbn(String ISBN) {return carteRepository.findByISBN(ISBN);}
+    public Carte getBookByISBN(String ISBN) {return carteRepository.findByISBN(ISBN);}
 
-    public List<Carte> all () { return (List<Carte>) carteRepository.findAll(); }
+    public List<Carte> getAllBooks() { return (List<Carte>) carteRepository.findAll(); }
 
-    public List<Carte> findbyAn(Integer an){return carteRepository.findByanpublicare(an);}
+    public List<Carte> getBookByYear(Integer an){return carteRepository.findByanpublicare(an);}
 
-    public List<Carte> findByGen(String gen){return carteRepository.findBygenliterar(gen);}
+    public List<Carte> getBookByGenre(String gen){return carteRepository.findBygenliterar(gen);}
 
-    public List<Carte> findByAnAndGen(Integer an, String gen){return carteRepository.findCarteByAnpublicareAndGenliterar(an,gen);}
+    public List<Carte> getBookByYearAndGenre(Integer an, String gen){return carteRepository.findCarteByAnpublicareAndGenliterar(an,gen);}
 
-    public List<Autor> findbyName(String name) { return autorRepository.findAutorByNumeContains(name); }
+    public List<Autor> getAuthorByName(String name) { return autorRepository.findAutorByNumeContains(name); }
 
-    public List<Autor> findbyNameMatch(String name) { return autorRepository.findAutorByNume(name); }
+    public List<Autor> getAuthorByNameMatch(String name) { return autorRepository.findAutorByNume(name); }
 
-    public Autor add (Autor newAutor) { return autorRepository.save(newAutor); }
+    public Autor addAuthor(Autor newAutor) { return autorRepository.save(newAutor); }
 
-    public Carte add (Carte newCarte)
+    public Carte addBook(Carte newCarte)
     {
         return carteRepository.save(newCarte);
     }
 
-    public CarteAutor add (CarteAutor carteAutor) { return carteAutorRepository.save(carteAutor);}
+    public CarteAutor addRelationBookAuthor(CarteAutor carteAutor) { return carteAutorRepository.save(carteAutor);}
 
     public Integer getIndexAutor (Carte carte) { return carteAutorRepository.getMaxIndex(carte);};
 
     public Autor checkAutor (Autor autor) { return autorRepository.findAutorByNumeAndPrenumeAndID(autor.getNume(),autor.getPrenume(),autor.getID());}
 
     @Transactional
-    public void delete (String ISBN)
+    public void deleteBook(String ISBN)
     {
         Carte carte = carteRepository.findByISBN(ISBN);
         if(carte != null) {
@@ -59,4 +59,12 @@ public class ABService {
         }
     }
 
+    @Transactional
+    public void deleteAuthor(Integer ID)
+    {
+        Autor a = autorRepository.findByID(ID);
+        if(a != null) {
+            autorRepository.deleteAutorByID(ID);
+        }
+    }
 }

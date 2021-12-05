@@ -3,7 +3,6 @@ package com.example.pos.controller;
 import com.example.pos.model.Autor;
 import com.example.pos.model.Carte;
 import com.example.pos.model.CarteAutor;
-import com.example.pos.model.CarteAutorPK;
 import com.example.pos.service.ABService;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class ABController {
     ResponseEntity<?> getbookByISBN(@PathVariable String ISBN, @RequestParam(required = false) Boolean verbose) {
         List<Link> links=new ArrayList<Link>();
         if (verbose) {
-            Carte x = abService.getByIsbn(ISBN);
+            Carte x = abService.getBookByISBN(ISBN);
             links.add(linkTo(methodOn(ABController.class).getbookByISBN(ISBN, true)).withSelfRel());
             links.add(linkTo(methodOn(ABController.class).getbookByISBN(ISBN, false)).withRel("less_info"));
             Map<String, Object> parameters = new HashMap<>();
@@ -42,7 +41,7 @@ public class ABController {
             links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withRel("all_books").expand(parameters));
             return new ResponseEntity<>(EntityModel.of(x,links), HttpStatus.OK);
         } else {
-            Carte x = abService.getByIsbn(ISBN);
+            Carte x = abService.getBookByISBN(ISBN);
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("isbn", x.getISBN());
             jsonObj.put("titlu", x.getTitlu());
@@ -59,18 +58,19 @@ public class ABController {
         }
     }
 
-    @PostMapping("/books")
-    ResponseEntity<?> addbook(@RequestBody Carte carte){
-        return new ResponseEntity<>(abService.add(carte),HttpStatus.CREATED);
-    }
-
-    @DeleteMapping("/bookcollection/books/{ISBN}")
+    @DeleteMapping("/books/{ISBN}")
     ResponseEntity<?> deletebooks(@PathVariable String ISBN)
     {
-        abService.delete(ISBN);
+        abService.deleteBook(ISBN);
         return new ResponseEntity<>("Book deleted",HttpStatus.OK);
 
     }
+
+    @PostMapping("/books")
+    ResponseEntity<?> addbook(@RequestBody Carte carte){
+        return new ResponseEntity<>(abService.addBook(carte),HttpStatus.CREATED);
+    }
+
 
     @GetMapping("/books")
     ResponseEntity<?> getBooksFiltred(@RequestParam(required = false) String genre,
@@ -88,7 +88,7 @@ public class ABController {
 
         if (page != null) {
             if (genre != null && year != null) {
-                books = abService.findByAnAndGen(year, genre);
+                books = abService.getBookByYearAndGenre(year, genre);
                 links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withSelfRel().expand(parameters));
                 if(page-1>=0)
                 {
@@ -114,7 +114,7 @@ public class ABController {
                 }
             }
             if (genre != null) {
-                books = abService.findByGen(genre);
+                books = abService.getBookByGenre(genre);
                 links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withSelfRel().expand(parameters));
                 if(page-1>=0)
                 {
@@ -140,7 +140,7 @@ public class ABController {
                 }
             }
             if (year != null) {
-                books = abService.findbyAn(year);
+                books = abService.getBookByYear(year);
                 links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withSelfRel().expand(parameters));
                 if(page-1>=0)
                 {
@@ -166,7 +166,7 @@ public class ABController {
                 }
             }
 
-            books = abService.all();
+            books = abService.getAllBooks();
             links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withSelfRel().expand(parameters));
             if(page-1>=0)
             {
@@ -193,22 +193,22 @@ public class ABController {
 
         } else {
             if (genre != null && year != null) {
-                books = abService.findByAnAndGen(year, genre);
+                books = abService.getBookByYearAndGenre(year, genre);
                 links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withSelfRel().expand(parameters));
                 return new ResponseEntity<>(CollectionModel.of(books, links), HttpStatus.OK);
             }
             if (genre != null) {
-                books = abService.findByGen(genre);
+                books = abService.getBookByGenre(genre);
                 links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withSelfRel().expand(parameters));
                 return new ResponseEntity<>(CollectionModel.of(books, links), HttpStatus.OK);
             }
             if (year != null) {
-                books = abService.findbyAn(year);
+                books = abService.getBookByYear(year);
                 links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withSelfRel().expand(parameters));
                 return new ResponseEntity<>(CollectionModel.of(books, links), HttpStatus.OK);
             }
 
-            books = abService.all();
+            books = abService.getAllBooks();
             links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withSelfRel().expand(parameters));
             return new ResponseEntity<>(CollectionModel.of(books, links), HttpStatus.OK);
 
@@ -220,7 +220,7 @@ public class ABController {
     ResponseEntity<?> getautor(@RequestParam String name, @RequestParam Boolean match)
     {
         if(match) {
-            List<Autor> a = abService.findbyName(name);
+            List<Autor> a = abService.getAuthorByName(name);
             for (Autor autor: a)
             {
                 Link selflink = linkTo(methodOn(ABController.class).getautor(name, true)).withSelfRel();
@@ -230,7 +230,7 @@ public class ABController {
         }
         else
         {
-            List<Autor> a =abService.findbyNameMatch(name);
+            List<Autor> a =abService.getAuthorByNameMatch(name);
             for (Autor autor: a)
             {
                 Link selflink = linkTo(methodOn(ABController.class).getautor(name, false)).withSelfRel();
@@ -243,7 +243,15 @@ public class ABController {
     @PostMapping("/authors")
     ResponseEntity<?> addAutor(@RequestBody Autor autor)
     {
-        return new ResponseEntity<>(abService.add(autor),HttpStatus.CREATED);
+        return new ResponseEntity<>(abService.addAuthor(autor),HttpStatus.CREATED);
+    }
+
+    @DeleteMapping ("/authors/{ID}")
+    ResponseEntity<?> deleteauthors(@PathVariable Integer ID)
+    {
+        abService.deleteAuthor(ID);
+        return new ResponseEntity<>("Author deleted",HttpStatus.OK);
+
     }
 
     @RequestMapping (value="/", method = RequestMethod.OPTIONS)
@@ -265,7 +273,7 @@ public class ABController {
 
     @PostMapping (value = "/books/{ISBN}/authors")
     ResponseEntity <?> addAuthorsToBook(@PathVariable String ISBN,@RequestBody List<Autor> autori){
-        Carte c=abService.getByIsbn(ISBN);
+        Carte c=abService.getBookByISBN(ISBN);
         if (c==null)
         {
             return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
@@ -282,7 +290,7 @@ public class ABController {
             ca.setCarte(c);
             ca.setId(a.getID(),ISBN);
             ca.setIndex_autor(index);
-            abService.add(ca);
+            abService.addRelationBookAuthor(ca);
             index=index+1;
 
         }
