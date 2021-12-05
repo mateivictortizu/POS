@@ -48,6 +48,8 @@ public class ABService {
 
     public Integer getIndexAutor (Carte carte) { return carteAutorRepository.getMaxIndex(carte);};
 
+    public Autor checkAutor (Autor autor) { return autorRepository.findAutorByNumeAndPrenumeAndID(autor.getNume(),autor.getPrenume(),autor.getID());}
+
     @Transactional
     public void delete (String ISBN)
     {

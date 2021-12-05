@@ -270,8 +270,13 @@ public class ABController {
         {
             return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
         }
-        int index=abService.getIndexAutor(c) + 1;
+        int index=Objects.requireNonNullElse(abService.getIndexAutor(c) ,-1) +1;
         for (Autor a:autori) {
+            Autor checkAutor = abService.checkAutor(a);
+            if(checkAutor == null)
+            {
+                return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+            }
             CarteAutor ca= new CarteAutor();
             ca.setAutor(a);
             ca.setCarte(c);

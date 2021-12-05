@@ -11,4 +11,6 @@ public interface AutorRepository extends CrudRepository<Autor,Integer> {
     List<Autor> findAutorByNume(String nume);
     List<Autor> findAutorByNumeContains(String nume);
 
+    Autor findAutorByNumeAndPrenumeAndID(String nume, String prenume, Integer id);
+
 }
