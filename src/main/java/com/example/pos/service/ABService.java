@@ -2,6 +2,7 @@ package com.example.pos.service;
 
 import com.example.pos.model.Autor;
 import com.example.pos.model.Carte;
+import com.example.pos.model.CarteAutor;
 import com.example.pos.repository.AutorRepository;
 import com.example.pos.repository.CarteAutorRepository;
 import com.example.pos.repository.CarteRepository;
@@ -42,6 +43,10 @@ public class ABService {
     {
         return carteRepository.save(newCarte);
     }
+
+    public CarteAutor add (CarteAutor carteAutor) { return carteAutorRepository.save(carteAutor);}
+
+    public Integer getIndexAutor (Carte carte) { return carteAutorRepository.getMaxIndex(carte);};
 
     @Transactional
     public void delete (String ISBN)

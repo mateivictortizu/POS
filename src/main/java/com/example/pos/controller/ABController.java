@@ -2,6 +2,8 @@ package com.example.pos.controller;
 
 import com.example.pos.model.Autor;
 import com.example.pos.model.Carte;
+import com.example.pos.model.CarteAutor;
+import com.example.pos.model.CarteAutorPK;
 import com.example.pos.service.ABService;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,6 @@ public class ABController {
             Carte x = abService.getByIsbn(ISBN);
             links.add(linkTo(methodOn(ABController.class).getbookByISBN(ISBN, true)).withSelfRel());
             links.add(linkTo(methodOn(ABController.class).getbookByISBN(ISBN, false)).withRel("less_info"));
-
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("genre", null);
             parameters.put("year", null);
@@ -41,7 +42,6 @@ public class ABController {
             links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withRel("all_books").expand(parameters));
             return new ResponseEntity<>(EntityModel.of(x,links), HttpStatus.OK);
         } else {
-            // TODO:Should return partial info about books
             Carte x = abService.getByIsbn(ISBN);
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("isbn", x.getISBN());
@@ -261,5 +261,26 @@ public class ABController {
     @RequestMapping (value = "/authors", method = RequestMethod.OPTIONS)
     ResponseEntity <?> getRelativeToAuthors(){
         return ResponseEntity.ok().allow(HttpMethod.OPTIONS, HttpMethod.POST, HttpMethod.GET).build();
+    }
+
+    @PostMapping (value = "/books/{ISBN}/authors")
+    ResponseEntity <?> addAuthorsToBook(@PathVariable String ISBN,@RequestBody List<Autor> autori){
+        Carte c=abService.getByIsbn(ISBN);
+        if (c==null)
+        {
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+        }
+        int index=abService.getIndexAutor(c) + 1;
+        for (Autor a:autori) {
+            CarteAutor ca= new CarteAutor();
+            ca.setAutor(a);
+            ca.setCarte(c);
+            ca.setId(a.getID(),ISBN);
+            ca.setIndex_autor(index);
+            abService.add(ca);
+            index=index+1;
+
+        }
+        return new ResponseEntity<>(autori,HttpStatus.CREATED);
     }
 }
