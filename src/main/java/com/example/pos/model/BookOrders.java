@@ -1,9 +1,8 @@
 package com.example.pos.model;
 
-import net.minidev.json.JSONObject;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.lang.NonNull;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import java.io.Serializable;
@@ -12,8 +11,8 @@ import java.util.List;
 
 @Embeddable
 class Order{
-    String ISBN = null;
-    String title = null;
+    String ISBN;
+    String title;
     Integer price = null;
     Integer quantity = null;
 
@@ -51,19 +50,23 @@ class Order{
     }
 }
 
+
+
 @Document(collection = "#{@configRepositoryCustom.getCollectionName()}")
 public class BookOrders implements Serializable {
     private Date date;
-    private String status;
+
+    @Embedded
+    private Status status;
 
     @Embedded
     private List<Order> items;
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
