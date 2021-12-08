@@ -29,8 +29,14 @@ public class ABController {
     @GetMapping("/books/{ISBN}")
     ResponseEntity<?> getbookByISBN(@PathVariable String ISBN, @RequestParam(required = false) Boolean verbose) {
         List<Link> links=new ArrayList<Link>();
+        JSONObject jsonObj = new JSONObject();
+        Carte x = abService.getBookByISBN(ISBN);
+        if(x==null)
+        {
+            jsonObj.put("message","No books with this ISBN");
+            return new ResponseEntity<>(jsonObj,HttpStatus.NOT_FOUND);
+        }
         if (verbose) {
-            Carte x = abService.getBookByISBN(ISBN);
             links.add(linkTo(methodOn(ABController.class).getbookByISBN(ISBN, true)).withSelfRel());
             links.add(linkTo(methodOn(ABController.class).getbookByISBN(ISBN, false)).withRel("less_info"));
             Map<String, Object> parameters = new HashMap<>();
@@ -41,8 +47,6 @@ public class ABController {
             links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withRel("all_books").expand(parameters));
             return new ResponseEntity<>(EntityModel.of(x,links), HttpStatus.OK);
         } else {
-            Carte x = abService.getBookByISBN(ISBN);
-            JSONObject jsonObj = new JSONObject();
             jsonObj.put("isbn", x.getISBN());
             jsonObj.put("titlu", x.getTitlu());
             jsonObj.put("genliterar", x.getGenliterar());
@@ -85,6 +89,8 @@ public class ABController {
         parameters.put("items_per_page", items_per_page);
         List<Carte> books;
         List<Link> links = new ArrayList<Link>();
+        JSONObject error=new JSONObject();
+        error.put("message","No books");
 
         if (page != null) {
             if (genre != null && year != null) {
@@ -100,11 +106,11 @@ public class ABController {
                     parameters.put("page",page+1);
                     links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withRel("next_page").expand(parameters));
                 }
-                parameters.put("page",books.size()/items_per_page);
+                parameters.put("page",books.size()/itp);
                 links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withRel("last_page").expand(parameters));
 
                 if(books.size()==0 || books.size()<page*itp)
-                    return new ResponseEntity<>(CollectionModel.of(new ArrayList<Link>(), links), HttpStatus.OK);
+                    return new ResponseEntity<>(CollectionModel.of(error, links), HttpStatus.NOT_FOUND);
                 else
                 {
                     if(books.size()<(page+1)*itp)
@@ -126,11 +132,11 @@ public class ABController {
                     parameters.put("page",page+1);
                     links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withRel("next_page").expand(parameters));
                 }
-                parameters.put("page",books.size()/items_per_page);
+                parameters.put("page",books.size()/itp);
                 links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withRel("last_page").expand(parameters));
 
                 if(books.size()==0 || books.size()<page*itp)
-                    return new ResponseEntity<>(CollectionModel.of(new ArrayList<Link>(), links), HttpStatus.OK);
+                    return new ResponseEntity<>(CollectionModel.of(error, links), HttpStatus.NOT_FOUND);
                 else
                 {
                     if(books.size()<(page+1)*itp)
@@ -152,11 +158,11 @@ public class ABController {
                     parameters.put("page",page+1);
                     links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withRel("next_page").expand(parameters));
                 }
-                parameters.put("page",books.size()/items_per_page);
+                parameters.put("page",books.size()/itp);
                 links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withRel("last_page").expand(parameters));
 
                 if(books.size()==0 || books.size()<page*itp)
-                    return new ResponseEntity<>(CollectionModel.of(new ArrayList<Link>(), links), HttpStatus.OK);
+                    return new ResponseEntity<>(CollectionModel.of(error, links), HttpStatus.NOT_FOUND);
                 else
                 {
                     if(books.size()<(page+1)*itp)
@@ -178,11 +184,11 @@ public class ABController {
                 parameters.put("page",page+1);
                 links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withRel("next_page").expand(parameters));
             }
-            parameters.put("page",books.size()/items_per_page);
+            parameters.put("page",books.size()/itp);
             links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withRel("last_page").expand(parameters));
 
             if(books.size()==0 || books.size()<page*itp)
-                return new ResponseEntity<>(CollectionModel.of(new ArrayList<Link>(), links), HttpStatus.OK);
+                return new ResponseEntity<>(CollectionModel.of(error, links), HttpStatus.NOT_FOUND);
             else
             {
                 if(books.size()<(page+1)*itp)
@@ -195,21 +201,37 @@ public class ABController {
             if (genre != null && year != null) {
                 books = abService.getBookByYearAndGenre(year, genre);
                 links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withSelfRel().expand(parameters));
+                if (books.size()==0)
+                {
+                    return new ResponseEntity<>(CollectionModel.of(error,links),HttpStatus.NOT_FOUND);
+                }
                 return new ResponseEntity<>(CollectionModel.of(books, links), HttpStatus.OK);
             }
             if (genre != null) {
                 books = abService.getBookByGenre(genre);
                 links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withSelfRel().expand(parameters));
+                if (books.size()==0)
+                {
+                    return new ResponseEntity<>(CollectionModel.of(error,links),HttpStatus.NOT_FOUND);
+                }
                 return new ResponseEntity<>(CollectionModel.of(books, links), HttpStatus.OK);
             }
             if (year != null) {
                 books = abService.getBookByYear(year);
                 links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withSelfRel().expand(parameters));
+                if (books.size()==0)
+                {
+                    return new ResponseEntity<>(CollectionModel.of(error,links),HttpStatus.NOT_FOUND);
+                }
                 return new ResponseEntity<>(CollectionModel.of(books, links), HttpStatus.OK);
             }
 
             books = abService.getAllBooks();
             links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withSelfRel().expand(parameters));
+            if (books.size()==0)
+            {
+                return new ResponseEntity<>(CollectionModel.of(error,links),HttpStatus.NOT_FOUND);
+            }
             return new ResponseEntity<>(CollectionModel.of(books, links), HttpStatus.OK);
 
         }
@@ -302,5 +324,10 @@ public class ABController {
 
         }
         return new ResponseEntity<>(autori,HttpStatus.CREATED);
+    }
+
+    @PostMapping(value="/books/{ISBN}/stockChange")
+    ResponseEntity<?> stock_endpoint(@PathVariable String ISBN, @RequestParam Integer stock) {
+        return new ResponseEntity<>(abService.checkStoc(ISBN,stock),HttpStatus.OK);
     }
 }

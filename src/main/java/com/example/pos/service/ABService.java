@@ -1,6 +1,7 @@
 package com.example.pos.service;
 
 import com.example.pos.model.Autor;
+import com.example.pos.model.BookOrders;
 import com.example.pos.model.Carte;
 import com.example.pos.model.CarteAutor;
 import com.example.pos.repository.AutorRepository;
@@ -51,6 +52,18 @@ public class ABService {
     public Integer getIndexAutor (Carte carte) { return carteAutorRepository.getMaxIndex(carte);};
 
     public Autor checkAutor (Autor autor) { return autorRepository.findAutorByNumeAndPrenumeAndID(autor.getNume(),autor.getPrenume(),autor.getID());}
+
+    public Boolean checkStoc(String ISBN, Integer stock){
+        Carte c=carteRepository.findByISBN(ISBN);
+        if(stock>c.getStock())
+            return false;
+        else
+        {
+            c.setStock(c.getStock()-stock);
+            carteRepository.save(c);
+            return true;
+        }
+    }
 
     @Transactional
     public void deleteBook(String ISBN)

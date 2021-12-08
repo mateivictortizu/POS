@@ -15,6 +15,7 @@ public class Carte extends RepresentationModel<Carte> {
     private Integer anpublicare;
     private String genliterar;
     private Integer stock;
+    private Float price;
 
     @OneToMany(mappedBy = "autor")
     private Set<CarteAutor> autor = new HashSet<CarteAutor>();
@@ -71,6 +72,13 @@ public class Carte extends RepresentationModel<Carte> {
 
     }
 
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
 
     @Override
     public boolean equals(Object o) {
