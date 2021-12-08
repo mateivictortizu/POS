@@ -241,6 +241,9 @@ public class ABController {
     @GetMapping("/authors")
     ResponseEntity<?> getautor(@RequestParam String name, @RequestParam Boolean match)
     {
+        JSONObject error=new JSONObject();
+        error.put("message","No authors found");
+
         if(match) {
             List<Autor> a = abService.getAuthorByName(name);
             for (Autor autor: a)
@@ -258,6 +261,10 @@ public class ABController {
                 Link selflink = linkTo(methodOn(ABController.class).getautor(name, false)).withSelfRel();
                 autor.add(selflink);
             }
+            if(a.size()==0)
+            {
+                return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
+            }
             return new ResponseEntity<>(a, HttpStatus.OK);
         }
     }
@@ -271,7 +278,13 @@ public class ABController {
     @GetMapping("/authors/{ID}")
     ResponseEntity<?> getAuthorsById(@PathVariable Integer ID)
     {
+        JSONObject error=new JSONObject();
+        error.put("message","No author found");
         Autor a = abService.getAuthorByID(ID);
+        if(a==null)
+        {
+            return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(a,HttpStatus.OK);
     }
 
@@ -302,17 +315,20 @@ public class ABController {
 
     @PostMapping (value = "/books/{ISBN}/authors")
     ResponseEntity <?> addAuthorsToBook(@PathVariable String ISBN,@RequestBody List<Autor> autori){
+        JSONObject error=new JSONObject();
         Carte c=abService.getBookByISBN(ISBN);
         if (c==null)
         {
-            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+            error.put("message","No book found");
+            return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
         }
         int index=Objects.requireNonNullElse(abService.getIndexAutor(c) ,-1) +1;
         for (Autor a:autori) {
             Autor checkAutor = abService.checkAutor(a);
             if(checkAutor == null)
             {
-                return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+                error.put("message","No author found");
+                return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
             }
             CarteAutor ca= new CarteAutor();
             ca.setAutor(a);
@@ -328,6 +344,7 @@ public class ABController {
 
     @PostMapping(value="/books/{ISBN}/stockChange")
     ResponseEntity<?> stock_endpoint(@PathVariable String ISBN, @RequestParam Integer stock) {
-        return new ResponseEntity<>(abService.checkStoc(ISBN,stock),HttpStatus.OK);
+        //TODO: Find a solution to implement it
+        return new ResponseEntity<>(null,HttpStatus.OK);
     }
 }

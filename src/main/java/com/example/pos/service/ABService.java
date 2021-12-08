@@ -55,14 +55,16 @@ public class ABService {
 
     public Boolean checkStoc(String ISBN, Integer stock){
         Carte c=carteRepository.findByISBN(ISBN);
-        if(stock>c.getStock())
+        if(c==null)
             return false;
-        else
-        {
-            c.setStock(c.getStock()-stock);
-            carteRepository.save(c);
-            return true;
-        }
+        return stock <= c.getStock();
+    }
+
+    public void modifyStock(String ISBN, Integer stock)
+    {
+        Carte c=carteRepository.findByISBN(ISBN);
+        c.setStock(c.getStock()-stock);
+        carteRepository.save(c);
     }
 
     @Transactional

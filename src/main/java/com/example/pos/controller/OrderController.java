@@ -25,7 +25,7 @@ public class OrderController {
 
     @PostMapping("/orders")
     ResponseEntity<?> addBookOrder(@RequestBody BookOrders bookOrders, @RequestParam Integer client_id) {
-            orderService.addBookOrder(bookOrders, client_id);
-            return new ResponseEntity<>(bookOrders, HttpStatus.OK);
+            Boolean result = orderService.addBookOrder(bookOrders, client_id);
+            return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
