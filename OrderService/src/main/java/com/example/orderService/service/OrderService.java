@@ -2,6 +2,9 @@ package com.example.orderService.service;
 
 import com.example.orderService.model.BookOrders;
 import com.example.orderService.repository.BookOrdersRepository;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -24,12 +27,13 @@ public class OrderService {
         return bookOrdersRepository.findAll();
     }
 
-    public ResponseEntity addBookOrder(BookOrders booksOrder, Integer client_id) {
+    public Boolean addBookOrder(BookOrders booksOrder, Integer client_id) {
         bookOrdersRepository.setCollectionName("client." + client_id);
-        UriComponentsBuilder renewURIBuilder= UriComponentsBuilder.fromHttpUrl("http://127.0.0.1:8080").path("/api/bookcollection/books/").path("/stockChange");
+        UriComponentsBuilder renewURIBuilder= UriComponentsBuilder.fromHttpUrl("http://127.0.0.1:8090").path("/api/bookcollection/books/").path("/stockChange");
         UriComponents uriComponent=renewURIBuilder.build(true);
         URI uri=uriComponent.toUri();
-        return new RestTemplate().postForObject(uri,booksOrder.getItems(), ResponseEntity.class);
+        Boolean x = new RestTemplate().postForObject(uri,booksOrder.getItems(), Boolean.class);
+        return x;
     }
 }
 

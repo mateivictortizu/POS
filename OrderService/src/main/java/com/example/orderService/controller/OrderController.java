@@ -2,6 +2,7 @@ package com.example.orderService.controller;
 
 import com.example.orderService.model.BookOrders;
 import com.example.orderService.service.OrderService;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,16 @@ public class OrderController {
 
     @PostMapping("/orders")
     ResponseEntity<?> addBookOrder(@RequestBody BookOrders bookOrders, @RequestParam Integer client_id) {
-            return orderService.addBookOrder(bookOrders, client_id);
+        JSONObject response=new JSONObject();
+        Boolean check= orderService.addBookOrder(bookOrders, client_id);
+        if(check)
+        {
+            response.put("message","Comanda a reusit");
+        }
+        else
+        {
+            response.put("message","Unul dintre produse nu mai este in stoc");
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -346,15 +346,24 @@ public class ABController {
 
     @PostMapping(value="/books/stockChange")
     ResponseEntity<?> stock_endpoint(@RequestBody List<Order> orders) {
-        for (Order o:orders) {
-            if(!abService.checkStoc(o.getISBN(), o.getQuantity()))
-                return new ResponseEntity<>(false,HttpStatus.BAD_REQUEST);
-        }
+        List <Order> temporary=new ArrayList<>();
+        boolean value = true;
         for(Order o:orders){
+            if(!abService.checkStoc(o.getISBN(), o.getQuantity()))
+            {
+                value=false;
+                break;
+            }
             abService.modifyStock(o.getISBN(),o.getQuantity());
+            temporary.add(o);
         }
-        JSONObject message=new JSONObject();
-        message.put("message","Comanda a fost trimisa");
-        return new ResponseEntity<>(message,HttpStatus.OK);
+        if(!value)
+        {
+            for( Order o:temporary)
+            {
+                abService.modifyStock(o.getISBN(),-o.getQuantity());
+            }
+        }
+        return new ResponseEntity<>(value,HttpStatus.OK);
     }
 }
