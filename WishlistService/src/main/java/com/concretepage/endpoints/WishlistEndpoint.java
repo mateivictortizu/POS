@@ -24,9 +24,15 @@ public class WishlistEndpoint {
     @ResponsePayload
     public GetWishlistByIdResponse getWishlist(@RequestPayload GetWishlistByIdRequest request) {
         GetWishlistByIdResponse response = new GetWishlistByIdResponse();
-        WishlistInfo wishlistInfo = new WishlistInfo();
-        BeanUtils.copyProperties(wishlistService.getWishlistByClientId(request.getWishlistId()), wishlistInfo);
-        response.setWishlistInfo(wishlistInfo);
+
+        List<WishlistInfo> wishlistInfoList = new ArrayList<>();
+        List<Wishlist> wishlistList = wishlistService.getWishlistByClientId(request.getClientId());
+        for (int i = 0; i < wishlistList.size(); i++) {
+            WishlistInfo ob = new WishlistInfo();
+            BeanUtils.copyProperties(wishlistList.get(i), ob);
+            wishlistInfoList.add(ob);
+        }
+        response.getWishlistInfo().addAll(wishlistInfoList);
         return response;
     }
 

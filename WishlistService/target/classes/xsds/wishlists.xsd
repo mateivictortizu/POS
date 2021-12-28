@@ -4,14 +4,14 @@
     <xs:element name="getWishlistByIdRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="wishlistId" type="xs:int"/>
+                <xs:element name="clientId" type="xs:int"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="getWishlistByIdResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="wishlistInfo" type="tns:wishlistInfo"/>
+                <xs:element name="wishlistInfo" type="tns:wishlistInfo" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
