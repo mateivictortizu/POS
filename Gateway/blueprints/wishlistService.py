@@ -12,6 +12,7 @@ def add_item_in_wishlist():
 
     content = request.json
 
+    # TODO: check if I have permission to add wishlist for client_id
     payload = """<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:art="http://schemas.xmlsoap.org/soap/envelope/">
                     <soapenv:Header/>
                     <soapenv:Body>
@@ -35,16 +36,41 @@ def add_item_in_wishlist():
 def get_wishlist():
     url = "http://localhost:8080/soapws"
 
-    content = request.json
+    # TODO: check if I have permission to client id wishlist
+    client_id = request.args['client_id']
 
     payload = """<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:art="http://schemas.xmlsoap.org/soap/envelope/">
                     <soapenv:Header/>
                     <soapenv:Body>
                         <art:getWishlistByIdRequest>
-                            <art:clientId>15</art:clientId>
+                            <art:clientId>""" + str(client_id) + """</art:clientId>
                         </art:getWishlistByIdRequest>
                     </soapenv:Body>
                 </soapenv:Envelope>  """
+
+    headers = {
+        'Content-Type': 'text/xml; charset=utf-8'
+    }
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    return response.text
+
+
+@wishlist.route("/wishlist", methods=['DELETE'])
+def delete_item_from_wishlist():
+    url = "http://localhost:8080/soapws"
+
+    # TODO: check if I have permission to client id wishlist
+    wishlist_id = request.args['wishlist_id']
+
+    payload = """<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:art="http://schemas.xmlsoap.org/soap/envelope/">
+                    <soapenv:Header/>
+                    <soapenv:Body>
+                        <art:deleteWishlistRequest>
+                            <art:wishlistId>"""+str(wishlist_id)+"""</art:wishlistId>
+                        </art:deleteWishlistRequest>
+                    </soapenv:Body>
+                </soapenv:Envelope> """
 
     headers = {
         'Content-Type': 'text/xml; charset=utf-8'

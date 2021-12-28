@@ -51,6 +51,6 @@ public class WishlistService implements IWishlistService{
 
     @Override
     public void deleteWishlist(Wishlist wishlist) {
-        wishlistRepository.save(wishlist);
+        wishlistRepository.delete(wishlist);
     }
 }
