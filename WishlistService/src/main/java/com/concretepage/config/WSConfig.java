@@ -25,7 +25,7 @@ public class WSConfig extends WsConfigurerAdapter {
 	@Bean(name = "articles")
 	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema articlesSchema) {
 		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-		wsdl11Definition.setPortTypeName("ArticlesPort");
+		wsdl11Definition.setPortTypeName("WishlistPort");
 		wsdl11Definition.setLocationUri("/soapws");
 		wsdl11Definition.setTargetNamespace("http://schemas.xmlsoap.org/soap/envelope/");
 		wsdl11Definition.setSchema(articlesSchema);
@@ -33,6 +33,6 @@ public class WSConfig extends WsConfigurerAdapter {
 	}
 	@Bean
 	public XsdSchema articlesSchema() {
-		return new SimpleXsdSchema(new ClassPathResource("xsds/articles.xsd"));
+		return new SimpleXsdSchema(new ClassPathResource("xsds/wishlists.xsd"));
 	}
 }

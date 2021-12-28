@@ -1,85 +1,89 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.xmlsoap.org/soap/envelope/"
            targetNamespace="http://schemas.xmlsoap.org/soap/envelope/" elementFormDefault="qualified">
 
-    <xs:element name="getArticleByIdRequest">
+    <xs:element name="getWishlistByIdRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="articleId" type="xs:long"/>
+                <xs:element name="wishlistId" type="xs:int"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="getArticleByIdResponse">
+    <xs:element name="getWishlistByIdResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="articleInfo" type="tns:articleInfo"/>
+                <xs:element name="wishlistInfo" type="tns:wishlistInfo"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:complexType name="articleInfo">
+    <xs:complexType name="wishlistInfo">
         <xs:sequence>
-            <xs:element name="articleId" type="xs:long"/>
-            <xs:element name="title" type="xs:string"/>
-            <xs:element name="category" type="xs:string"/>
+            <xs:element name="wishlistId" type="xs:int"/>
+            <xs:element name="clientId" type="xs:int"/>
+            <xs:element name="bookISBN" type="xs:string"/>
+            <xs:element name="titlu" type="xs:string"/>
+            <xs:element name="price" type="xs:int"/>
         </xs:sequence>
     </xs:complexType>
-    <xs:element name="getAllArticlesRequest">
+    <xs:element name="getAllWishlistsRequest">
         <xs:complexType/>
-    </xs:element>    
-    <xs:element name="getAllArticlesResponse">
+    </xs:element>
+    <xs:element name="getAllWishlistsResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="articleInfo" type="tns:articleInfo" maxOccurs="unbounded"/>
+                <xs:element name="wishlistInfo" type="tns:wishlistInfo" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
-    </xs:element>   
+    </xs:element>
     <xs:complexType name="serviceStatus">
         <xs:sequence>
             <xs:element name="statusCode" type="xs:string"/>
             <xs:element name="message" type="xs:string"/>
         </xs:sequence>
-    </xs:complexType>     
-    <xs:element name="addArticleRequest">
+    </xs:complexType>
+    <xs:element name="addWishlistRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="title" type="xs:string"/>
-                <xs:element name="category" type="xs:string"/>
+                <xs:element name="clientId" type="xs:int"/>
+                <xs:element name="bookISBN" type="xs:string"/>
+                <xs:element name="titlu" type="xs:string"/>
+                <xs:element name="price" type="xs:int"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="addArticleResponse">
+    <xs:element name="addWishlistResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="serviceStatus" type="tns:serviceStatus"/>            
-                <xs:element name="articleInfo" type="tns:articleInfo"/>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="wishlistInfo" type="tns:wishlistInfo"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="updateArticleRequest">
+    <xs:element name="updateWishlistRequest">
         <xs:complexType>
             <xs:sequence>
-               <xs:element name="articleInfo" type="tns:articleInfo"/>
+                <xs:element name="wishlistInfo" type="tns:wishlistInfo"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="updateArticleResponse">
+    <xs:element name="updateWishlistResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="serviceStatus" type="tns:serviceStatus"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="deleteArticleRequest">
+    <xs:element name="deleteWishlistRequest">
         <xs:complexType>
             <xs:sequence>
-               <xs:element name="articleId" type="xs:long"/>
+                <xs:element name="wishlistId" type="xs:int"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="deleteArticleResponse">
+    <xs:element name="deleteWishlistResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="serviceStatus" type="tns:serviceStatus"/>
             </xs:sequence>
         </xs:complexType>
-    </xs:element>                   
+    </xs:element>
 </xs:schema>
