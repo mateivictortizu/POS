@@ -2,10 +2,6 @@ package com.example.orderService.service;
 
 import com.example.orderService.model.BookOrders;
 import com.example.orderService.repository.BookOrdersRepository;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
