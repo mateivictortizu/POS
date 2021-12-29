@@ -23,4 +23,14 @@ public class CartService {
     {
         return cartRepository.save(item);
     }
+
+    public void deleteItem(Cart item){
+        cartRepository.delete(item);
+    }
+
+    public void deleteAllCartOfClient(Integer clientid)
+    {
+        List<Cart> items = cartRepository.getByClientid(clientid);
+        cartRepository.deleteAll(items);
+    }
 }
