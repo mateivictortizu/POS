@@ -1,6 +1,6 @@
 from flask import Flask
 from blueprints.ABService import abService
-from blueprints.order import order
+from blueprints.orderService import order
 from blueprints.wishlistService import wishlist
 
 app = Flask(__name__)
