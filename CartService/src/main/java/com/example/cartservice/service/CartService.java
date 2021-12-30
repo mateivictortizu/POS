@@ -21,7 +21,16 @@ public class CartService {
 
     public Cart addItem(Cart item)
     {
-        return cartRepository.save(item);
+        Cart x = cartRepository.getCartByClientidAndISBN(item.getClientid(), item.getISBN());
+        if(x==null)
+        {
+            return cartRepository.save(item);
+        }
+        else
+        {
+            x.setQuantity(x.getQuantity()+item.getQuantity());
+            return cartRepository.save(x);
+        }
     }
 
     public void deleteItem(Cart item){

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface CartRepository extends CrudRepository<Cart,Integer> {
     List<Cart> getByClientid(Integer clientid);
+    Cart getCartByClientidAndISBN(Integer clientid, String bookISBN);
 }

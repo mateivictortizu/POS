@@ -42,8 +42,8 @@ public class CartController {
     }
 
     // TODO: Delete from cart by bookISBN and clientID
-    @DeleteMapping("/cart")
-    ResponseEntity<?> deleteItemFromCart(@RequestParam Integer clientid, @RequestParam Integer bookISBN){
-        return null;
-    }
+    //@DeleteMapping("/cart")
+    //ResponseEntity<?> deleteItemFromCart(@RequestParam Integer clientid, @RequestParam Integer bookISBN){
+     //   return null;
+    //}
 }
