@@ -1,0 +1,7 @@
+PyJwt
+flask
+flask-bcrypt
+flask-sqlalchemy
+flask-cors
+flask-migrate
+mysqlclient

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="acea6c1f-0172-40d5-9bad-cc68f075a7b2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/UserService.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/concretepage/MySpringApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/concretepage/config/WSConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/concretepage/endpoints/UserEndpoint.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/concretepage/entity/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/concretepage/repository/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/concretepage/service/IUserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/concretepage/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/xsds/users.xsd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/JAXB/episode_xjc-schema.xjb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/MySpringApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/config/WSConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/endpoints/UserEndpoint.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/entity/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/gs_ws/AddWishlistRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/gs_ws/AddWishlistResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/gs_ws/DeleteWishlistRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/gs_ws/DeleteWishlistResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/gs_ws/GetAllWishlistsRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/gs_ws/GetAllWishlistsResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/gs_ws/GetWishlistByIdRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/gs_ws/GetWishlistByIdResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/gs_ws/ObjectFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/gs_ws/ServiceStatus.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/gs_ws/UpdateWishlistRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/gs_ws/UpdateWishlistResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/gs_ws/WishlistInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/gs_ws/package-info.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/repository/UserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/service/IUserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/concretepage/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/xsds/users.xsd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/jaxb/META-INF/JAXB/episode_xjc-schema.xjb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/jaxb/com/concretepage/gs_ws/AddWishlistRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/jaxb/com/concretepage/gs_ws/AddWishlistResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/jaxb/com/concretepage/gs_ws/DeleteWishlistRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/jaxb/com/concretepage/gs_ws/DeleteWishlistResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/jaxb/com/concretepage/gs_ws/GetAllWishlistsRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/jaxb/com/concretepage/gs_ws/GetAllWishlistsResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/jaxb/com/concretepage/gs_ws/GetWishlistByIdRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/jaxb/com/concretepage/gs_ws/GetWishlistByIdResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/jaxb/com/concretepage/gs_ws/ObjectFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/jaxb/com/concretepage/gs_ws/ServiceStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/jaxb/com/concretepage/gs_ws/UpdateWishlistRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/jaxb/com/concretepage/gs_ws/UpdateWishlistResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/jaxb/com/concretepage/gs_ws/WishlistInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/jaxb/com/concretepage/gs_ws/package-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/jaxb2/.xjc-schema-xjcStaleFlag" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="231cQzapA2BIhDBjfVsyTsdSDBI" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RunManager">
+    <configuration name="app" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="UserService" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="D:\Anul IV\POS\UserService\app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="acea6c1f-0172-40d5-9bad-cc68f075a7b2" name="Changes" comment="" />
+      <created>1640905021780</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1640905021780</updated>
+      <workItem from="1640905025943" duration="323000" />
+      <workItem from="1640906223261" duration="1325000" />
+      <workItem from="1640961651507" duration="827000" />
+      <workItem from="1640962516386" duration="107000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/UserService$main.coverage" NAME="app Coverage Results" MODIFIED="1640907536394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UserService$app.coverage" NAME="app Coverage Results" MODIFIED="1640962592496" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
