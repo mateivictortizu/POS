@@ -3,9 +3,10 @@ import uuid
 
 import jwt
 
+from models import Token
+
 
 def encode_auth_token(user_id, role):
-
     try:
         payload = {
             # iss
@@ -24,14 +25,9 @@ def encode_auth_token(user_id, role):
 
 
 def decode_auth_token(auth_token):
-    """
-    Validates the auth token
-    :param auth_token:
-    :return: integer|string
-    """
     try:
         payload = jwt.decode(auth_token, "ZZZ", algorithms='HS256')
-        return payload['sub']
+        return payload['sub'], payload['role']
     except jwt.ExpiredSignatureError:
         return 'Signature expired. Please log in again.'
     except jwt.InvalidTokenError:
