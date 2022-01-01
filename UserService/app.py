@@ -1,3 +1,5 @@
+import json
+
 import flask
 import jwt
 from flask import Flask, request
@@ -27,7 +29,10 @@ def login():
     if x is False:
         return {"message": "User sau parola gresita!"}, 200
     else:
-        jwt_token = encode_auth_token(x.id, x.admin)
+        if x.admin:
+            jwt_token = encode_auth_token(x.id, "ADMIN")
+        else:
+            jwt_token = encode_auth_token(x.id, "STANDARD")
         token = Token(token=jwt_token)
         db.session.add(token)
         db.session.commit()
@@ -48,12 +53,16 @@ def register():
 
 
 @app.route('/check-token', methods=['GET'])
-def check_token():
-    check = check_token(request.headers["Authorization"])
+def check_token_route():
+    check = Token.check_token(request.headers["Authorization"])
     if check is False:
-        return {"message": "Token is not in list"}, 401
-    decode = decode_auth_token(request.headers["Authorization"])
-    return str(decode), 202
+        return {"error": "Token is not in list"}, 401
+    x, y = decode_auth_token(request.headers["Authorization"])
+    if x == -1 or x == -2:
+        return {"error": y}, 401
+    return json.dumps({
+        "client_id": x,
+        "role": y}), 200
 
 
 @app.route('/logout')
