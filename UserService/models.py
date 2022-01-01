@@ -21,11 +21,17 @@ class User(db.Model):
 
     def __init__(self, email, password, admin=False):
         self.email = email
-        self.password = bcrypt.generate_password_hash(
-            password, "DA"
-        ).decode()
+        self.password = bcrypt.generate_password_hash(password)
         self.registered_on = datetime.datetime.now()
         self.admin = admin
+
+    @staticmethod
+    def check_user(email, password):
+        x = User.query.filter_by(email=email).first()
+        value = bcrypt.check_password_hash(x.password, password)
+        if value is True:
+            return x
+        return value
 
 
 class BlacklistToken(db.Model):

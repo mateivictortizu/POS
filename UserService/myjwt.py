@@ -11,7 +11,7 @@ def encode_auth_token(user_id, role):
             # iss
             'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=80),
             'sub': user_id,
-            'jti': uuid.uuid4(),
+            'jti': user_id,
             'role': role
         }
         return jwt.encode(
