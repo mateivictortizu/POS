@@ -6,12 +6,13 @@ import jwt
 from models import Token
 
 
-def encode_auth_token(user_id, role):
+def encode_auth_token(user_id, email, role):
     try:
         payload = {
             # iss
             'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=80),
             'sub': user_id,
+            'email': email,
             'jti': user_id,
             'role': role
         }

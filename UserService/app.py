@@ -20,25 +20,25 @@ migrate.init_app(app, db)
 bcrypt.init_app(app)
 
 
-@app.route('/login')
+@app.route('/login', methods=['POST'])
 def login():
     data = request.json
     email = data['email']
     password = data['password']
     x = User.check_user(email, password)
-    if x is False:
-        return {"message": "User sau parola gresita!"}, 200
+    if x is False or x is None:
+        return {"message": "User sau parola gresita!"}, 403
     else:
         if x.admin:
-            jwt_token = encode_auth_token(x.id, "ADMIN")
+            jwt_token = encode_auth_token(x.id, x.email, "ADMIN")
         else:
-            jwt_token = encode_auth_token(x.id, "STANDARD")
+            jwt_token = encode_auth_token(x.id, x.email, "STANDARD")
         token = Token(token=jwt_token)
         db.session.add(token)
         db.session.commit()
         response = flask.Response()
         response.headers["Authorization"] = jwt_token
-        return response, 200
+        return {"jwt": jwt_token}, 200
 
 
 @app.route('/register', methods=['POST'])
@@ -46,6 +46,9 @@ def register():
     data = request.json
     email = data['email']
     password = data['password']
+    check = User.check_if_email_exists(email)
+    if check:
+        return {"message": "Userul este deja inregistrat"}, 400
     newUser = User(email=email, password=password)
     db.session.add(newUser)
     db.session.commit()

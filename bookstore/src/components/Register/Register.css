@@ -1,0 +1,162 @@
+body {
+    background-color: var(--Gray);
+  }
+  
+  
+  #root {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+  }
+  
+  #forgotPass {
+    width: inherit;
+    text-align: center;
+  }
+  
+  a {
+    color: var(--Black);
+  }
+  
+  a:hover {
+    color: var(--DarkOrange)
+  }
+  
+  input[type=text], input[type=password] {
+    border-radius: 30px;
+    width: 80%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: flex;
+    border: none;
+    background-color: var(--White);
+  }
+  
+  input[type=text]:focus, input[type=password]:focus {
+    background-color: var(--LightGray);
+    outline: none;
+  }
+  
+  label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  }
+  
+  form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  }
+  
+  #longLogo {
+   display: block;
+  }
+  
+  #shortLogo {
+    display: none;
+    width: 0%;
+  }
+  
+  @media only screen and (max-width: 1024px) {
+    h1 {
+      font-size: 30px;
+      line-height: 30px;
+    }
+  
+    h2 {
+      font-size: 20px;
+      line-height: 22px;
+    }
+    
+    p, a {
+      font-size: 15px;
+      line-height: 17px;
+    }
+  
+  }
+  
+  @media only screen and (max-width: 768px) {
+    #root {
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-bottom: 15px;
+    }
+  
+  }
+  
+  @media only screen and (max-width: 426px) {
+    h1 {
+      font-size: 30px;
+      line-height: 30px;
+    }
+  
+    h2 {
+      font-size: 20px;
+      line-height: 24px;
+    }
+  
+    p {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  
+    #root {
+      padding-left: 0px;
+      padding-right: 0px;
+      padding-bottom: 0px;
+    }
+  
+    .wrapper ul, .wrapper h1, .wrapper .inventoryManagement, .wrapper .usersManagement, .wrapper #parking, .wrapper .calendarWrapper, .wrapper .pageContent , .wrapper #news{
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  
+    #longLogo {
+      display: none;
+      width: 0%;
+     }
+  
+    #shortLogo {
+       display: block;
+       width: 30%;
+    }
+  }
+  
+  button[type=submit] {
+    /* width: 100%; */
+    background-color: var(--Button);
+    color: var(--White);
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+  }
+  
+  button[type=submit]:hover {
+    background-color: var(--DarkGray);
+  }
+  
+  div {
+    border-radius: 5px;
+  }
+  
+  div.logo {
+    height: min-content;
+    border-radius: 5px;
+    background-color: var(--Orange);
+  }
+  
+  .inputs  {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  }
+  

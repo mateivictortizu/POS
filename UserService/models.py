@@ -28,14 +28,22 @@ class User(db.Model):
     @staticmethod
     def check_user(email, password):
         x = User.query.filter_by(email=email).first()
+        if x is None:
+            return False
         value = bcrypt.check_password_hash(x.password, password)
         if value is True:
             return x
         return value
 
+    @staticmethod
+    def check_if_email_exists(email):
+        x = User.query.filter_by(email=email).first()
+        if x is None:
+            return False
+        return True
+
 
 class Token(db.Model):
-
     __tablename__ = 'tokens'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -57,7 +65,6 @@ class Token(db.Model):
 
 
 class BlacklistToken(db.Model):
-
     __tablename__ = 'blacklist_tokens'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

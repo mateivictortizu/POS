@@ -1,0 +1,243 @@
+:root {
+  --Orange: #FFA500;
+  --DarkOrange: #e07f07;
+  --Button: #FF8C00;
+  --DarkGray: #6b6b6b;
+  --Gray: #f0f0f0;
+  --Black: #000;
+  --White: #fff;
+  --LightGray: #e6e4e4;
+  --Brown: #5f3d0b;
+  --table: #f3deb0;
+  --transparent: #f1dcaf00;
+  --PaleOrange: #dbc79b;
+  --inventoryItem: #f4cf9b;
+  --inventoryLightOrange: #f7db9f;
+  --Red: #ff2d37;
+  --FadedRed: #ffe0e1;
+  --Green: #2db928;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  margin-top: 5px;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--Orange);
+}
+
+.parkingMatrixItem {
+  width: 20px;
+  height: inherit;
+  padding: 15px;
+  border-radius: 0px;
+}
+
+.parkingLot {
+  width: 100%;
+  height: auto;
+}
+
+.parkingSpotPhone {
+  background-color: var(--Gray);
+}
+
+.freeSpot {
+  background-color: var(--Blue);
+  width: 5px;
+  height: 5px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+.takenSpot {
+  background-color: var(--Red);
+  width: 5px;
+  height: 5px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+.parkingSpots {
+  width: 3px;
+  height: 400%;
+  margin-left: -14.5px;
+  margin-right: -14.5px;
+  background-color: var(--White);
+}
+
+.parkingOrganise {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-content: space-between;
+  align-items: center;
+}
+
+hr, #loadingBar {
+  border: none;
+  height: 3px;
+}
+
+line{
+  margin-top: -3px;
+}
+
+#menuIMG{
+  width: 30%;
+  height: inherit;
+  margin-right: -30px;
+}
+
+#menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: fixed;
+}
+
+#menuButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+#menuButton:hover{
+  background-color: var(--DarkOrange);
+}
+
+.logo {
+  display: flex;
+}
+
+#parking{
+  display: flex;
+  flex-direction: row;
+}
+
+#spot {
+  display: flex;
+  width: 100px;
+  align-items: center;
+  border-radius: 30px;
+  background-color: var(--inputFocus);
+  justify-content: center;
+}
+
+#parkingSpot {
+  font-size: larger;
+  font-weight: bold;
+}
+
+a {
+  color: var(--Black);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--Black);
+}
+
+#logoutButton, #settings {
+  border-radius: 5px;
+  border: 1px solid var(--Black);
+  background-color: var(--Orange);
+  color: var(--Black);
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100px;
+  height: 30px;
+}
+
+#logoutButton:hover, #settings:hover{
+  background-color: var(--DarkOrange);
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: var(--Black);
+  text-align: center;
+  padding: 14px 19px;
+  text-decoration: none;
+}
+
+li a:hover {
+  color: var(--DarkOrange);
+  background-color: var(--Black);
+}
+
+div.logo {
+  border-radius: 5px;
+  background-color: var(--Orange);
+}
+
+#longLogo {
+ display: block;
+}
+
+#shortLogo {
+  display: none;
+  width: 0%;
+}
+
+@media only screen and (max-width: 768px) {
+
+  .parkingSpots {
+    width: 2px;
+    height: 300%;
+    margin-left: -6.5px;
+    margin-right: -6.5px;
+  }
+
+  .parkingMatrixItem {
+    padding: 7px;
+  }
+
+}
+
+@media only screen and (max-width: 426px) {
+  #menuIcon{
+    width: 40%;
+  }
+
+  .parkingMatrixItem {
+    padding: 5px;
+  }
+
+  #longLogo {
+    display: none;
+    width: 0%;
+   }
+
+  #shortLogo {
+     display: block;
+     width: 30%;
+  }
+
+  .parkingSpots {
+    width: 2px;
+    height: 200%;
+    margin-left: -4.5px;
+    margin-right: -4.5px;
+  }
+}
+ 
+@media only screen and (max-width: 320px) {
+  .parkingMatrixItem {
+    padding: 3px;
+  }
+}
