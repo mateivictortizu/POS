@@ -213,7 +213,7 @@ export default function Settings() {
     });
   }, []);
 
-  document.title = "My Continental - Profile Settings";
+  document.title = "BookStore - Profile Settings";
 
   var validAccountSettingsForm = Boolean(
     validUsername.test(form.name.value) || validPhone.test(form.phone.value)

@@ -1,0 +1,28 @@
+/* flex-basis: auto; */
+.calendarWrapper {
+    width: auto !important;
+}
+
+.dailyEventWrapper {
+    width: fit-content;
+}
+
+.MuiCircularProgress-colorPrimary {
+    color: var(--continentalRed) !important;
+}
+
+.MuiSnackbarContent-root {
+    background-color: var(--continentalOrange) !important;
+}
+
+@media only screen and (max-width: 768px) {
+    .yearlyMonth {
+        width: calc(100% / 2) !important;
+    }
+}
+
+@media only screen and (max-width: 426px) {
+    .yearlyMonth {
+        width: 100% !important;
+    }
+}

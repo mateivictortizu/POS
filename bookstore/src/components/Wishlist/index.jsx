@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import check_expired from "../../utils/useToken";
-import "./Books.css";
+import "../Books/Books.css";
+import "./Cart.css";
 import { Redirect } from "react-router-dom";
 import HOST from "../../constants/host";
 import PageHeader from "../../constants/pageHeader";
@@ -8,7 +9,7 @@ import SnackbarItem from "../../utils/Snackbar";
 import { Button } from "@material-ui/core";
 
 
-export default function Books() {
+export default function Wishlist() {
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [severity, setSeverity] = useState("error");
@@ -32,7 +33,7 @@ export default function Books() {
     }
   }, []);
 
-  document.title = "BookStore - Books";
+  document.title = "BookStore - Wishlist";
 
   return (
     <div className="wrapper">
@@ -41,7 +42,7 @@ export default function Books() {
         setAlertMessage={setAlertMessage}
         setSeverity={setSeverity}
       />
-      <h1>Books</h1>
+      <h1>Cart</h1>
       <SnackbarItem
         alertMessage={alertMessage}
         open={open}

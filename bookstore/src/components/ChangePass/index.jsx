@@ -10,7 +10,7 @@ import SnackbarItem from "../../utils/Snackbar";
 import CustomInputPassword from "../../utils/CustomInputPassword";
 
 export default function ChangePass() {
-  document.title = "My Continental - Change password";
+  document.title = "BookStore - Change Password";
   const [form, setForm] = useState({
     workEmail: { value: "", error: "" },
     password: { value: "", error: "" },

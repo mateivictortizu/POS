@@ -9,7 +9,7 @@ import CustomInputPassword from "../../utils/CustomInputPassword";
 import { Button, Snackbar } from "@material-ui/core";
 
 export default function Login() {
-  document.title = "My Continental - Login";
+  document.title = "BookStore - Login";
   const [form, setForm] = useState({
     personalEmail: { value: "", error: "" },
     password: { value: "", error: "" },
