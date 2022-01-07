@@ -83,14 +83,14 @@ export default function Register() {
         <a href="#">
           <img
             id="longLogo"
-            src="continentalLogo.png"
-            alt="Continental Logo"
+            src="bigLogo.png"
+            alt="Bookstore Logo"
             width="20%"
           ></img>
           <img
             id="shortLogo"
             src="shortLogo.png"
-            alt="Continental Logo"
+            alt="Bookstore Logo"
             width="20%"
           ></img>
         </a>
