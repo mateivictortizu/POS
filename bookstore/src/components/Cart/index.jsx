@@ -13,6 +13,8 @@ export default function Cart() {
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [severity, setSeverity] = useState("error");
+  const[items,setItems]=useState("")
+
   const redirect = (
     <Button>
       <a
@@ -31,6 +33,40 @@ export default function Cart() {
         return <Redirect to="/login" />;
       }
     }
+    fetch("http://127.0.0.1:8093" + "/cart?clientid=13", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((data) => {
+        if (data.ok) {
+          data.json().then((message)=>{
+            console.log(message);
+            console.log(message[0]["clientid"]);
+            setItems(message);
+          });
+        }
+        else if (data.status === 404) {
+          setOpen(true);
+          setSeverity("error");
+          setAlertMessage("Nonexistent cart for this client!");
+        } else if (data.status === 400) {
+          data.json().then((message) => {
+            setOpen(true);
+            setSeverity("error");
+            setAlertMessage(message["message"]);
+          });
+        } else {
+          throw new Error("Internal server error");
+        }
+      })
+      .catch((error) => {
+        setOpen(true);
+        setSeverity("error");
+        setAlertMessage("Service unavailable!");
+        console.log(error);
+      });
   }, []);
 
   document.title = "BookStore - Cart";
