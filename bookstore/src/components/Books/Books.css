@@ -1,22 +1,22 @@
 :root {
-    --Orange: #FFA500;
-    --DarkOrange: #e07f07;
-    --Button: #FF8C00;
-    --DarkGray: #6b6b6b;
-    --Gray: #f0f0f0;
-    --Black: #000;
-    --White: #fff;
-    --LightGray: #e6e4e4;
-    --Brown: #5f3d0b;
+    --continentalOrange: #FFA500;
+    --continentalDarkOrange: #e07f07;
+    --continentalButton: #FF8C00;
+    --continentalDarkGray: #6b6b6b;
+    --continentalGray: #f0f0f0;
+    --continentalBlack: #000;
+    --continentalWhite: #fff;
+    --continentalLightGray: #e6e4e4;
+    --continentalBrown: #5f3d0b;
     --table: #f3deb0;
     --transparent: #f1dcaf00;
-    --PaleOrange: #dbc79b;
+    --continentalPaleOrange: #dbc79b;
     --inventoryItem: #f4cf9b;
     --inventoryLightOrange: #f7db9f;
-    --Red: #ff2d37;
-    --FadedRed: #ffe0e1;
-    --Green: #2db928;
-    --Blue: #00a5dc;
+    --continentalRed: #ff2d37;
+    --continentalFadedRed: #ffe0e1;
+    --continentalGreen: #2db928;
+    --continentalBlue: #00a5dc;
 }
 
 .MuiCard-root {
@@ -64,7 +64,7 @@ body {
     left: 0;
     top: 0;
     bottom: 0;
-    color: var(--Brown);
+    color: var(--continentalBrown);
     width: 100%;
 }
 
@@ -88,7 +88,7 @@ td {
 
 tr, thead {
     background-color: var(--table);
-    border: 5px solid var(--White);
+    border: 5px solid var(--continentalWhite);
     text-align: center;
 }
 
@@ -102,16 +102,16 @@ thead {
 
 #logoutButton {
     border-radius: 5px;
-    border: 1px solid var(--Black);
-    background-color: var(--Orange);
-    color: var(--Black);
+    border: 1px solid var(--continentalBlack);
+    background-color: var(--continentalOrange);
+    color: var(--continentalBlack);
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
 }
 
 #logoutButton:hover{
-    background-color: var(--DarkOrange);
+    background-color: var(--continentalDarkOrange);
 }
 
 .itemInvNumber {
@@ -125,14 +125,14 @@ thead {
 .itemButton {
     width: fit-content;
     border-radius: 5px;
-    background-color: var(--Orange);
-    color: var(--Black);
+    background-color: var(--continentalOrange);
+    color: var(--continentalBlack);
     font-size: small;
     cursor: pointer;
 }
 
 .itemButton:hover {
-    background-color: var(--DarkOrange);
+    background-color: var(--continentalDarkOrange);
 }
 
 img[id$="Icon"] {
@@ -151,24 +151,24 @@ img[id="brokenItemIcon"] {
 }
 
 .MuiButton-containedPrimary {
-    color: var(--Black) !important;
+    color: var(--continentalBlack) !important;
     height: 100% !important;
 }
 
 .MuiListItem-button:hover {
-    background-color: var(--DarkOrange) !important;
+    background-color: var(--continentalDarkOrange) !important;
 }
 
 .MuiTouchRipple-root:hover {
-    background-color: var(--Button) !important;
+    background-color: var(--continentalButton) !important;
 }
 
 .MuiButton-containedPrimary {
-    background-color: var(--Button) !important;
+    background-color: var(--continentalButton) !important;
 }
 
 .MuiButton-containedPrimary:hover {
-    background-color: var(--DarkOrange) !important;
+    background-color: var(--continentalDarkOrange) !important;
 }
 
 .MuiList-root {
@@ -215,7 +215,7 @@ align-items: center;
 } 
 
 #updateSingleItem:hover, #deleteSingleItem:hover {
-    background-color: var(--PaleOrange);
+    background-color: var(--continentalPaleOrange);
 }
 
 div[id$="Item"], div[class^="functionality"] {
@@ -272,8 +272,8 @@ div {
 .submitButton {
     width: 70%;
     border-radius: 30px;
-    background-color: var(--Button);
-    color: var(--White);
+    background-color: var(--continentalButton);
+    color: var(--continentalWhite);
     cursor: pointer;
     padding: 16px 20px;
     margin: 8px 0;
@@ -282,11 +282,11 @@ div {
 }
 
 .submitButton:hover {
-    background-color: var(--DarkGray);
+    background-color: var(--continentalDarkGray);
 }
 
 .MuiButton-textPrimary {
-    color: var(--DarkOrange) !important;
+    color: var(--continentalDarkOrange) !important;
 }
 
 .MuiDataGrid-root .MuiDataGrid-toolbarContainer {

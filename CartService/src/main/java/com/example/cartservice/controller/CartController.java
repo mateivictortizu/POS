@@ -14,6 +14,7 @@ public class CartController {
     @Autowired
     CartService cartService;
 
+    @CrossOrigin(origins = "http://localhost:3001")
     @GetMapping("/cart")
     ResponseEntity<?> getCart(@RequestParam Integer clientid){
 

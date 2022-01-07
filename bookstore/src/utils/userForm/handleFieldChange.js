@@ -42,6 +42,7 @@ const handleChange = (field, setForm, form) => (e) => {
         }
         break;
       case "oldPassword":
+      case "calendar":
           break;  
       default:
         console.log("Typed an undefined field: ", field);

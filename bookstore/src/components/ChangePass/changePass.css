@@ -1,0 +1,7 @@
+@media only screen and (max-width: 426px){
+
+    .login-wrapper h1, .login-wrapper form{
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}

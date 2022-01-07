@@ -1,21 +1,21 @@
 :root {
-  --Orange: #FFA500;
-  --DarkOrange: #e07f07;
-  --Button: #FF8C00;
-  --DarkGray: #6b6b6b;
-  --Gray: #f0f0f0;
-  --Black: #000;
-  --White: #fff;
-  --LightGray: #e6e4e4;
-  --Brown: #5f3d0b;
+  --continentalOrange: #FFA500;
+  --continentalDarkOrange: #e07f07;
+  --continentalButton: #FF8C00;
+  --continentalDarkGray: #6b6b6b;
+  --continentalGray: #f0f0f0;
+  --continentalBlack: #000;
+  --continentalWhite: #fff;
+  --continentalLightGray: #e6e4e4;
+  --continentalBrown: #5f3d0b;
   --table: #f3deb0;
   --transparent: #f1dcaf00;
-  --PaleOrange: #dbc79b;
+  --continentalPaleOrange: #dbc79b;
   --inventoryItem: #f4cf9b;
   --inventoryLightOrange: #f7db9f;
-  --Red: #ff2d37;
-  --FadedRed: #ffe0e1;
-  --Green: #2db928;
+  --continentalRed: #ff2d37;
+  --continentalFadedRed: #ffe0e1;
+  --continentalGreen: #2db928;
 }
 
 ul {
@@ -24,7 +24,7 @@ ul {
   margin-top: 5px;
   padding: 0;
   overflow: hidden;
-  background-color: var(--Orange);
+  background-color: var(--continentalOrange);
 }
 
 .parkingMatrixItem {
@@ -40,11 +40,11 @@ ul {
 }
 
 .parkingSpotPhone {
-  background-color: var(--Gray);
+  background-color: var(--continentalGray);
 }
 
 .freeSpot {
-  background-color: var(--Blue);
+  background-color: var(--continentalBlue);
   width: 5px;
   height: 5px;
   border-radius: 30px;
@@ -55,7 +55,7 @@ ul {
 }
 
 .takenSpot {
-  background-color: var(--Red);
+  background-color: var(--continentalRed);
   width: 5px;
   height: 5px;
   border-radius: 30px;
@@ -70,7 +70,7 @@ ul {
   height: 400%;
   margin-left: -14.5px;
   margin-right: -14.5px;
-  background-color: var(--White);
+  background-color: var(--continentalWhite);
 }
 
 .parkingOrganise {
@@ -112,7 +112,7 @@ line{
 }
 
 #menuButton:hover{
-  background-color: var(--DarkOrange);
+  background-color: var(--continentalDarkOrange);
 }
 
 .logo {
@@ -139,19 +139,19 @@ line{
 }
 
 a {
-  color: var(--Black);
+  color: var(--continentalBlack);
   text-decoration: none;
 }
 
 a:hover {
-  color: var(--Black);
+  color: var(--continentalBlack);
 }
 
 #logoutButton, #settings {
   border-radius: 5px;
-  border: 1px solid var(--Black);
-  background-color: var(--Orange);
-  color: var(--Black);
+  border: 1px solid var(--continentalBlack);
+  background-color: var(--continentalOrange);
+  color: var(--continentalBlack);
   font-size: 15px;
   font-weight: bold;
   cursor: pointer;
@@ -160,7 +160,7 @@ a:hover {
 }
 
 #logoutButton:hover, #settings:hover{
-  background-color: var(--DarkOrange);
+  background-color: var(--continentalDarkOrange);
 }
 
 li {
@@ -169,20 +169,20 @@ li {
 
 li a {
   display: block;
-  color: var(--Black);
+  color: var(--continentalBlack);
   text-align: center;
   padding: 14px 19px;
   text-decoration: none;
 }
 
 li a:hover {
-  color: var(--DarkOrange);
-  background-color: var(--Black);
+  color: var(--continentalDarkOrange);
+  background-color: var(--continentalBlack);
 }
 
 div.logo {
   border-radius: 5px;
-  background-color: var(--Orange);
+  background-color: var(--continentalOrange);
 }
 
 #longLogo {

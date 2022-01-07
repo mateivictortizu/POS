@@ -1,5 +1,5 @@
 body {
-  background-color: var(--Gray);
+  background-color: var(--continentalGray);
 }
 
 
@@ -15,11 +15,11 @@ body {
 }
 
 a {
-  color: var(--Black);
+  color: var(--continentalBlack);
 }
 
 a:hover {
-  color: var(--DarkOrange)
+  color: var(--continentalDarkOrange)
 }
 
 input[type=text], input[type=password] {
@@ -29,11 +29,11 @@ input[type=text], input[type=password] {
   margin: 5px 0 22px 0;
   display: flex;
   border: none;
-  background-color: var(--White);
+  background-color: var(--continentalWhite);
 }
 
 input[type=text]:focus, input[type=password]:focus {
-  background-color: var(--LightGray);
+  background-color: var(--continentalLightGray);
   outline: none;
 }
 
@@ -128,8 +128,8 @@ align-items: center;
 
 button[type=submit] {
   /* width: 100%; */
-  background-color: var(--Button);
-  color: var(--White);
+  background-color: var(--continentalButton);
+  color: var(--continentalWhite);
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
@@ -138,7 +138,7 @@ button[type=submit] {
 }
 
 button[type=submit]:hover {
-  background-color: var(--DarkGray);
+  background-color: var(--continentalDarkGray);
 }
 
 div {
@@ -148,7 +148,7 @@ div {
 div.logo {
   height: min-content;
   border-radius: 5px;
-  background-color: var(--Orange);
+  background-color: var(--continentalOrange);
 }
 
 .inputs  {

@@ -1,0 +1,102 @@
+#updatePasswordsDoNotMatch {
+    color: var(--continentalRed);
+}
+
+.MuiInputBase-root input[type=text] {
+    border-radius: 10px !important;
+  }
+
+.MuiAutocomplete-root, .MuiAutocomplete-hasClearIcon, .MuiAutocomplete-hasPopupIcon {
+    width: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.MuiFormControl-fullWidth {
+    width: inherit !important;
+}
+
+.MuiAutocomplete-popper {
+    outline-color: '#68d0af' !important;
+    border-color: '#68d0af' !important;
+}
+.pageContent {
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    align-items: flex-start;
+}
+
+form { 
+    width: 100%;
+}
+
+.MuiListItem-button {
+    text-align: center !important;
+}
+
+.calendarField {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
+.calendarField .MuiSvgIcon-root {
+    fill: var(--continentalOrange);
+    width: 1.5em !important;
+    height: 1.5em !important;
+}
+
+.helper {
+    width: 60%;
+}
+
+.MuiTab-textColorPrimary.Mui-selected {
+    color: var(--continentalOrange) !important;
+}
+
+span [class^="PrivateTabIndicator-colorPrimary-"] {
+    background-color: var(--continentalRed) !important;
+}
+
+#helperStepOne {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: inherit;
+}
+
+.makeStyles-paper-1 li a{
+    display: flex;
+}
+
+.makeStyles-paper-1 {
+    width: 60%;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .helper {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 426px) {
+
+    .helper {
+        width: 100%;
+    }
+
+    .pageContent {
+        flex-direction: column;
+    }  
+    #helperStepOne {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        width: inherit;
+    }
+}

@@ -1,33 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import check_expired from "../../utils/useToken";
-import jwt_decode from "jwt-decode";
-import "../Login/Login.css";
-import "./Home.css";
+import "../Books/Books.css";
+import "./Orders.css";
 import { Redirect } from "react-router-dom";
-import SnackbarItem from "../../utils/Snackbar";
 import HOST from "../../constants/host";
-import { useState } from "react";
 import PageHeader from "../../constants/pageHeader";
-import { useEffect } from "react";
+import SnackbarItem from "../../utils/Snackbar";
+import { Button } from "@material-ui/core";
 
-const Home = () => {
+
+export default function Orders() {
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [severity, setSeverity] = useState("error");
-  const [userData, setUserData] = useState("");
-
-  document.title = "BookStore - Home";
-
+  const redirect = (
+    <Button>
+      <a
+        href="#/settings"
+        style={{ color: "var(--continentalRed)", size: "small" }}
+      >
+        Set it here
+      </a>
+    </Button>
+  );
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       return <Redirect to="/login" />;
     } else {
-      if (check_expired()) return <Redirect to="/login" />;
+      if (check_expired()) {
+        return <Redirect to="/login" />;
+      }
     }
-    const token = localStorage.getItem("token");
-    const decoded = jwt_decode(token);
-    setUserData(decoded);
   }, []);
+
+  document.title = "BookStore - Orders";
 
   return (
     <div className="wrapper">
@@ -36,15 +42,14 @@ const Home = () => {
         setAlertMessage={setAlertMessage}
         setSeverity={setSeverity}
       />
-      <h1>Home</h1>
+      <h1>Orders</h1>
       <SnackbarItem
-        severity={severity}
+        alertMessage={alertMessage}
         open={open}
         setOpen={setOpen}
-        alertMessage={alertMessage}
+        severity={severity}
+        action={redirect}
       />
     </div>
   );
-};
-
-export default Home;
+}
