@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import HOST from "../../constants/host";
 import PageHeader from "../../constants/pageHeader";
 import SnackbarItem from "../../utils/Snackbar";
-import { Button } from "@material-ui/core";
+import { Button, FormControl, InputLabel, Select, MenuItem, TextField } from "@material-ui/core";
 
 
 export default function Books() {
@@ -13,6 +13,20 @@ export default function Books() {
   const [alertMessage, setAlertMessage] = useState("");
   const [severity, setSeverity] = useState("error");
   const [items,setItems] = useState("");
+  const [page, setPage] = useState(5);
+  const [gen,setGen] =useState([]);
+  const [year,setYear] =useState([]);
+
+  const handleChangePage = (event) => {
+    setPage(event.target.value);
+  };
+
+  const handleChangeGen = (event) => {
+    setGen(event.target.value);
+  };
+  const handleChangeYear = (event) => {
+    setGen(event.target.value);
+  };
 
   function addCart(clientid,isbn,title,price,quantity) {
     fetch("http://127.0.0.1:8093" + "/cart?clientid="+clientid, {
@@ -71,6 +85,11 @@ export default function Books() {
       });
   }, []);
 
+  const years=[];
+  for(var i=1950;i<2022;i++){
+    years.push(<MenuItem value={i}>{i}</MenuItem>)
+  }
+
   document.title = "BookStore - Books";
 
   return (
@@ -80,6 +99,51 @@ export default function Books() {
         setAlertMessage={setAlertMessage}
         setSeverity={setSeverity}
       />
+      <FormControl fullWidth>
+        <InputLabel id="select-label">Page</InputLabel>
+        <Select
+          labelId="select-label"
+          id="select"
+          value={page}
+          label="Page"
+          onChange={handleChangePage}
+        >
+          <MenuItem value={5}>5</MenuItem>
+          <MenuItem value={10}>10</MenuItem>
+          <MenuItem value={15}>15</MenuItem>
+        </Select>
+      </FormControl>
+      &nbsp;
+      <FormControl fullWidth>
+        <InputLabel id="select-label">Gen</InputLabel>
+        <Select
+          labelId="select-label"
+          id="select"
+          value={gen}
+          label="Gen"
+          onChange={handleChangeYear}
+        >
+          <MenuItem value={0}>All</MenuItem>
+          <MenuItem value={1}>Romantic</MenuItem>
+          <MenuItem value={2}>Liric</MenuItem>
+          <MenuItem value={3}>Dramatic</MenuItem>
+          <MenuItem value={4}>Fantastic</MenuItem>
+          <MenuItem value={5}>Folclor</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl fullWidth>
+        <InputLabel id="select-label">Gen</InputLabel>
+        <Select
+          labelId="select-label"
+          id="select"
+          value={gen}
+          label="Gen"
+          onChange={handleChangeYear}
+        >
+          {years}
+        </Select>
+      </FormControl>
+
       <p></p>
       {items.length >0 &&
       <><table>
