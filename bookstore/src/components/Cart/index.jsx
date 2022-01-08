@@ -14,6 +14,47 @@ export default function Cart() {
   const [alertMessage, setAlertMessage] = useState("");
   const [severity, setSeverity] = useState("error");
   const[items,setItems]=useState([])
+  const[user,setUser]=useState("")
+
+  function addQuantity(clientid, isbn) {
+    fetch("http://127.0.0.1:8093" + "/addCart?clientid="+clientid+"&ISBN="+isbn, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then(window.location.reload())
+  };
+  
+  function downQuantity(clientid, isbn) {
+    fetch("http://127.0.0.1:8093" + "/downCart?clientid="+clientid+"&ISBN="+isbn, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then(window.location.reload())
+  };
+  
+  function removeItem(clientid, isbn) {
+    fetch("http://127.0.0.1:8093" + "/removeItem?clientid="+clientid+"&ISBN="+isbn, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then(window.location.reload())
+  };
+
+  function removeAllItems(clientid) {
+    fetch("http://127.0.0.1:8093" + "/cart?clientid="+clientid, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then(window.location.reload())
+  };
 
   const redirect = (
     <Button>
@@ -36,6 +77,7 @@ export default function Cart() {
 
     var token=localStorage.getItem("token");
     const decoded = jwt_decode(token);
+    setUser(decoded.sub);
 
     fetch("http://127.0.0.1:8093" + "/cart?clientid="+decoded.sub, {
       method: "GET",
@@ -47,7 +89,6 @@ export default function Cart() {
         if (data.ok) {
           data.json().then((message)=>{
             console.log(message);
-            console.log(message[0]["clientid"]);
             setItems(message);
           });
         }
@@ -55,12 +96,6 @@ export default function Cart() {
           setOpen(true);
           setSeverity("error");
           setAlertMessage("Nonexistent cart for this client!");
-        } else if (data.status === 400) {
-          data.json().then((message) => {
-            setOpen(true);
-            setSeverity("error");
-            setAlertMessage(message["message"]);
-          });
         } else {
           throw new Error("Internal server error");
         }
@@ -73,6 +108,8 @@ export default function Cart() {
       });
   }, []);
 
+
+
   document.title = "BookStore - Cart";
 
   return (
@@ -82,42 +119,55 @@ export default function Cart() {
         setAlertMessage={setAlertMessage}
         setSeverity={setSeverity}
       />
+      <p></p>
+      {items.length >0 &&
+      <><h1>Cart</h1><>
       <table>
-        <tr>
-          <th>ISBN</th>
-          <th>Title</th>
-          <th>Price</th>
-          <th>Quatity</th>
-          <th>+</th>
-          <th>-</th>
-          <th>Remove</th>
-        </tr>
-        {items.map((val, key) => {
-          return (
-            <tr key={key}>
-              <td>{val.isbn}</td>
-              <td>{val.title}</td>
-              <td>{val.price}</td>
-              <td>{val.quantity}</td>
-              <td>
-                <button onclick="">
-                  +
-                </button>
-              </td>
-              <td>
-                <button onclick="">
-                  -
-                </button>
-              </td>
-              <td>
-                <button onclick="">
-                  Remove
-                </button>
-              </td>
-            </tr>
-          )
-        })}
-      </table>
+          <tr>
+            <th>ISBN</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Quatity</th>
+            <th>+</th>
+            <th>-</th>
+            <th>Remove</th>
+          </tr>
+          {items.map((val, key) => {
+            return (
+              <tr key={key}>
+                <td>{val.isbn}</td>
+                <td>{val.title}</td>
+                <td>{val.price * val.quantity}</td>
+                <td>{val.quantity}</td>
+                <td>
+                  <Button onClick={() => addQuantity(val.clientid, val.isbn)} style={{ fontSize: "28px" }}>
+                    +
+                  </Button>
+                </td>
+                <td>
+                  <Button onClick={() => downQuantity(val.clientid, val.isbn)} style={{ fontSize: "28px" }}>
+                    -
+                  </Button>
+                </td>
+                <td>
+                  <Button onClick={() => removeItem(val.clientid, val.isbn)} style={{ backgroundColor: "#FF0000", fontSize: "28px" }}>
+                    X
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
+        </table>
+        <h1>Total:</h1>
+        <div className="buttons">
+            <Button onClick={() => removeAllItems(user)} style={{ backgroundColor: "#FF0000", fontSize: "20px" }}>Sterge toate articolele</Button>
+            <p></p>
+            <Button onClick={() => removeItem(13, 13)} style={{ backgroundColor: "#008000", fontSize: "20px" }}>Comanda</Button>
+          </div></></>
+      }
+      {items.length==0 && 
+      <><h1>Cart</h1><h2>Niciun produs in cos!</h2></>
+      }
       <SnackbarItem
         alertMessage={alertMessage}
         open={open}

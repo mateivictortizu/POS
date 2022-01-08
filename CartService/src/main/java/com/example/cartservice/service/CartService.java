@@ -33,13 +33,33 @@ public class CartService {
         }
     }
 
-    public void deleteItem(Cart item){
-        cartRepository.delete(item);
-    }
-
     public void deleteAllCartOfClient(Integer clientid)
     {
         List<Cart> items = cartRepository.getByClientid(clientid);
         cartRepository.deleteAll(items);
+    }
+
+    public void addQuantity(Integer clientid, String ISBN){
+        Cart item=cartRepository.getCartByClientidAndISBN(clientid,ISBN);
+        item.setQuantity(item.getQuantity()+1);
+        cartRepository.save(item);
+    }
+
+    public void downQuantity(Integer clientid, String ISBN){
+        Cart item=cartRepository.getCartByClientidAndISBN(clientid,ISBN);
+        if(item.getQuantity()<=0)
+        {
+            cartRepository.delete(item);
+        }
+        else
+        {
+            item.setQuantity(item.getQuantity() - 1);
+            cartRepository.save(item);
+        }
+    }
+
+    public void removeItem(Integer clientid, String ISBN){
+        Cart item=cartRepository.getCartByClientidAndISBN(clientid,ISBN);
+        cartRepository.delete(item);
     }
 }
