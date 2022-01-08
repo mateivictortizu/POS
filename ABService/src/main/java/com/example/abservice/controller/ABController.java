@@ -78,6 +78,7 @@ public class ABController {
     }
 
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/books")
     ResponseEntity<?> getBooksFiltred(@RequestParam(required = false) String genre,
                                       @RequestParam(required = false) Integer year,

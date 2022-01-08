@@ -121,8 +121,7 @@ export default function Cart() {
       />
       <p></p>
       {items.length >0 &&
-      <><h1>Cart</h1><>
-      <table>
+      <><h1>Cart</h1><><table>
           <tr>
             <th>ISBN</th>
             <th>Title</th>
@@ -158,8 +157,7 @@ export default function Cart() {
             );
           })}
         </table>
-        <h1>Total:</h1>
-        <div className="buttons">
+        <h1>Total:</h1><div className="buttons">
             <Button onClick={() => removeAllItems(user)} style={{ backgroundColor: "#FF0000", fontSize: "20px" }}>Sterge toate articolele</Button>
             <p></p>
             <Button onClick={() => removeItem(13, 13)} style={{ backgroundColor: "#008000", fontSize: "20px" }}>Comanda</Button>
