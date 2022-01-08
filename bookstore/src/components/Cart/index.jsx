@@ -7,13 +7,13 @@ import HOST from "../../constants/host";
 import PageHeader from "../../constants/pageHeader";
 import SnackbarItem from "../../utils/Snackbar";
 import { Button } from "@material-ui/core";
-
+import jwt_decode from "jwt-decode";
 
 export default function Cart() {
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [severity, setSeverity] = useState("error");
-  const[items,setItems]=useState("")
+  const[items,setItems]=useState([])
 
   const redirect = (
     <Button>
@@ -33,7 +33,11 @@ export default function Cart() {
         return <Redirect to="/login" />;
       }
     }
-    fetch("http://127.0.0.1:8093" + "/cart?clientid=13", {
+
+    var token=localStorage.getItem("token");
+    const decoded = jwt_decode(token);
+
+    fetch("http://127.0.0.1:8093" + "/cart?clientid="+decoded.sub, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -78,7 +82,42 @@ export default function Cart() {
         setAlertMessage={setAlertMessage}
         setSeverity={setSeverity}
       />
-      <h1>Cart</h1>
+      <table>
+        <tr>
+          <th>ISBN</th>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Quatity</th>
+          <th>+</th>
+          <th>-</th>
+          <th>Remove</th>
+        </tr>
+        {items.map((val, key) => {
+          return (
+            <tr key={key}>
+              <td>{val.isbn}</td>
+              <td>{val.title}</td>
+              <td>{val.price}</td>
+              <td>{val.quantity}</td>
+              <td>
+                <button onclick="">
+                  +
+                </button>
+              </td>
+              <td>
+                <button onclick="">
+                  -
+                </button>
+              </td>
+              <td>
+                <button onclick="">
+                  Remove
+                </button>
+              </td>
+            </tr>
+          )
+        })}
+      </table>
       <SnackbarItem
         alertMessage={alertMessage}
         open={open}
