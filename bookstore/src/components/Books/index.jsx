@@ -13,41 +13,38 @@ export default function Books() {
   const [alertMessage, setAlertMessage] = useState("");
   const [severity, setSeverity] = useState("error");
   const [items,setItems] = useState("");
-  const [page, setPage] = useState(5);
-  const [gen,setGen] =useState([]);
-  const [year,setYear] =useState([]);
 
-  const handleChangePage = (event) => {
-    setPage(event.target.value);
-  };
-
-  const handleChangeGen = (event) => {
-    setGen(event.target.value);
-  };
-  const handleChangeYear = (event) => {
-    setGen(event.target.value);
-  };
 
   function addCart(clientid,isbn,title,price,quantity) {
-    fetch("http://127.0.0.1:8093" + "/cart?clientid="+clientid, {
+    fetch(HOST() + "/cart?clientid="+clientid, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ clientid, isbn, title, price, quantity }),
     })
-  };
+    .then((data) => {
+      if (data.status === 200) {
+        setOpen(true);
+        setSeverity("success");
+        setAlertMessage("Produsul a fost adaugat in cos");
+      } else {
+        throw new Error("Internal server error");
+      }
+    })
+    .catch((error) => {
+      setOpen(true);
+      setSeverity("error");
+      setAlertMessage("Service unavailable!");
+      console.log(error);
+    });
+}
+
+function addWishlist(){
+
+}
+
   
-  const redirect = (
-    <Button>
-      <a
-        href="#/settings"
-        style={{ color: "var(--continentalRed)", size: "small" }}
-      >
-        Set it here
-      </a>
-    </Button>
-  );
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       return <Redirect to="/login" />;
@@ -85,10 +82,6 @@ export default function Books() {
       });
   }, []);
 
-  const years=[];
-  for(var i=1950;i<2022;i++){
-    years.push(<MenuItem value={i}>{i}</MenuItem>)
-  }
 
   document.title = "BookStore - Books";
 
@@ -99,52 +92,6 @@ export default function Books() {
         setAlertMessage={setAlertMessage}
         setSeverity={setSeverity}
       />
-      <FormControl fullWidth>
-        <InputLabel id="select-label">Page</InputLabel>
-        <Select
-          labelId="select-label"
-          id="select"
-          value={page}
-          label="Page"
-          onChange={handleChangePage}
-        >
-          <MenuItem value={5}>5</MenuItem>
-          <MenuItem value={10}>10</MenuItem>
-          <MenuItem value={15}>15</MenuItem>
-        </Select>
-      </FormControl>
-      &nbsp;
-      <FormControl fullWidth>
-        <InputLabel id="select-label">Gen</InputLabel>
-        <Select
-          labelId="select-label"
-          id="select"
-          value={gen}
-          label="Gen"
-          onChange={handleChangeYear}
-        >
-          <MenuItem value={0}>All</MenuItem>
-          <MenuItem value={1}>Romantic</MenuItem>
-          <MenuItem value={2}>Liric</MenuItem>
-          <MenuItem value={3}>Dramatic</MenuItem>
-          <MenuItem value={4}>Fantastic</MenuItem>
-          <MenuItem value={5}>Folclor</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl fullWidth>
-        <InputLabel id="select-label">Gen</InputLabel>
-        <Select
-          labelId="select-label"
-          id="select"
-          value={gen}
-          label="Gen"
-          onChange={handleChangeYear}
-        >
-          {years}
-        </Select>
-      </FormControl>
-
-      <p></p>
       {items.length >0 &&
       <><table>
           <tbody>
@@ -173,7 +120,7 @@ export default function Books() {
                     </Button>
                   </td>
                   <td>
-                    <Button onClick={() => addCart(13, val.isbn, val.titlu, val.price, 1)} style={{ backgroundColor: "#FF00FF", fontSize: "15px" }}>
+                    <Button onClick={() => addWishlist()} style={{ backgroundColor: "#FF00FF", fontSize: "15px" }}>
                       Add to wishlist
                     </Button>
                   </td>
@@ -194,7 +141,6 @@ export default function Books() {
         open={open}
         setOpen={setOpen}
         severity={severity}
-        action={redirect}
       />
     </div>
   );

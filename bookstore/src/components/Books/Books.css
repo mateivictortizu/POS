@@ -19,37 +19,6 @@
     --continentalBlue: #00a5dc;
 }
 
-.MuiCard-root {
-    text-align: justify;
-}
-
-.MuiMenuItem-root {
-    white-space: unset !important;
-    text-align: justify;
-}
-
-.MuiDataGrid-root .MuiDataGrid-toolbarContainer {
-    flex-wrap: wrap;
-}
-
-.annualInventory {
-    display: flex;
-    justify-content: center;
-    border-radius: 30px;
-}
-
-.notifications {
-    display: flex;
-    flex-direction: column;
-}
-
-.notificationsBody {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-}
-
 html {
     right: 0;
     left: 0;
@@ -100,165 +69,6 @@ thead {
     display: flex;
 }
 
-#logoutButton {
-    border-radius: 5px;
-    border: 1px solid var(--continentalBlack);
-    background-color: var(--continentalOrange);
-    color: var(--continentalBlack);
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-#logoutButton:hover{
-    background-color: var(--continentalDarkOrange);
-}
-
-.itemInvNumber {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    align-content: space-between;
-}
-
-.itemButton {
-    width: fit-content;
-    border-radius: 5px;
-    background-color: var(--continentalOrange);
-    color: var(--continentalBlack);
-    font-size: small;
-    cursor: pointer;
-}
-
-.itemButton:hover {
-    background-color: var(--continentalDarkOrange);
-}
-
-img[id$="Icon"] {
-    width: 40px;
-    height: auto;
-    padding-left: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-img[id="brokenItemIcon"] {
-    width: auto;
-    height: 40px;
-    border-radius: 5px;
-
-}
-
-.MuiButton-containedPrimary {
-    color: var(--continentalBlack) !important;
-    height: 100% !important;
-}
-
-.MuiListItem-button:hover {
-    background-color: var(--continentalDarkOrange) !important;
-}
-
-.MuiTouchRipple-root:hover {
-    background-color: var(--continentalButton) !important;
-}
-
-.MuiButton-containedPrimary {
-    background-color: var(--continentalButton) !important;
-}
-
-.MuiButton-containedPrimary:hover {
-    background-color: var(--continentalDarkOrange) !important;
-}
-
-.MuiList-root {
-    display: flex;
-    flex-direction: column !important;
-}
-
-#itemTable {
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-}
-
-.divFormUpdateItem {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#formUpdateItem {
-    display: none;
-    width: 90%;
-}
-
-#updateSingleItem {
-    padding: 0px;
-    background-color: var(--transparent);
-}
-
-#deleteSingleItem {
-    padding: 0px;
-    background-color: var(--transparent);
-
-}
-
-.updateDelete {
-    background-color: var(--transparent);
-    cursor: pointer;
-    border: none;
-    font-weight: bold;
-    width: 100%;
-} 
-
-#updateSingleItem:hover, #deleteSingleItem:hover {
-    background-color: var(--continentalPaleOrange);
-}
-
-div[id$="Item"], div[class^="functionality"] {
-    display: flex;
-    align-items: center;
-    align-content: space-around;
-    justify-content: space-between;
-    width: 90%;
-    background-color: var(--inventoryItem);
-    margin-top: 5px;
-}
-
-div[class^="functionality"] {
-    width: 80%;
-}
-
-div[id$="Item"]:hover, div[class^="functionality"]:hover{
-    background-color: var(--inventoryLightOrange);
-}
-
-div {
-    border-radius: 5px;
-}
-
-.itemsTable {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-}
-
-#add, #broken {
-    display: none;
-    width: 90%;
-}
-
-[id^="functionalityF"], [id^="functionalityT"] {
-    display: flex;
-    flex-direction: row;
-    height: 30px;
-}
-
 .formFields {
     width: 85%;
     font-size: medium;
@@ -283,32 +93,6 @@ div {
 
 .submitButton:hover {
     background-color: var(--continentalDarkGray);
-}
-
-.MuiButton-textPrimary {
-    color: var(--continentalDarkOrange) !important;
-}
-
-.MuiDataGrid-root .MuiDataGrid-toolbarContainer {
-    justify-content: center !important;
-}
-
-ul .MuiTimeline-root, .MuiTimeline-alignAlternate {
-    background-color: transparent !important;
-}
-
-.MuiInputBase-root input[type=text] {
-    width: 100% !important;
-    margin: 0 !important;
-    display: block !important;
-    padding: 6px 0 7px !important;
-    min-width: 0 !important;
-}
-
-.inventoryManagement {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 p[id$="Message"] {
@@ -370,20 +154,8 @@ p[id$="Message"] {
         font-size: medium;
     }
 
-    [id^="serialNumber"], [id^="productName"] {
-        display: none;
-    }
-
     .formFields {
         width: 90%;
-    }
-    #add, #update, #delete, #find, #broken {
-        display: none;
-        width: 95%;
-    }
-
-    div[id$="Item"] {
-        width: 95%;
     }
 
     .greeting {

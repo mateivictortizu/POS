@@ -17,7 +17,7 @@ export default function Cart() {
   const[user,setUser]=useState("")
 
   function addQuantity(clientid, isbn) {
-    fetch("http://127.0.0.1:8093" + "/addCart?clientid="+clientid+"&ISBN="+isbn, {
+    fetch(HOST() + "/addCart?clientid="+clientid+"&ISBN="+isbn, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export default function Cart() {
   };
   
   function downQuantity(clientid, isbn) {
-    fetch("http://127.0.0.1:8093" + "/downCart?clientid="+clientid+"&ISBN="+isbn, {
+    fetch(HOST() + "/downCart?clientid="+clientid+"&ISBN="+isbn, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export default function Cart() {
   };
   
   function removeItem(clientid, isbn) {
-    fetch("http://127.0.0.1:8093" + "/removeItem?clientid="+clientid+"&ISBN="+isbn, {
+    fetch(HOST() + "/removeItem?clientid="+clientid+"&ISBN="+isbn, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export default function Cart() {
   };
 
   function removeAllItems(clientid) {
-    fetch("http://127.0.0.1:8093" + "/cart?clientid="+clientid, {
+    fetch(HOST() + "/cart?clientid="+clientid, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -79,7 +79,7 @@ export default function Cart() {
     const decoded = jwt_decode(token);
     setUser(decoded.sub);
 
-    fetch("http://127.0.0.1:8093" + "/cart?clientid="+decoded.sub, {
+    fetch(HOST() + "/cart?clientid="+decoded.sub, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -45,11 +45,6 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 export default function PageHeader(props) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
     
   if (!localStorage.getItem("token")) {
     return <Redirect to="/login" />;
@@ -80,40 +75,6 @@ export default function PageHeader(props) {
             height="auto"
           ></img>
         </a>
-        <div>
-          <Button
-            aria-controls="customized-menu"
-            aria-haspopup="true"
-            variant="contained"
-            color="primary"
-            onClick={handleClick}
-          >
-            <MenuIcon style={{ height: "inherit" }} />
-          </Button>
-          <StyledMenu
-            id="customized-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-          >
-            <StyledMenuItem
-              onClick={() => {
-                window.location.href = "#/settings";
-              }}
-            >
-              <ListItemIcon>
-                <SettingsIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText primary="Settings" />
-            </StyledMenuItem>
-            <StyledMenuItem onClick={logout}>
-              <ListItemIcon>
-                <ExitToAppIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText primary="Logout" />
-            </StyledMenuItem>
-          </StyledMenu>
-        </div>
       </div>
       <ul>
         <li>
