@@ -1,6 +1,7 @@
 package com.example.orderService.service;
 
 import com.example.orderService.model.BookOrders;
+import com.example.orderService.model.Status;
 import com.example.orderService.repository.BookOrdersRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -9,6 +10,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -29,9 +31,28 @@ public class OrderService {
         UriComponents uriComponent=renewURIBuilder.build(true);
         URI uri=uriComponent.toUri();
         Boolean x = new RestTemplate().postForObject(uri,booksOrder.getItems(), Boolean.class);
-        if (x)
+        if (Boolean.TRUE.equals(x))
             bookOrdersRepository.save(booksOrder);
         return x;
+    }
+
+    public Boolean cancelOrder(Integer client_id, String id){
+        bookOrdersRepository.setCollectionName("client." + client_id);
+        BookOrders book = bookOrdersRepository.getById(id);
+        if(book !=null)
+        {
+            if(book.getStatus()==Status.ACTIVA)
+            {
+                book.setStatus(Status.ANULATA);
+                bookOrdersRepository.save(book);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return false;
     }
 }
 

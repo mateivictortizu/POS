@@ -2,6 +2,9 @@ package com.example.orderService.controller;
 
 import com.example.orderService.model.BookOrders;
 import com.example.orderService.service.OrderService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,6 +41,26 @@ public class OrderController {
         {
             response.put("message","Unul dintre produse nu mai este in stoc");
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @CrossOrigin(origins = "*")
+    @PutMapping("/cancelOrder")
+    ResponseEntity<?> cancelOrder(@RequestBody String id, @RequestParam Integer clientid) throws JsonProcessingException {
+        JSONObject response=new JSONObject();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonNode = mapper.readTree(id);
+        String idOrder=jsonNode.get("id").asText();
+        Boolean book= orderService.cancelOrder(clientid, idOrder);
+        if(book)
+        {
+            response.put("message","Comanda a fost anulata");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        else
+        {
+            response.put("message","Comanda nu a putut fi anulata");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
     }
 }

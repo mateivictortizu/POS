@@ -7,12 +7,50 @@ import HOST from "../../constants/host";
 import PageHeader from "../../constants/pageHeader";
 import SnackbarItem from "../../utils/Snackbar";
 import { Button } from "@material-ui/core";
+import jwt_decode from "jwt-decode";
 
 
 export default function Orders() {
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [severity, setSeverity] = useState("error");
+  const [orders,setOrders]= useState({});
+  const [user,setUser]=useState();
+
+  function cancelOrder(clientid,id) {
+    fetch(HOST() + "/cancelOrder?clientid="+clientid, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    })
+    .then((data) => {
+      if (data.status === 200) {
+        data.json().then((message)=>{
+          setOpen(true);
+          setSeverity("success");
+          setAlertMessage(message["message"]);
+          window.location.reload();
+        });
+      } else if (data.status === 404 || data.status === 400) {
+        data.json().then((message) => {
+          setOpen(true);
+          setSeverity("error");
+          setAlertMessage(message["message"]);
+        });
+      } else {
+        throw new Error("Internal server error");
+      }
+    })
+    .catch((error) => {
+      setOpen(true);
+      setSeverity("error");
+      setAlertMessage("Service unavailable!");
+      console.log(error);
+    });
+  };
+
   const redirect = (
     <Button>
       <a
@@ -31,6 +69,38 @@ export default function Orders() {
         return <Redirect to="/login" />;
       }
     }
+
+    var token=localStorage.getItem("token");
+    const decoded = jwt_decode(token);
+    setUser(decoded.sub);
+
+    fetch(HOST() + "/orders?clientid="+decoded.sub, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((data) => {
+        if (data.ok) {
+          data.json().then((message)=>{
+            console.log(message);
+            setOrders(message);
+          });
+        }
+        else if (data.status === 404) {
+          setOpen(true);
+          setSeverity("error");
+          setAlertMessage("Nonexistent orders for this client!");
+        } else {
+          throw new Error("Internal server error");
+        }
+      })
+      .catch((error) => {
+        setOpen(true);
+        setSeverity("error");
+        setAlertMessage("Service unavailable!");
+        console.log(error);
+      });
   }, []);
 
   document.title = "BookStore - Orders";
@@ -42,7 +112,60 @@ export default function Orders() {
         setAlertMessage={setAlertMessage}
         setSeverity={setSeverity}
       />
-      <h1>Orders</h1>
+       <p></p>
+      {orders.length >0 &&
+      <><h1>Cart</h1><><table>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Items</th>
+            <th>Anuleaza</th>
+          </tr>
+          {orders.map((val, key) => {
+            return (
+              <tr key={key}>
+                <td>{val.id}</td>
+                <td>{val.date}</td>
+                <td>{val.status}</td>
+                  <td>
+                    <table>
+                      <tr>
+                        <th>ISBN</th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                      </tr>
+                      {val.items.map((val1,key1)=>{
+                      return(
+                        <tr key1={key1}>
+                          <td>{val1.isbn}</td>
+                          <td>{val1.title}</td>
+                          <td>{val1.price}</td>
+                          <td>{val1.quantity}</td>
+                        </tr>
+                      )
+                      })
+
+                      }
+                    </table>
+                  </td>
+                {val.status=="ACTIVA" &&
+                <td>
+                  <Button onClick={() => cancelOrder(user,val.id)} style={{ fontSize: "15px" }}>
+                    Anuleaza Comanda
+                  </Button>
+                </td>
+                }
+              </tr>
+            );
+          })}
+        </table>
+        </></>
+      }
+      {orders.length==0 && 
+      <><h1>Orders</h1><h2>Nicio comanda</h2></>
+      }
       <SnackbarItem
         alertMessage={alertMessage}
         open={open}
