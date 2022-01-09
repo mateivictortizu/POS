@@ -38,11 +38,12 @@ public class CartController {
         if(cartService.getCartOfClient(clientid).size()>0) {
             cartService.deleteAllCartOfClient(clientid);
             message.put("message", "Cosul a fost golit");
+            return new ResponseEntity<>(message, HttpStatus.OK);
         }
         else {
-            message.put("message","Cosul este deja gol!");
+            message.put("message", "Cosul este deja gol!");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "*")

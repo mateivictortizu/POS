@@ -56,6 +56,42 @@ export default function Cart() {
     .then(window.location.reload())
   };
 
+  function sendOrder(clientid) {
+    const date=new Date();
+    const status="ACTIVA";
+    fetch(HOST() + "/orders?clientid="+clientid, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ date, status, items }),
+    })
+    .then((data) => {
+      if (data.status === 200) {
+        data.json().then((message)=>{
+          setOpen(true);
+          setSeverity("success");
+          setAlertMessage(message["message"]);
+          removeAllItems(clientid);
+        });
+      } else if (data.status === 404 || data.status === 400) {
+        data.json().then((message) => {
+          setOpen(true);
+          setSeverity("error");
+          setAlertMessage(message["message"]);
+        });
+      } else {
+        throw new Error("Internal server error");
+      }
+    })
+    .catch((error) => {
+      setOpen(true);
+      setSeverity("error");
+      setAlertMessage("Service unavailable!");
+      console.log(error);
+    });
+  };
+
   const redirect = (
     <Button>
       <a
@@ -160,7 +196,7 @@ export default function Cart() {
         <h1>Total:</h1><div className="buttons">
             <Button onClick={() => removeAllItems(user)} style={{ backgroundColor: "#FF0000", fontSize: "20px" }}>Sterge toate articolele</Button>
             <p></p>
-            <Button onClick={() => removeItem(13, 13)} style={{ backgroundColor: "#008000", fontSize: "20px" }}>Comanda</Button>
+            <Button onClick={() => sendOrder(user)} style={{ backgroundColor: "#008000", fontSize: "20px" }}>Comanda</Button>
           </div></></>
       }
       {items.length==0 && 

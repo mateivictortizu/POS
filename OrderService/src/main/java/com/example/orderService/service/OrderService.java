@@ -29,6 +29,8 @@ public class OrderService {
         UriComponents uriComponent=renewURIBuilder.build(true);
         URI uri=uriComponent.toUri();
         Boolean x = new RestTemplate().postForObject(uri,booksOrder.getItems(), Boolean.class);
+        if (x)
+            bookOrdersRepository.save(booksOrder);
         return x;
     }
 }

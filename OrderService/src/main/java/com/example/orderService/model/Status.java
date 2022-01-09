@@ -6,5 +6,5 @@ import javax.persistence.Embeddable;
 public enum Status {
     FINALIZATA,
     ACTIVA,
-    INITIALIZATA
+    ANULATA
 }

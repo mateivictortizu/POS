@@ -17,24 +17,27 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/orders")
-    ResponseEntity<?> getBookOrder(@RequestParam Integer client_id)
-    {   List<BookOrders> books= orderService.getBookOrder(client_id);
+    ResponseEntity<?> getBookOrder(@RequestParam Integer clientid)
+    {   List<BookOrders> books= orderService.getBookOrder(clientid);
         return new ResponseEntity<>(books,HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/orders")
-    ResponseEntity<?> addBookOrder(@RequestBody BookOrders bookOrders, @RequestParam Integer client_id) {
+    ResponseEntity<?> addBookOrder(@RequestBody BookOrders bookOrders, @RequestParam Integer clientid) {
         JSONObject response=new JSONObject();
-        Boolean check= orderService.addBookOrder(bookOrders, client_id);
+        Boolean check= orderService.addBookOrder(bookOrders, clientid);
         if(check)
         {
             response.put("message","Comanda a reusit");
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
         else
         {
             response.put("message","Unul dintre produse nu mai este in stoc");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
