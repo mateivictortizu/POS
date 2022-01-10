@@ -15,9 +15,8 @@ export default function Orders() {
   const [alertMessage, setAlertMessage] = useState("");
   const [severity, setSeverity] = useState("error");
   const [orders,setOrders]= useState({});
-  const [user,setUser]=useState();
-  var token=localStorage.getItem("token");
-  const decoded = jwt_decode(token);
+  const[token,setToken]=useState("")
+  const[decoded,setDecoded]=useState("")
 
   function cancelOrder(clientid,id) {
     fetch(HOST() + "/cancelOrder?clientid="+clientid, {
@@ -66,7 +65,11 @@ export default function Orders() {
         return <Redirect to="/login" />;
       }
     }
-    setUser(decoded.sub);
+
+    var token=localStorage.getItem("token");
+    const decoded = jwt_decode(token);
+    setToken(localStorage.getItem("token"));
+    setDecoded(jwt_decode(localStorage.getItem("token")));
 
     fetch(HOST() + "/orders?clientid="+decoded.sub, {
       method: "GET",
@@ -152,7 +155,7 @@ export default function Orders() {
                   </td>
                 {val.status=="ACTIVA" &&
                 <td>
-                  <Button onClick={() => cancelOrder(user,val.id)} style={{ fontSize: "15px" }}>
+                  <Button onClick={() => cancelOrder(decoded.sub,val.id)} style={{ fontSize: "15px" }}>
                     Anuleaza Comanda
                   </Button>
                 </td>

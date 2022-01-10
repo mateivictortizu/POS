@@ -5,8 +5,9 @@ import { Redirect} from "react-router-dom";
 import HOST from "../../constants/host";
 import PageHeader from "../../constants/pageHeader";
 import SnackbarItem from "../../utils/Snackbar";
-import { Button, FormControl, InputLabel, NativeSelect, TextField } from "@material-ui/core";
+import { Button, FormControl, InputLabel, NativeSelect } from "@material-ui/core";
 import BooksItem from "../BooksItem";
+import jwt_decode from "jwt-decode";
 
 
 export default function Books() {
@@ -19,8 +20,8 @@ export default function Books() {
   const [year,setYear] = useState("-1")
   const [page,setPage] = useState(0);
   const [links,setLinks]=useState([]);
-  const [user,setUser]=useState();
-  var token=localStorage.getItem("token");
+  const[token,setToken]=useState("")
+  const[decoded,setDecoded]=useState("")
   const years=[];
 
   for(var i=1990;i<=2022;i++)
@@ -28,20 +29,19 @@ export default function Books() {
     years.push(<option value={i}>{i}</option>);
   }
 
-  function addCart(clientid,isbn,title,price,quantity) {
-    fetch(HOST() + "/cart?clientid="+clientid, {
-      method: "POST",
+  function deleteBook(isbn) {
+    fetch(HOST() + "/books/"+isbn, {
+      method: "DELETE",
       headers: {
         'Authorization': token,
         'Content-type': 'application/json',
       },
-      body: JSON.stringify({ clientid, isbn, title, price, quantity }),
     })
     .then((data) => {
       if (data.status === 200) {
         setOpen(true);
         setSeverity("success");
-        setAlertMessage("Produsul a fost adaugat in cos");
+        setAlertMessage("Cartea a fost eliminata");
       }
       else if (data.status === 403) {
         localStorage.removeItem("token");
@@ -55,6 +55,35 @@ export default function Books() {
       setSeverity("error");
       setAlertMessage("Service unavailable!");
     });
+}
+
+function addCart(clientid,isbn,title,price,quantity) {
+  fetch(HOST() + "/cart?clientid="+clientid, {
+    method: "POST",
+    headers: {
+      'Authorization': token,
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({ clientid, isbn, title, price, quantity }),
+  })
+  .then((data) => {
+    if (data.status === 200) {
+      setOpen(true);
+      setSeverity("success");
+      setAlertMessage("Produsul a fost adaugat in cos");
+    }
+    else if (data.status === 403) {
+      localStorage.removeItem("token");
+    } 
+    else {
+      throw new Error("Internal server error");
+    }
+  })
+  .catch((error) => {
+    setOpen(true);
+    setSeverity("error");
+    setAlertMessage("Service unavailable!");
+  });
 }
 
 function addWishlist(client_id,bookISBN,titlu,price) {
@@ -186,6 +215,11 @@ const handleChangeYear = (event) => {
       }
     }
 
+    var token=localStorage.getItem("token");
+    const decoded = jwt_decode(token);
+    setToken(localStorage.getItem("token"));
+    setDecoded(jwt_decode(localStorage.getItem("token")));
+
     fetch(HOST() + "/books", {
       method: "GET",
       headers: {
@@ -299,6 +333,9 @@ const handleChangeYear = (event) => {
               <th>Pret</th>
               <th>Add to cart</th>
               <th>Add to wishlist</th>
+              {decoded.role=="ADMIN"&&
+                <th>Remove books</th>
+              }
             </tr>
             {items.map((val, key) => {
               return (
@@ -311,15 +348,22 @@ const handleChangeYear = (event) => {
                   </td>
                   <td>{val.price}</td>
                   <td>
-                    <Button onClick={() => addCart(13, val.isbn, val.titlu, val.price, 1)} style={{ backgroundColor: "#FFFF00", fontSize: "15px" }}>
+                    <Button onClick={() => addCart(decoded.sub, val.isbn, val.titlu, val.price, 1)} style={{ backgroundColor: "#FFFF00", fontSize: "15px" }}>
                       Add to cart
                     </Button>
                   </td>
                   <td>
-                    <Button onClick={() => addWishlist(13, val.isbn, val.titlu, val.price)} style={{ backgroundColor: "#FF00FF", fontSize: "15px" }}>
+                    <Button onClick={() => addWishlist(decoded.sub, val.isbn, val.titlu, val.price)} style={{ backgroundColor: "#FF00FF", fontSize: "15px" }}>
                       Add to wishlist
                     </Button>
                   </td>
+                  {decoded.role=="ADMIN" &&
+                    <td>
+                      <Button onClick={() => deleteBook(val.isbn)} style={{ backgroundColor: "#FF00FF", fontSize: "15px" }}>
+                      X
+                      </Button>
+                    </td>
+                  }
                 </tr>
               );
             })}

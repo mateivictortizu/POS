@@ -5,7 +5,6 @@ import "../Login/Login.css";
 import "./Home.css";
 import { Redirect } from "react-router-dom";
 import SnackbarItem from "../../utils/Snackbar";
-import HOST from "../../constants/host";
 import { useState } from "react";
 import PageHeader from "../../constants/pageHeader";
 import { useEffect } from "react";
@@ -14,7 +13,6 @@ const Home = () => {
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [severity, setSeverity] = useState("error");
-  const [userData, setUserData] = useState("");
 
   document.title = "BookStore - Home";
 
@@ -24,9 +22,6 @@ const Home = () => {
     } else {
       if (check_expired()) return <Redirect to="/login" />;
     }
-    const token = localStorage.getItem("token");
-    const decoded = jwt_decode(token);
-    setUserData(decoded);
   }, []);
 
   return (
@@ -37,6 +32,17 @@ const Home = () => {
         setSeverity={setSeverity}
       />
       <h1>Home</h1>
+      <div class="row">
+        <div class="column">
+          <a href="#/cart"><img src="cart.png" alt="alternatetext"></img></a>
+        </div>
+        <div class="column">
+          <a href="#/orders"><img src="orders.png" alt="alternatetext"></img></a>
+        </div>
+        <div class="column">
+          <a href="#/wishlist"><img src="wishlist.jpg" alt="alternatetext"></img></a>
+        </div>
+      </div>
       <SnackbarItem
         severity={severity}
         open={open}

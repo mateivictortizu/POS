@@ -13,10 +13,10 @@ export default function Cart() {
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [severity, setSeverity] = useState("error");
-  const[items,setItems]=useState([])
-  const[user,setUser]=useState("")
-  var token=localStorage.getItem("token");
-  const decoded = jwt_decode(token);
+  const[items,setItems]=useState([]);
+  const[token,setToken]=useState("");
+  const[decoded,setDecoded]=useState("");
+  var suma=0;
 
   function addQuantity(clientid, isbn) {
     fetch(HOST() + "/addCart?clientid="+clientid+"&ISBN="+isbn, {
@@ -114,7 +114,8 @@ export default function Cart() {
 
     var token=localStorage.getItem("token");
     const decoded = jwt_decode(token);
-    setUser(decoded.sub);
+    setToken(localStorage.getItem("token"));
+    setDecoded(jwt_decode(localStorage.getItem("token")));
 
     fetch(HOST() + "/cart?clientid="+decoded.sub, {
       method: "GET",
@@ -171,6 +172,7 @@ export default function Cart() {
             <th>Remove</th>
           </tr>
           {items.map((val, key) => {
+            {suma=suma+val.price*val.quantity}
             return (
               <tr key={key}>
                 <td>{val.isbn}</td>
@@ -178,17 +180,17 @@ export default function Cart() {
                 <td>{val.price * val.quantity}</td>
                 <td>{val.quantity}</td>
                 <td>
-                  <Button onClick={() => addQuantity(val.clientid, val.isbn)} style={{ fontSize: "28px" }}>
+                  <Button onClick={() => addQuantity(decoded.sub, val.isbn)} style={{ fontSize: "28px" }}>
                     +
                   </Button>
                 </td>
                 <td>
-                  <Button onClick={() => downQuantity(val.clientid, val.isbn)} style={{ fontSize: "28px" }}>
+                  <Button onClick={() => downQuantity(decoded.sub, val.isbn)} style={{ fontSize: "28px" }}>
                     -
                   </Button>
                 </td>
                 <td>
-                  <Button onClick={() => removeItem(val.clientid, val.isbn)} style={{ backgroundColor: "#FF0000", fontSize: "28px" }}>
+                  <Button onClick={() => removeItem(decoded.sub, val.isbn)} style={{ backgroundColor: "#FF0000", fontSize: "28px" }}>
                     X
                   </Button>
                 </td>
@@ -196,10 +198,10 @@ export default function Cart() {
             );
           })}
         </table>
-        <h1>Total:</h1><div className="buttons">
-            <Button onClick={() => removeAllItems(user)} style={{ backgroundColor: "#FF0000", fontSize: "20px" }}>Sterge toate articolele</Button>
+        <h1>Total:{suma}</h1><div className="buttons">
+            <Button onClick={() => removeAllItems(decoded.sub)} style={{ backgroundColor: "#FF0000", fontSize: "20px" }}>Sterge toate articolele</Button>
             <p></p>
-            <Button onClick={() => sendOrder(user)} style={{ backgroundColor: "#008000", fontSize: "20px" }}>Comanda</Button>
+            <Button onClick={() => sendOrder(decoded.sub)} style={{ backgroundColor: "#008000", fontSize: "20px" }}>Comanda</Button>
           </div></></>
       }
       {items.length==0 && 

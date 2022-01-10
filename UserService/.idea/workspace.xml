@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="acea6c1f-0172-40d5-9bad-cc68f075a7b2" name="Changes" comment="" />
+    <list default="true" id="acea6c1f-0172-40d5-9bad-cc68f075a7b2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -102,7 +104,8 @@
       <workItem from="1641587609892" duration="832000" />
       <workItem from="1641656775640" duration="162000" />
       <workItem from="1641659195413" duration="1218000" />
-      <workItem from="1641824209946" duration="2604000" />
+      <workItem from="1641824209946" duration="3223000" />
+      <workItem from="1641844158899" duration="604000" />
     </task>
     <servers />
   </component>
@@ -145,6 +148,6 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/UserService$main.coverage" NAME="app Coverage Results" MODIFIED="1640907536394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserService$app.coverage" NAME="app Coverage Results" MODIFIED="1641667289564" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/UserService$app__1_.coverage" NAME="app (1) Coverage Results" MODIFIED="1641827164082" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UserService$app__1_.coverage" NAME="app (1) Coverage Results" MODIFIED="1641844163520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

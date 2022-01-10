@@ -15,9 +15,9 @@ export default function Wishlist() {
   const [alertMessage, setAlertMessage] = useState("");
   const [severity, setSeverity] = useState("error");
   const [items,setItems]=useState(null);
-  const[user,setUser]=useState("")
+  const[token,setToken]=useState("")
+  const[decoded,setDecoded]=useState("")
 
-  const token=localStorage.getItem("token");
 
   function addCart(clientid,isbn,title,price,quantity) {
     fetch(HOST() + "/cart?clientid="+clientid, {
@@ -49,13 +49,6 @@ export default function Wishlist() {
 }
 
   function deleteWishlist(wishlist_id){
-    if (!localStorage.getItem("token")) {
-      return <Redirect to="/login" />;
-    } else {
-      if (check_expired()) {
-        return <Redirect to="/login" />;
-      }
-
       fetch(HOST() + "/wishlist?wishlist_id="+wishlist_id, {
         method: "DELETE",
         headers: {
@@ -92,15 +85,11 @@ export default function Wishlist() {
           setAlertMessage("Service unavailable!");
           console.log(error);
         });
-    }
-
-    const decoded = jwt_decode(token);
-    setUser(decoded.sub);
 
     fetch(HOST() + "/wishlist?client_id="+decoded.sub, {
       method: "GET",
       headers: {
-        'Authorization': 'Bearer ' + token,
+        'Authorization': token,
         'Content-type': 'application/json',
       },
     })
@@ -133,8 +122,11 @@ export default function Wishlist() {
       }
     }
 
+    var token=localStorage.getItem("token");
     const decoded = jwt_decode(token);
-    setUser(decoded.sub);
+    setToken(localStorage.getItem("token"));
+    setDecoded(jwt_decode(localStorage.getItem("token")));
+
 
     fetch(HOST() + "/wishlist?client_id="+decoded.sub, {
       method: "GET",
