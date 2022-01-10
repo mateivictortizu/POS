@@ -16,12 +16,15 @@ export default function Orders() {
   const [severity, setSeverity] = useState("error");
   const [orders,setOrders]= useState({});
   const [user,setUser]=useState();
+  var token=localStorage.getItem("token");
+  const decoded = jwt_decode(token);
 
   function cancelOrder(clientid,id) {
     fetch(HOST() + "/cancelOrder?clientid="+clientid, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        'Authorization': token,
+        'Content-type': 'application/json',
       },
       body: JSON.stringify({ id }),
     })
@@ -51,16 +54,6 @@ export default function Orders() {
     });
   };
 
-  const redirect = (
-    <Button>
-      <a
-        href="#/settings"
-        style={{ color: "var(--continentalRed)", size: "small" }}
-      >
-        Set it here
-      </a>
-    </Button>
-  );
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       return <Redirect to="/login" />;
@@ -69,21 +62,18 @@ export default function Orders() {
         return <Redirect to="/login" />;
       }
     }
-
-    var token=localStorage.getItem("token");
-    const decoded = jwt_decode(token);
     setUser(decoded.sub);
 
     fetch(HOST() + "/orders?clientid="+decoded.sub, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        'Authorization': token,
+        'Content-type': 'application/json',
       },
     })
       .then((data) => {
         if (data.ok) {
           data.json().then((message)=>{
-            console.log(message);
             setOrders(message);
           });
         }
@@ -114,7 +104,7 @@ export default function Orders() {
       />
        <p></p>
       {orders.length >0 &&
-      <><h1>Cart</h1><><table>
+      <><h1>Orders</h1><><table><tbody>
           <tr>
             <th>ID</th>
             <th>Date</th>
@@ -130,6 +120,7 @@ export default function Orders() {
                 <td>{val.status}</td>
                   <td>
                     <table>
+                      <tbody>
                       <tr>
                         <th>ISBN</th>
                         <th>Title</th>
@@ -148,6 +139,7 @@ export default function Orders() {
                       })
 
                       }
+                      </tbody>
                     </table>
                   </td>
                 {val.status=="ACTIVA" &&
@@ -157,10 +149,15 @@ export default function Orders() {
                   </Button>
                 </td>
                 }
+                {val.status=="FINALIZATA" &&
+                <td>
+                    Comanda nu se mai poate anula
+                </td>
+                }
               </tr>
             );
           })}
-        </table>
+        </tbody></table>
         </></>
       }
       {orders.length==0 && 
@@ -171,7 +168,6 @@ export default function Orders() {
         open={open}
         setOpen={setOpen}
         severity={severity}
-        action={redirect}
       />
     </div>
   );

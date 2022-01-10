@@ -15,12 +15,15 @@ export default function Cart() {
   const [severity, setSeverity] = useState("error");
   const[items,setItems]=useState([])
   const[user,setUser]=useState("")
+  var token=localStorage.getItem("token");
+  const decoded = jwt_decode(token);
 
   function addQuantity(clientid, isbn) {
     fetch(HOST() + "/addCart?clientid="+clientid+"&ISBN="+isbn, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        'Authorization': token,
+        'Content-type': 'application/json',
       },
     })
     .then(window.location.reload())
@@ -30,7 +33,8 @@ export default function Cart() {
     fetch(HOST() + "/downCart?clientid="+clientid+"&ISBN="+isbn, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        'Authorization': token,
+        'Content-type': 'application/json',
       },
     })
     .then(window.location.reload())
@@ -40,7 +44,8 @@ export default function Cart() {
     fetch(HOST() + "/removeItem?clientid="+clientid+"&ISBN="+isbn, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
+        'Authorization': token,
+        'Content-type': 'application/json',
       },
     })
     .then(window.location.reload())
@@ -50,7 +55,8 @@ export default function Cart() {
     fetch(HOST() + "/cart?clientid="+clientid, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
+        'Authorization': token,
+        'Content-type': 'application/json',
       },
     })
     .then(window.location.reload())
@@ -62,7 +68,8 @@ export default function Cart() {
     fetch(HOST() + "/orders?clientid="+clientid, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        'Authorization': token,
+        'Content-type': 'application/json',
       },
       body: JSON.stringify({ date, status, items }),
     })
@@ -92,16 +99,6 @@ export default function Cart() {
     });
   };
 
-  const redirect = (
-    <Button>
-      <a
-        href="#/settings"
-        style={{ color: "var(--continentalRed)", size: "small" }}
-      >
-        Set it here
-      </a>
-    </Button>
-  );
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       return <Redirect to="/login" />;
@@ -118,7 +115,8 @@ export default function Cart() {
     fetch(HOST() + "/cart?clientid="+decoded.sub, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        'Authorization': token,
+        'Content-type': 'application/json',
       },
     })
       .then((data) => {
@@ -143,8 +141,6 @@ export default function Cart() {
         console.log(error);
       });
   }, []);
-
-
 
   document.title = "BookStore - Cart";
 
@@ -207,7 +203,6 @@ export default function Cart() {
         open={open}
         setOpen={setOpen}
         severity={severity}
-        action={redirect}
       />
     </div>
   );

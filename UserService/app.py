@@ -1,15 +1,11 @@
 import json
 
 import flask
-import jwt
 from flask import Flask, request
-from flask_bcrypt import Bcrypt
 from flask_cors import CORS
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
 
-from myjwt import encode_auth_token, decode_auth_token
 from models import db, migrate, bcrypt, User, Token
+from myjwt import encode_auth_token, decode_auth_token
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://matteovk:admin@localhost/users'
@@ -59,10 +55,10 @@ def register():
 def check_token_route():
     check = Token.check_token(request.headers["Authorization"])
     if check is False:
-        return {"error": "Token is not in list"}, 401
+        return {"error": "Token is not in list"}, 403
     x, y = decode_auth_token(request.headers["Authorization"])
     if x == -1 or x == -2:
-        return {"error": y}, 401
+        return {"error": y}, 403
     return json.dumps({
         "client_id": x,
         "role": y}), 200
@@ -74,4 +70,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5001)

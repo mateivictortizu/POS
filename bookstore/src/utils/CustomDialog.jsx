@@ -62,6 +62,7 @@ export default function CustomDialog({
 }) {
 
     const [items,setItems]=useState([]);
+    var token=localStorage.getItem("token");
 
   function getBooksByisbn(isbn) {
         if (!localStorage.getItem("token")) {
@@ -75,7 +76,8 @@ export default function CustomDialog({
         fetch(HOST() + "/books/"+isbn+"?verbose=true", {
           method: "GET",
           headers: {
-            "Content-Type": "application/json",
+            'Authorization': token,
+            'Content-type': 'application/json',
           },
         })
           .then((data) => {

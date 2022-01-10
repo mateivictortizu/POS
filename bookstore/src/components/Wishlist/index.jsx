@@ -17,6 +17,33 @@ export default function Wishlist() {
   const [items,setItems]=useState(null);
   const[user,setUser]=useState("")
 
+  const token=localStorage.getItem("token");
+
+  function addCart(clientid,isbn,title,price,quantity) {
+    fetch(HOST() + "/cart?clientid="+clientid, {
+      method: "POST",
+      headers: {
+        'Authorization': token,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({ clientid, isbn, title, price, quantity }),
+    })
+    .then((data) => {
+      if (data.status === 200) {
+        setOpen(true);
+        setSeverity("success");
+        setAlertMessage("Produsul a fost adaugat in cos");
+      } else {
+        throw new Error("Internal server error");
+      }
+    })
+    .catch((error) => {
+      setOpen(true);
+      setSeverity("error");
+      setAlertMessage("Service unavailable!");
+    });
+}
+
   function deleteWishlist(wishlist_id){
     if (!localStorage.getItem("token")) {
       return <Redirect to="/login" />;
@@ -28,7 +55,8 @@ export default function Wishlist() {
       fetch(HOST() + "/wishlist?wishlist_id="+wishlist_id, {
         method: "DELETE",
         headers: {
-          "Content-Type": "application/json",
+          'Authorization': token,
+          'Content-type': 'application/json',
         },
       })
         .then((data) => {
@@ -59,14 +87,14 @@ export default function Wishlist() {
         });
     }
 
-    var token=localStorage.getItem("token");
     const decoded = jwt_decode(token);
     setUser(decoded.sub);
 
     fetch(HOST() + "/wishlist?client_id="+decoded.sub, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + token,
+        'Content-type': 'application/json',
       },
     })
       .then((data) => {
@@ -101,14 +129,14 @@ export default function Wishlist() {
       }
     }
 
-    var token=localStorage.getItem("token");
     const decoded = jwt_decode(token);
     setUser(decoded.sub);
 
     fetch(HOST() + "/wishlist?client_id="+decoded.sub, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        'Authorization': token,
+        'Content-type': 'application/json',
       },
     })
       .then((data) => {
@@ -117,11 +145,8 @@ export default function Wishlist() {
             setItems(message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:getWishlistByIdResponse"]);
           });
         }
-        else if (data.status === 404) {
-          setOpen(true);
-          setSeverity("error");
-          setAlertMessage("Books not found!");
-          setItems([]);
+        else if (data.status === 403) {
+          localStorage.removeItem("token");
         } else {
           throw new Error("Internal server error");
         }
@@ -160,7 +185,7 @@ export default function Wishlist() {
                 <tr key={key}>
                   <td>{val["SOAP-ENV:bookISBN"]}</td>
                   <td>{val["SOAP-ENV:titlu"]}</td> 
-                  <td><Button>Add to cart</Button></td>
+                  <td><Button onClick={()=>addCart(val["SOAP-ENV:clientId"],val["SOAP-ENV:bookISBN"],val["SOAP-ENV:titlu"],val[["SOAP-ENV:price"]],1)}>Add to cart</Button></td>
                   <td><Button onClick={()=>deleteWishlist(val["SOAP-ENV:wishlistID"])}>X</Button></td>
                   {console.log(items["SOAP-ENV:wishlistInfo"])}
                 </tr>
@@ -171,7 +196,7 @@ export default function Wishlist() {
           {console.log(items)}
           <td>{items["SOAP-ENV:wishlistInfo"]["SOAP-ENV:bookISBN"]}</td>
           <td>{items["SOAP-ENV:wishlistInfo"]["SOAP-ENV:titlu"]}</td>
-          <td><Button>Add to cart</Button></td>
+          <td><Button onClick={()=>addCart()}>Add to cart</Button></td>
           <td><Button onClick={()=>deleteWishlist(items["SOAP-ENV:wishlistInfo"]["SOAP-ENV:wishlistID"])}>X</Button></td>
         </tr>
         }

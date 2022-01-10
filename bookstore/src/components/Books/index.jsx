@@ -19,7 +19,8 @@ export default function Books() {
   const [year,setYear] = useState("-1")
   const [page,setPage] = useState(0);
   const [links,setLinks]=useState([]);
-
+  const [user,setUser]=useState();
+  var token=localStorage.getItem("token");
   const years=[];
 
   for(var i=1990;i<=2022;i++)
@@ -31,7 +32,8 @@ export default function Books() {
     fetch(HOST() + "/cart?clientid="+clientid, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        'Authorization': token,
+        'Content-type': 'application/json',
       },
       body: JSON.stringify({ clientid, isbn, title, price, quantity }),
     })
@@ -55,7 +57,8 @@ function addWishlist(client_id,bookISBN,titlu,price) {
   fetch(HOST() + "/wishlist", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      'Authorization': token,
+      'Content-type': 'application/json',
     },
     body: JSON.stringify({ client_id, bookISBN, titlu, price }),
   })
@@ -112,7 +115,8 @@ function getbooksbyfilter(itp,genre,year, page){
   fetch(HOST() + "/books?"+parameters, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",
+      'Authorization': token,
+      'Content-type': 'application/json',
     },
   })
     .then((data) => {
@@ -174,7 +178,8 @@ const handleChangeYear = (event) => {
     fetch(HOST() + "/books", {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        'Authorization': token,
+        'Content-type': 'application/json',
       },
     })
       .then((data) => {
@@ -218,7 +223,6 @@ const handleChangeYear = (event) => {
           Ipp
         </InputLabel>
         <NativeSelect
-          defaultValue={itp}
           value={itp}
           inputProps={{
             name: 'Item per page',
@@ -239,7 +243,6 @@ const handleChangeYear = (event) => {
           Genre
         </InputLabel>
         <NativeSelect
-          defaultValue={genre}
           value={genre}
           inputProps={{
             name: 'genre',
@@ -260,7 +263,6 @@ const handleChangeYear = (event) => {
         </InputLabel>
         <NativeSelect
           value={year}
-          defaultValue={year}
           inputProps={{
             name: 'year',
             id: 'uncontrolled-native',
