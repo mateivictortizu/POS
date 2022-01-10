@@ -48,8 +48,42 @@ export default function Books() {
       setOpen(true);
       setSeverity("error");
       setAlertMessage("Service unavailable!");
-      console.log(error);
     });
+}
+
+function addWishlist(clientid,bookISBN,titlu,price) {
+  fetch(HOST() + "/wishlist?client_id="+clientid, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ clientid, bookISBN, titlu, price }),
+  })
+  .then((data) => {
+    if (data.ok) {
+      data.json().then((message)=>{
+        if(message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:addWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:statusCode"]=="FAIL"){
+          setOpen(true);
+          setSeverity("error");
+          setAlertMessage(message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:addWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:message"]);
+        }
+        if(message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:addWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:statusCode"]=="SUCCESS"){
+          setOpen(true);
+          setSeverity("success");
+          setAlertMessage(message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:addWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:message"]);
+        }
+      });
+    }
+    else {
+      throw new Error("Internal server error");
+    }
+  })
+  .catch((error) => {
+    setOpen(true);
+    setSeverity("error");
+    setAlertMessage("Service unavailable!");
+    console.log(error);
+  });
 }
 
 function getbooksbyfilter(itp,genre,year, page){
@@ -103,7 +137,6 @@ function getbooksbyfilter(itp,genre,year, page){
       setOpen(true);
       setSeverity("error");
       setAlertMessage("Service unavailable!");
-      console.log(error);
     });
 };
 

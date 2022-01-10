@@ -63,7 +63,7 @@ export default function CustomDialog({
 
     const [items,setItems]=useState([]);
 
-    useEffect(() => {
+  function getBooksByisbn(isbn) {
         if (!localStorage.getItem("token")) {
           return <Redirect to="/login" />;
         } else {
@@ -96,11 +96,17 @@ export default function CustomDialog({
           .catch((error) => {
             console.log(error);
           });
-      }, []);
+      }
     
+      function clickOpen()
+      {
+        getBooksByisbn(isbn)
+        handleClickOpen();
+      }
+
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="outlined" onClick={clickOpen}>
         {title}
       </Button>
       <BootstrapDialog
