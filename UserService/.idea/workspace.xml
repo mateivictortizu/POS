@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="acea6c1f-0172-40d5-9bad-cc68f075a7b2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../bookstore/src/components/Home/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../bookstore/src/components/Home/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bookstore/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../bookstore/public/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

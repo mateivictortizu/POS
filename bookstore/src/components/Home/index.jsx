@@ -35,7 +35,7 @@ const Home = () => {
       <h1>Home</h1>
       <div class="row">
         <div class="column">
-          <a href="#/cart"><img src="cart.png" alt="alternatetext"></img></a>
+          <a href="#/cart"><img src="cart.jpg" alt="alternatetext"></img></a>
         </div>
         <div class="column">
           <a href="#/orders"><img src="orders.png" alt="alternatetext"></img></a>

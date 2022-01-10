@@ -28,7 +28,7 @@ const StyledMenu = withStyles({
 const StyledMenuItem = withStyles((theme) => ({
   root: {
     "&:focus": {
-      backgroundColor: "var(--continentalOrange)",
+      backgroundColor: "var(--Orange)",
       "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
         color: "rgba(0, 0, 0, 0.54)",
       },
@@ -52,9 +52,9 @@ export default function PageHeader(props) {
         <a href="/">
           <img
             id="longLogo"
-            src="continentalLogo.png"
-            alt="Continental Logo"
-            width="20%"
+            src="longLogo.png"
+            alt="Long Logo"
+            width="15%"
             height="auto"
           ></img>
           <img

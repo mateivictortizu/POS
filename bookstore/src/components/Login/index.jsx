@@ -84,9 +84,9 @@ export default function Login() {
         <a href="#">
           <img
             id="longLogo"
-            src="bigLogo.png"
+            src="longLogo.png"
             alt="Logo"
-            width="20%"
+            width="15%"
           ></img>
           <img
             id="shortLogo"
