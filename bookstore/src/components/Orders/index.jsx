@@ -42,7 +42,11 @@ export default function Orders() {
           setSeverity("error");
           setAlertMessage(message["message"]);
         });
-      } else {
+      }
+      else if (data.status === 403) {
+        localStorage.removeItem("token");
+      } 
+      else {
         throw new Error("Internal server error");
       }
     })
@@ -81,7 +85,11 @@ export default function Orders() {
           setOpen(true);
           setSeverity("error");
           setAlertMessage("Nonexistent orders for this client!");
-        } else {
+        }
+        else if (data.status === 403) {
+          localStorage.removeItem("token");
+        } 
+        else {
           throw new Error("Internal server error");
         }
       })

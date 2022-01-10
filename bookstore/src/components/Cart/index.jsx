@@ -87,7 +87,11 @@ export default function Cart() {
           setSeverity("error");
           setAlertMessage(message["message"]);
         });
-      } else {
+      }
+      else if (data.status === 403) {
+        localStorage.removeItem("token");
+      } 
+      else {
         throw new Error("Internal server error");
       }
     })
@@ -122,7 +126,6 @@ export default function Cart() {
       .then((data) => {
         if (data.ok) {
           data.json().then((message)=>{
-            console.log(message);
             setItems(message);
           });
         }
@@ -130,7 +133,11 @@ export default function Cart() {
           setOpen(true);
           setSeverity("error");
           setAlertMessage("Nonexistent cart for this client!");
-        } else {
+        }
+        else if (data.status === 403) {
+          localStorage.removeItem("token");
+        } 
+        else {
           throw new Error("Internal server error");
         }
       })

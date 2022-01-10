@@ -33,7 +33,11 @@ export default function Wishlist() {
         setOpen(true);
         setSeverity("success");
         setAlertMessage("Produsul a fost adaugat in cos");
-      } else {
+      }
+      else if (data.status === 403) {
+        localStorage.removeItem("token");
+      }
+       else {
         throw new Error("Internal server error");
       }
     })
@@ -75,6 +79,9 @@ export default function Wishlist() {
               }
             });
           }
+          else if (data.status === 403) {
+            localStorage.removeItem("token");
+          }
           else {
             throw new Error("Internal server error");
           }
@@ -103,11 +110,8 @@ export default function Wishlist() {
             setItems(message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:getWishlistByIdResponse"]);
           });
         }
-        else if (data.status === 404) {
-          setOpen(true);
-          setSeverity("error");
-          setAlertMessage("Books not found!");
-          setItems([]);
+        else if (data.status === 403) {
+          localStorage.removeItem("token");
         } else {
           throw new Error("Internal server error");
         }
@@ -187,16 +191,14 @@ export default function Wishlist() {
                   <td>{val["SOAP-ENV:titlu"]}</td> 
                   <td><Button onClick={()=>addCart(val["SOAP-ENV:clientId"],val["SOAP-ENV:bookISBN"],val["SOAP-ENV:titlu"],val[["SOAP-ENV:price"]],1)}>Add to cart</Button></td>
                   <td><Button onClick={()=>deleteWishlist(val["SOAP-ENV:wishlistID"])}>X</Button></td>
-                  {console.log(items["SOAP-ENV:wishlistInfo"])}
                 </tr>
               );
             })}
         {items["SOAP-ENV:wishlistInfo"].length == undefined &&
         <tr>
-          {console.log(items)}
           <td>{items["SOAP-ENV:wishlistInfo"]["SOAP-ENV:bookISBN"]}</td>
           <td>{items["SOAP-ENV:wishlistInfo"]["SOAP-ENV:titlu"]}</td>
-          <td><Button onClick={()=>addCart()}>Add to cart</Button></td>
+          <td><Button onClick={()=>addCart(items["SOAP-ENV:wishlistInfo"]["SOAP-ENV:clientId"],items["SOAP-ENV:wishlistInfo"]["SOAP-ENV:bookISBN"],items["SOAP-ENV:wishlistInfo"]["SOAP-ENV:titlu"],items["SOAP-ENV:wishlistInfo"][["SOAP-ENV:price"]],1)}>Add to cart</Button></td>
           <td><Button onClick={()=>deleteWishlist(items["SOAP-ENV:wishlistInfo"]["SOAP-ENV:wishlistID"])}>X</Button></td>
         </tr>
         }

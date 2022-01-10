@@ -42,7 +42,11 @@ export default function Books() {
         setOpen(true);
         setSeverity("success");
         setAlertMessage("Produsul a fost adaugat in cos");
-      } else {
+      }
+      else if (data.status === 403) {
+        localStorage.removeItem("token");
+      } 
+      else {
         throw new Error("Internal server error");
       }
     })
@@ -76,6 +80,9 @@ function addWishlist(client_id,bookISBN,titlu,price) {
           setAlertMessage(message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:addWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:message"]);
         }
       });
+    }
+    else if (data.status === 403) {
+      localStorage.removeItem("token");
     }
     else {
       throw new Error("Internal server error");
@@ -131,7 +138,11 @@ function getbooksbyfilter(itp,genre,year, page){
         setSeverity("error");
         setAlertMessage("Books not found!");
         setItems([]);
-      } else {
+      }
+      else if (data.status === 403) {
+        localStorage.removeItem("token");
+      } 
+      else {
         throw new Error("Internal server error");
       }
     })
@@ -193,7 +204,11 @@ const handleChangeYear = (event) => {
           setSeverity("error");
           setAlertMessage("Books not found!");
           setItems([]);
-        } else {
+        }
+        else if (data.status === 403) {
+          localStorage.removeItem("token");
+        } 
+        else {
           throw new Error("Internal server error");
         }
       })

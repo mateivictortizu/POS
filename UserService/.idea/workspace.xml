@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="acea6c1f-0172-40d5-9bad-cc68f075a7b2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Gateway/blueprints/ABService.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Gateway/blueprints/ABService.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Gateway/blueprints/cartService.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Gateway/blueprints/cartService.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Gateway/blueprints/orderService.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Gateway/blueprints/orderService.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Gateway/blueprints/wishlistService.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Gateway/blueprints/wishlistService.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Gateway/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Gateway/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myjwt.py" beforeDir="false" afterPath="$PROJECT_DIR$/myjwt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../bookstore/src/components/Books/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../bookstore/src/components/Books/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../bookstore/src/components/Cart/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../bookstore/src/components/Cart/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../bookstore/src/components/Wishlist/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../bookstore/src/components/Wishlist/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../bookstore/src/utils/CustomDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../bookstore/src/utils/CustomDialog.jsx" afterDir="false" />
-    </list>
+    <list default="true" id="acea6c1f-0172-40d5-9bad-cc68f075a7b2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -115,7 +102,7 @@
       <workItem from="1641587609892" duration="832000" />
       <workItem from="1641656775640" duration="162000" />
       <workItem from="1641659195413" duration="1218000" />
-      <workItem from="1641824209946" duration="2192000" />
+      <workItem from="1641824209946" duration="2604000" />
     </task>
     <servers />
   </component>
@@ -158,6 +145,6 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/UserService$main.coverage" NAME="app Coverage Results" MODIFIED="1640907536394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserService$app.coverage" NAME="app Coverage Results" MODIFIED="1641667289564" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/UserService$app__1_.coverage" NAME="app (1) Coverage Results" MODIFIED="1641826058105" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UserService$app__1_.coverage" NAME="app (1) Coverage Results" MODIFIED="1641827164082" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

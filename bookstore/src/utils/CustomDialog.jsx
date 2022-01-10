@@ -88,7 +88,11 @@ export default function CustomDialog({
             }
             else if (data.status === 404) {
               setItems([]);
-            } else {
+            }
+            else if (data.status === 403) {
+              localStorage.removeItem("token");
+            } 
+            else {
               throw new Error("Internal server error");
             }
           })
