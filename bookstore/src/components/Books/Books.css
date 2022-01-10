@@ -1,22 +1,22 @@
 :root {
-    --continentalOrange: #FFA500;
-    --continentalDarkOrange: #e07f07;
-    --continentalButton: #FF8C00;
-    --continentalDarkGray: #6b6b6b;
-    --continentalGray: #f0f0f0;
-    --continentalBlack: #000;
-    --continentalWhite: #fff;
-    --continentalLightGray: #e6e4e4;
-    --continentalBrown: #5f3d0b;
+    --Orange: #FFA500;
+    --DarkOrange: #e07f07;
+    --Button: #FF8C00;
+    --DarkGray: #6b6b6b;
+    --Gray: #f0f0f0;
+    --Black: #000;
+    --White: #fff;
+    --LightGray: #e6e4e4;
+    --Brown: #5f3d0b;
     --table: #f3deb0;
     --transparent: #f1dcaf00;
-    --continentalPaleOrange: #dbc79b;
-    --inventoryItem: #f4cf9b;
-    --inventoryLightOrange: #f7db9f;
-    --continentalRed: #ff2d37;
-    --continentalFadedRed: #ffe0e1;
-    --continentalGreen: #2db928;
-    --continentalBlue: #00a5dc;
+    --PaleOrange: #dbc79b;
+    --Item: #f4cf9b;
+    --LightOrange: #f7db9f;
+    --Red: #ff2d37;
+    --FadedRed: #ffe0e1;
+    --Green: #2db928;
+    --Blue: #00a5dc;
 }
 
 html {
@@ -33,7 +33,7 @@ body {
     left: 0;
     top: 0;
     bottom: 0;
-    color: var(--continentalBrown);
+    color: var(--Brown);
     width: 100%;
 }
 
@@ -57,7 +57,7 @@ td {
 
 tr, thead {
     background-color: var(--table);
-    border: 5px solid var(--continentalWhite);
+    border: 5px solid var(--White);
     text-align: center;
 }
 
@@ -82,8 +82,8 @@ thead {
 .submitButton {
     width: 70%;
     border-radius: 30px;
-    background-color: var(--continentalButton);
-    color: var(--continentalWhite);
+    background-color: var(--Button);
+    color: var(--White);
     cursor: pointer;
     padding: 16px 20px;
     margin: 8px 0;
@@ -92,7 +92,7 @@ thead {
 }
 
 .submitButton:hover {
-    background-color: var(--continentalDarkGray);
+    background-color: var(--DarkGray);
 }
 
 p[id$="Message"] {

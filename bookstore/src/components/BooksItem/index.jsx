@@ -3,8 +3,8 @@ import "./BooksItem.css";
 import CustomDialog from "../../utils/CustomDialog";
 
 export default function BooksItem({
-    isbn,
-    title
+  isbn,
+  title
 }) {
 
   document.title = "BookStore - Books";
@@ -21,13 +21,13 @@ export default function BooksItem({
 
   return (
     <div className="wrapper">
-        <CustomDialog
-            open={open}
-            handleClickOpen={handleClickOpen}
-            handleClose={handleClose}
-            title={title}
-            isbn={isbn}
-        />
+      <CustomDialog
+        open={open}
+        handleClickOpen={handleClickOpen}
+        handleClose={handleClose}
+        title={title}
+        isbn={isbn}
+      />
     </div>
   );
 }

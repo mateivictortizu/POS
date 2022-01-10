@@ -1,5 +1,5 @@
 #updatePasswordsDoNotMatch {
-    color: var(--continentalRed);
+    color: var(--Red);
 }
 
 .MuiInputBase-root input[type=text] {
@@ -20,12 +20,6 @@
     outline-color: '#68d0af' !important;
     border-color: '#68d0af' !important;
 }
-.pageContent {
-    display: flex;
-    justify-content: space-between;
-    align-content: space-between;
-    align-items: flex-start;
-}
 
 form { 
     width: 100%;
@@ -35,37 +29,13 @@ form {
     text-align: center !important;
 }
 
-.calendarField {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 90%;
-}
-
-.calendarField .MuiSvgIcon-root {
-    fill: var(--continentalOrange);
-    width: 1.5em !important;
-    height: 1.5em !important;
-}
-
-.helper {
-    width: 60%;
-}
 
 .MuiTab-textColorPrimary.Mui-selected {
-    color: var(--continentalOrange) !important;
+    color: var(--Orange) !important;
 }
 
 span [class^="PrivateTabIndicator-colorPrimary-"] {
-    background-color: var(--continentalRed) !important;
-}
-
-#helperStepOne {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: inherit;
+    background-color: var(--Red) !important;
 }
 
 .makeStyles-paper-1 li a{

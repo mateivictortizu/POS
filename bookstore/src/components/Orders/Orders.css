@@ -8,11 +8,11 @@
 }
 
 .MuiCircularProgress-colorPrimary {
-    color: var(--continentalRed) !important;
+    color: var(--Red) !important;
 }
 
 .MuiSnackbarContent-root {
-    background-color: var(--continentalOrange) !important;
+    background-color: var(--Orange) !important;
 }
 
 @media only screen and (max-width: 768px) {

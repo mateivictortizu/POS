@@ -23,9 +23,9 @@ export default function CustomInputPassword({
         style={
           error
             ? {
-                border: "1px var(--continentalRed)",
-                backgroundColor: "var(--continentalFadedRed)",
-              }
+              border: "1px var(--continentalRed)",
+              backgroundColor: "var(--continentalFadedRed)",
+            }
             : {}
         }
         required={isRequired ? true : false}

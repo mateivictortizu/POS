@@ -1,12 +1,3 @@
-/* flex-basis: auto; */
-.calendarWrapper {
-    width: auto !important;
-}
-
-.dailyEventWrapper {
-    width: fit-content;
-}
-
 .MuiCircularProgress-colorPrimary {
     color: var(--continentalRed) !important;
 }
