@@ -1,17 +1,9 @@
 import React from "react";
-import logout from "../utils/Logout";
-import jwt_decode from "jwt-decode";
 import { Redirect } from "react-router-dom";
 import check_expired from "../utils/useToken";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import SettingsIcon from "@material-ui/icons/Settings";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import MenuIcon from "@material-ui/icons/Menu";
 import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 
 const StyledMenu = withStyles({
   paper: {
@@ -54,8 +46,6 @@ export default function PageHeader(props) {
     }
   }
 
-  const token = localStorage.getItem("token");
-  var decoded = jwt_decode(token);
   return (
     <div>
       <div className="logo">
@@ -88,6 +78,12 @@ export default function PageHeader(props) {
         </li>
         <li>
           <a href="#/cart">Cart</a>
+        </li>
+        <li>
+          <a href="#/wishlist">Wishlist</a>
+        </li>
+        <li>
+          <a href="#/logout">Logout</a>
         </li>
       </ul>
     </div>

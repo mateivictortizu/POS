@@ -1,5 +1,6 @@
 import urllib.parse
 
+import xmltodict
 from flask import Blueprint, request
 import requests
 
@@ -29,8 +30,8 @@ def add_item_in_wishlist():
     }
     response = requests.request("POST", url, headers=headers, data=payload)
 
-    return response.text
-
+    data_dict = xmltodict.parse(response.text)
+    return data_dict
 
 @wishlist.route("/wishlist", methods=['GET'])
 def get_wishlist():
@@ -52,15 +53,14 @@ def get_wishlist():
         'Content-Type': 'text/xml; charset=utf-8'
     }
     response = requests.request("POST", url, headers=headers, data=payload)
-
-    return response.text
+    data_dict = xmltodict.parse(response.text)
+    return data_dict
 
 
 @wishlist.route("/wishlist", methods=['DELETE'])
 def delete_item_from_wishlist():
     url = "http://localhost:8080/soapws"
 
-    # TODO: check if I have permission to client id wishlist
     wishlist_id = request.args['wishlist_id']
 
     payload = """<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:art="http://schemas.xmlsoap.org/soap/envelope/">
@@ -77,4 +77,5 @@ def delete_item_from_wishlist():
     }
     response = requests.request("POST", url, headers=headers, data=payload)
 
-    return response.text
+    data_dict = xmltodict.parse(response.text)
+    return data_dict

@@ -27,6 +27,7 @@ public class ABController {
     @Autowired
     ABService abService;
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/books/{ISBN}")
     ResponseEntity<?> getbookByISBN(@PathVariable String ISBN, @RequestParam(required = false) Boolean verbose) {
         List<Link> links=new ArrayList<Link>();
@@ -130,7 +131,7 @@ public class ABController {
                     parameters.put("page", Math.min(page - 1, books.size() / itp));
                     links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withRel("prev_page").expand(parameters));
                 }
-                if(page+1<=books.size()/itp)
+                if(page+1<books.size()/itp)
                 {
                     parameters.put("page",page+1);
                     links.add(linkTo(methodOn(ABController.class).getBooksFiltred(null, null, null, null)).withRel("next_page").expand(parameters));
