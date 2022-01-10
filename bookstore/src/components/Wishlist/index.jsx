@@ -155,14 +155,14 @@ export default function Wishlist() {
               <th>Add to cart</th>
               <th>Remove from wishlist</th>
         </tr>
-        {console.log(items.length)}
         {items["SOAP-ENV:wishlistInfo"].length >1 && items["SOAP-ENV:wishlistInfo"].map((val, key) => {
               return (
                 <tr key={key}>
                   <td>{val["SOAP-ENV:bookISBN"]}</td>
                   <td>{val["SOAP-ENV:titlu"]}</td> 
                   <td><Button>Add to cart</Button></td>
-                  <td><Button onClick={()=>deleteWishlist(items["SOAP-ENV:wishlistInfo"]["SOAP-ENV:wishlistID"])}>X</Button></td>
+                  <td><Button onClick={()=>deleteWishlist(val["SOAP-ENV:wishlistID"])}>X</Button></td>
+                  {console.log(items["SOAP-ENV:wishlistInfo"])}
                 </tr>
               );
             })}

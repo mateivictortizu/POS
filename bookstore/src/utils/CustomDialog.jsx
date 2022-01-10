@@ -71,10 +71,8 @@ export default function CustomDialog({
             return <Redirect to="/login" />;
           }
         }
-
-        console.log("Test");
     
-        fetch("http://127.0.0.1:8090/api/bookcollection" + "/books/"+isbn+"?verbose=true", {
+        fetch(HOST() + "/books/"+isbn+"?verbose=true", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -84,7 +82,6 @@ export default function CustomDialog({
             if (data.ok) {
               data.json().then((message)=>{
                 setItems(message);
-                console.log(message);
               });
             }
             else if (data.status === 404) {

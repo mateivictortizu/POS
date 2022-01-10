@@ -51,13 +51,13 @@ export default function Books() {
     });
 }
 
-function addWishlist(clientid,bookISBN,titlu,price) {
-  fetch(HOST() + "/wishlist?client_id="+clientid, {
+function addWishlist(client_id,bookISBN,titlu,price) {
+  fetch(HOST() + "/wishlist", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ clientid, bookISBN, titlu, price }),
+    body: JSON.stringify({ client_id, bookISBN, titlu, price }),
   })
   .then((data) => {
     if (data.ok) {
@@ -108,8 +108,6 @@ function getbooksbyfilter(itp,genre,year, page){
     parameters=parameters+param.pop()+"&";
   }
   parameters=parameters+param.pop();
-
-  console.log(parameters);
   
   fetch(HOST() + "/books?"+parameters, {
     method: "GET",
@@ -163,12 +161,6 @@ const handleChangeGenre = (event) => {
 const handleChangeYear = (event) => {
   setYear(event.target.value);
 };
-
-
-function addWishlist(){
-
-};
-
   
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -307,7 +299,7 @@ function addWishlist(){
                     </Button>
                   </td>
                   <td>
-                    <Button onClick={() => addWishlist()} style={{ backgroundColor: "#FF00FF", fontSize: "15px" }}>
+                    <Button onClick={() => addWishlist(13, val.isbn, val.titlu, val.price)} style={{ backgroundColor: "#FF00FF", fontSize: "15px" }}>
                       Add to wishlist
                     </Button>
                   </td>
