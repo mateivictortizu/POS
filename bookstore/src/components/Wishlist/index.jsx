@@ -36,6 +36,7 @@ export default function Wishlist() {
         }
         else if (data.status === 403) {
           localStorage.removeItem("token");
+          window.location.reload();
         }
         else {
           throw new Error("Internal server error");
@@ -59,12 +60,12 @@ export default function Wishlist() {
       .then((data) => {
         if (data.ok) {
           data.json().then((message) => {
-            if (message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:deleteWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:statusCode"] == "FAIL") {
+            if (message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:deleteWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:statusCode"] === "FAIL") {
               setOpen(true);
               setSeverity("error");
               setAlertMessage(message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:deleteWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:message"]);
             }
-            if (message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:deleteWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:statusCode"] == "SUCCESS") {
+            if (message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:deleteWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:statusCode"] === "SUCCESS") {
               setOpen(true);
               setSeverity("success");
               setAlertMessage(message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:deleteWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:message"]);
@@ -74,6 +75,7 @@ export default function Wishlist() {
         }
         else if (data.status === 403) {
           localStorage.removeItem("token");
+          window.location.reload();
         }
         else {
           throw new Error("Internal server error");
@@ -101,6 +103,7 @@ export default function Wishlist() {
         }
         else if (data.status === 403) {
           localStorage.removeItem("token");
+          window.location.reload();
         } else {
           throw new Error("Internal server error");
         }
@@ -143,6 +146,7 @@ export default function Wishlist() {
         }
         else if (data.status === 403) {
           localStorage.removeItem("token");
+          window.location.reload();
         } else {
           throw new Error("Internal server error");
         }
@@ -186,7 +190,7 @@ export default function Wishlist() {
                 </tr>
               );
             })}
-            {items["SOAP-ENV:wishlistInfo"].length == undefined &&
+            {items["SOAP-ENV:wishlistInfo"].length === undefined &&
               <tr>
                 <td>{items["SOAP-ENV:wishlistInfo"]["SOAP-ENV:bookISBN"]}</td>
                 <td>{items["SOAP-ENV:wishlistInfo"]["SOAP-ENV:titlu"]}</td>

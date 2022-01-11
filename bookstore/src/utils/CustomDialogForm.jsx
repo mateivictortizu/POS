@@ -1,17 +1,13 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
 import { Redirect } from "react-router-dom";
 import HOST from "../constants/host";
 import check_expired from "../utils/useToken";
@@ -59,15 +55,22 @@ export default function CustomDialogForm({
     open,
     handleClose,
     handleClickOpen,
+    isbn_param,
+    titlu_param,
+    editura_param,
+    anpublicare_param,
+    genliterar_param,
+    stock_param,
+    price_param,
+    type
 }) {
-    const [items, setItems] = useState([]);
-    const [isbn, setIsbn] = useState("");
-    const [titlu, setTitlu] = useState("");
-    const [editura, setEditura] = useState("");
-    const [anpublicare, setAnpublicare] = useState("");
-    const [genliterar, setGenliterar] = useState("");
-    const [stock, setStock] = useState("");
-    const [price, setPrice] = useState("");
+    const [isbn, setIsbn] = useState(isbn_param);
+    const [titlu, setTitlu] = useState(titlu_param);
+    const [editura, setEditura] = useState(editura_param);
+    const [anpublicare, setAnpublicare] = useState(anpublicare_param);
+    const [genliterar, setGenliterar] = useState(genliterar_param);
+    const [stock, setStock] = useState(stock_param);
+    const [price, setPrice] = useState(price_param);
     var token = localStorage.getItem("token");
 
     function addBooks(isbn, titlu, editura, anpublicare, genliterar, stock, price) {
@@ -108,13 +111,59 @@ export default function CustomDialogForm({
             });
     };
 
+
+    function modifyBooks(isbn, titlu, editura, anpublicare, genliterar, stock, price) {
+        if (!localStorage.getItem("token")) {
+            return <Redirect to="/login" />;
+        } else {
+            if (check_expired()) {
+                return <Redirect to="/login" />;
+            }
+        }
+
+        fetch(HOST() + "/books", {
+            method: "PUT",
+            headers: {
+                'Authorization': token,
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify({ isbn, titlu, editura, anpublicare, genliterar, stock, price }),
+        })
+            .then((data) => {
+                if (data.ok) {
+                    data.json().then((message) => {
+                        console.log(message);
+                    });
+                }
+                else if (data.status === 404) {
+                    console.log(data);
+                }
+                else if (data.status === 403) {
+                    localStorage.removeItem("token");
+                }
+                else {
+                    throw new Error("Internal server error");
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     function clickOpen() {
         handleClickOpen();
     };
 
-    function submit(isbn, titlu, editura,anpublicare,genliterar,stock,price)
+    function submit(isbn, titlu, editura,anpublicare,genliterar,stock,price,type)
     {
-        addBooks(isbn, titlu, editura,anpublicare,genliterar,stock,price);
+        if(type==="Add")
+        {
+            addBooks(isbn, titlu, editura,anpublicare,genliterar,stock,price);
+        }
+        if(type==="Change")
+        {
+            modifyBooks(isbn,titlu, editura, anpublicare, genliterar,stock,price);
+        }
         handleClose();
         window.location.reload();
     };
@@ -122,7 +171,7 @@ export default function CustomDialogForm({
     return (
         <div>
             <Button variant="outlined" onClick={clickOpen}>
-                Add book
+                {type} book
             </Button>
             <BootstrapDialog
                 onClose={handleClose}
@@ -189,7 +238,7 @@ export default function CustomDialogForm({
                     </label>
                 </form>
                 </DialogContent>
-                <Button onClick={()=>submit(isbn, titlu, editura,anpublicare,genliterar,stock,price)}>Adauga cartea</Button>
+                <Button onClick={()=>submit(isbn, titlu, editura,anpublicare,genliterar,stock,price,type)}>{type} book</Button>
             </BootstrapDialog>
         </div>
     );

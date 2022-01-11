@@ -90,6 +90,7 @@ export default function Cart() {
         }
         else if (data.status === 403) {
           localStorage.removeItem("token");
+          window.location.reload();
         }
         else {
           throw new Error("Internal server error");
@@ -137,6 +138,7 @@ export default function Cart() {
         }
         else if (data.status === 403) {
           localStorage.removeItem("token");
+          window.location.reload();
         }
         else {
           throw new Error("Internal server error");
@@ -172,7 +174,7 @@ export default function Cart() {
             <th>Remove</th>
           </tr>
           {items.map((val, key) => {
-            { suma = suma + val.price * val.quantity }
+            suma = suma + val.price * val.quantity
             return (
               <tr key={key}>
                 <td>{val.isbn}</td>
@@ -204,7 +206,7 @@ export default function Cart() {
             <Button onClick={() => sendOrder(decoded.sub)} style={{ backgroundColor: "#008000", fontSize: "20px" }}>Comanda</Button>
           </div></></>
       }
-      {items.length == 0 &&
+      {items.length === 0 &&
         <><h1>Cart</h1><h2>Niciun produs in cos!</h2></>
       }
       <SnackbarItem

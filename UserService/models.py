@@ -59,7 +59,11 @@ class Token(db.Model):
     def check_token(auth_token):
         res = Token.query.filter_by(token=str(auth_token)).first()
         if res:
-            return True
+            blacklist = BlacklistToken.query.filter_by(token=str(auth_token)).first()
+            if blacklist:
+                return False
+            else:
+                return True
         else:
             return False
 

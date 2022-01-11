@@ -4,7 +4,7 @@ import flask
 from flask import Flask, request
 from flask_cors import CORS
 
-from models import db, migrate, bcrypt, User, Token
+from models import db, migrate, bcrypt, User, Token, BlacklistToken
 from myjwt import encode_auth_token, decode_auth_token
 
 app = Flask(__name__)
@@ -64,9 +64,12 @@ def check_token_route():
         "role": y}), 200
 
 
-@app.route('/logout')
+@app.route('/logout', methods=['POST'])
 def logout():
-    pass
+    blacklist = BlacklistToken(token=request.headers["Authorization"])
+    db.session.add(blacklist)
+    db.session.commit()
+    return {"message": "Token was blacklisted!"}, 200
 
 
 if __name__ == '__main__':

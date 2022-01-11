@@ -11,16 +11,15 @@ URL = "http://127.0.0.1:5001/"
 
 @user.route('/login', methods=['POST'])
 def login():
-    client_id = request.args['clientid']
-    r = requests.get(parse.urljoin(URL, "orders?clientid=" + client_id))
+    json_body = request.json
+    r = requests.post(parse.urljoin(URL, "login"), json=json_body)
     return r.content, r.status_code
 
 
 @user.route('/register', methods=['POST'])
 def register():
-    client_id = request.args['clientid']
     json = request.json
-    r = requests.post(parse.urljoin(URL, "orders?clientid=" + client_id), json=json)
+    r = requests.post(parse.urljoin(URL, "register"), json=json)
     return r.content, r.status_code
 
 
@@ -28,4 +27,11 @@ def register():
 def check_token():
     headers = request.headers
     r = requests.get(parse.urljoin(URL, "check-token"), headers=headers)
+    return r.content, r.status_code
+
+
+@user.route('/logout', methods=['POST'])
+def logout():
+    headers = request.headers
+    r = requests.post(parse.urljoin(URL, "logout"), headers=headers)
     return r.content, r.status_code

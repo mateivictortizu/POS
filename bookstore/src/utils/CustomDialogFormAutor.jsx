@@ -1,17 +1,13 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
 import { Redirect } from "react-router-dom";
 import HOST from "../constants/host";
 import check_expired from "../utils/useToken";
@@ -60,7 +56,6 @@ export default function CustomDialogFormAutor({
     handleClose,
     handleClickOpen,
 }) {
-    const [items, setItems] = useState([]);
     const [nume,setNume] = useState("");
     const [prenume,setPrenume] = useState("");
     var token = localStorage.getItem("token");

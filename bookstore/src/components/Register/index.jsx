@@ -1,4 +1,4 @@
-import "./Login.css";
+import "./Register.css";
 import { Redirect } from "react-router-dom";
 import check_expired from "../../utils/useToken";
 import HOST from "../../constants/host";
@@ -7,8 +7,8 @@ import { useState } from "react";
 import CustomInput from "../../utils/CustomInput";
 import CustomInputPassword from "../../utils/CustomInputPassword";
 
-export default function Login() {
-  document.title = "BookStore - Login";
+export default function Register() {
+  document.title = "BookStore - Register";
   const [form, setForm] = useState({
     personalEmail: { value: "", error: "" },
     password: { value: "", error: "" },
@@ -17,8 +17,8 @@ export default function Login() {
   const [alertMessage, setAlertMessage] = useState("");
   const [severity, setSeverity] = useState("error");
 
-  async function loginUser(email, password) {
-    return fetch(HOST() + "/login", {
+  function registerUser(email, password) {
+    return fetch(HOST() + "/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,13 +26,10 @@ export default function Login() {
       body: JSON.stringify({ email, password }),
     })
       .then((data) => {
-        if (data.status === 200) {
+        if (data.status === 201) {
           setOpen(true);
           setSeverity("success");
-          setAlertMessage("Login successfull!");
-          data.json().then((message)=>{
-            localStorage.setItem("token",message["jwt"]);
-          });
+          setAlertMessage("Inregistrare completa!");
           window.location.reload();
         } else if (data.status === 404 || data.status === 400) {
           data.json().then((message) => {
@@ -66,14 +63,10 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (form.personalEmail.value !== "" && form.password.value !== "") {
-      const token = await loginUser(
+      registerUser(
         form.personalEmail.value,
         form.password.value
       );
-      if (token) {
-        localStorage.setItem("token", token.access_token);
-        window.location.reload();
-      }
     }
   };
 
@@ -100,7 +93,7 @@ export default function Login() {
           ></img>
         </a>
       </div>
-      <h1>Please Log In</h1>
+      <h1>Please Register</h1>
       <form onSubmit={handleSubmit}>
         <div className="inputs">
           <CustomInput
@@ -123,8 +116,8 @@ export default function Login() {
         <div>
           <button type="submit">Submit</button>
         </div>
-        <a href="#/register" id="register">
-          Register? Click here.
+        <a href="#/login" id="login">
+          Login? Click here.
         </a>
       </form>
       <SnackbarItem

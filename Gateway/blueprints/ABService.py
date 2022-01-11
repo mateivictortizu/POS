@@ -53,6 +53,9 @@ def delete_book_by_isbn(ISBN):
     if r.status_code != 200:
         return r.content, r.status_code
 
+    if r.json()["role"] != "ADMIN":
+        return {"message": "Forbidden"}, 403
+
     r = requests.delete(parse.urljoin(URL, "books/" + ISBN))
     return r.content, r.status_code
 
@@ -64,7 +67,8 @@ def add_books():
 
     if r.status_code != 200:
         return r.content, r.status_code
-
+    if r.json()["role"] != "ADMIN":
+        return {"message": "Forbidden"}, 403
     json = request.json
     r = requests.post(parse.urljoin(URL, "books"), json=json)
     return r.content, r.status_code
@@ -95,12 +99,14 @@ def add_author():
     if r.status_code != 200:
         return r.content, r.status_code
 
+    if r.json()["role"] != "ADMIN":
+        return {"message": "Forbidden"}, 403
+
     json = request.json
     r = requests.post(parse.urljoin(URL, "authors"), json=json)
     return r.content, r.status_code
 
 
-# TODO: hateoas in main app for authors
 @abService.route('/authors/<ID>')
 def get_author_by_id(ID):
     head = request.headers
@@ -120,6 +126,9 @@ def delete_author_by_id(ID):
 
     if r.status_code != 200:
         return r.content, r.status_code
+
+    if r.json()["role"] != "ADMIN":
+        return {"message": "Forbidden"}, 403
 
     r = requests.delete(parse.urljoin(URL, "authors/" + ID))
     return r.content, r.status_code
@@ -168,6 +177,9 @@ def add_authors_to_books(ISBN):
 
     if r.status_code != 200:
         return r.content, r.status_code
+
+    if r.json()["role"] != "ADMIN":
+        return {"message": "Forbidden"}, 403
 
     json = request.json
     r = requests.post(parse.urljoin(URL, "books/" + ISBN + "/authors"), json=json)

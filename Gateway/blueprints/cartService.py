@@ -1,4 +1,3 @@
-import urllib.parse
 from urllib import parse
 
 from flask import Blueprint, request
@@ -7,9 +6,6 @@ import requests
 cart = Blueprint('cart', __name__)
 
 URL = "http://127.0.0.1:8093/"
-
-
-# COMPLETED
 
 @cart.route('/cart')
 def get_cart_by_client_id():

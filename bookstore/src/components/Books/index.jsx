@@ -45,6 +45,7 @@ export default function Books() {
         }
         else if (data.status === 403) {
           localStorage.removeItem("token");
+          window.location.reload();
         }
         else {
           throw new Error("Internal server error");
@@ -55,7 +56,7 @@ export default function Books() {
         setSeverity("error");
         setAlertMessage("Service unavailable!");
       });
-  }
+  };
 
   function addCart(clientid, isbn, title, price, quantity) {
     fetch(HOST() + "/cart?clientid=" + clientid, {
@@ -74,6 +75,7 @@ export default function Books() {
         }
         else if (data.status === 403) {
           localStorage.removeItem("token");
+          window.location.reload();
         }
         else {
           throw new Error("Internal server error");
@@ -98,12 +100,12 @@ export default function Books() {
       .then((data) => {
         if (data.ok) {
           data.json().then((message) => {
-            if (message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:addWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:statusCode"] == "FAIL") {
+            if (message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:addWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:statusCode"] === "FAIL") {
               setOpen(true);
               setSeverity("error");
               setAlertMessage(message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:addWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:message"]);
             }
-            if (message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:addWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:statusCode"] == "SUCCESS") {
+            if (message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:addWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:statusCode"] === "SUCCESS") {
               setOpen(true);
               setSeverity("success");
               setAlertMessage(message["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["SOAP-ENV:addWishlistResponse"]["SOAP-ENV:serviceStatus"]["SOAP-ENV:message"]);
@@ -112,6 +114,7 @@ export default function Books() {
         }
         else if (data.status === 403) {
           localStorage.removeItem("token");
+          window.location.reload();
         }
         else {
           throw new Error("Internal server error");
@@ -166,6 +169,7 @@ export default function Books() {
         }
         else if (data.status === 403) {
           localStorage.removeItem("token");
+          window.location.reload();
         }
         else {
           throw new Error("Internal server error");
@@ -235,6 +239,7 @@ export default function Books() {
         }
         else if (data.status === 403) {
           localStorage.removeItem("token");
+          window.location.reload();
         }
         else {
           throw new Error("Internal server error");
@@ -259,11 +264,20 @@ export default function Books() {
         setSeverity={setSeverity}
       />
 
-      {decoded.role == "ADMIN" &&
-        <BooksAdd></BooksAdd>
+      {decoded.role === "ADMIN" &&
+        <BooksAdd
+          isbn_param=""
+          titlu_param=""
+          editura_param=""
+          anpublicare_param=""
+          genliterar_param=""
+          stock_param=""
+          price_param=""
+          type="Add"
+        ></BooksAdd>
       }
 
-      {decoded.role == "ADMIN" &&
+      {decoded.role === "ADMIN" &&
         <AutorAdd></AutorAdd>
       }
 
@@ -335,8 +349,11 @@ export default function Books() {
               <th>Pret</th>
               <th>Add to cart</th>
               <th>Add to wishlist</th>
-              {decoded.role == "ADMIN" &&
+              {decoded.role === "ADMIN" &&
                 <th>Remove books</th>
+              }
+              {decoded.role === "ADMIN" &&
+                <th>Modify books</th>
               }
             </tr>
             {items.map((val, key) => {
@@ -359,12 +376,27 @@ export default function Books() {
                       Add to wishlist
                     </Button>
                   </td>
-                  {decoded.role == "ADMIN" &&
+                  {decoded.role === "ADMIN" &&
                     <td>
                       <Button onClick={() => deleteBook(val.isbn)} style={{ backgroundColor: "#FF00FF", fontSize: "15px" }}>
                         X
                       </Button>
                     </td>
+                  }
+
+                  {decoded.role === "ADMIN" &&
+                  <td>
+                    <BooksAdd
+                      isbn_param={val.isbn}
+                      titlu_param={val.titlu}
+                      editura_param={val.editura}
+                      anpublicare_param={val.anpublicare}
+                      genliterar_param={val.genliterar}
+                      stock_param={val.stock}
+                      price_param={val.price}
+                      type="Change"
+                    ></BooksAdd>
+                  </td>
                   }
                 </tr>
               );
@@ -380,7 +412,7 @@ export default function Books() {
           }
         </>
       }
-      {items.length == 0 &&
+      {items.length === 0 &&
         <><h1>Books</h1><h2>Niciun produs!</h2></>
       }
       <SnackbarItem
