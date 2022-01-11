@@ -9,6 +9,7 @@ import { Button, FormControl, InputLabel, NativeSelect } from "@material-ui/core
 import BooksItem from "../BooksItem";
 import jwt_decode from "jwt-decode";
 import BooksAdd from "../BooksAdd";
+import AutorAdd from "../AutorAdd"
 
 
 export default function Books() {
@@ -260,6 +261,10 @@ export default function Books() {
 
       {decoded.role == "ADMIN" &&
         <BooksAdd></BooksAdd>
+      }
+
+      {decoded.role == "ADMIN" &&
+        <AutorAdd></AutorAdd>
       }
 
       <p></p>

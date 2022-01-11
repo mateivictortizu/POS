@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="acea6c1f-0172-40d5-9bad-cc68f075a7b2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../ABService/src/main/java/com/example/abservice/controller/ABController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ABService/src/main/java/com/example/abservice/controller/ABController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ABService/src/main/java/com/example/abservice/model/CarteAutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ABService/src/main/java/com/example/abservice/model/CarteAutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ABService/src/main/java/com/example/abservice/repository/CarteAutorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ABService/src/main/java/com/example/abservice/repository/CarteAutorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ABService/src/main/java/com/example/abservice/service/ABService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ABService/src/main/java/com/example/abservice/service/ABService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Gateway/blueprints/ABService.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Gateway/blueprints/ABService.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -111,7 +107,7 @@
       <workItem from="1641659195413" duration="1218000" />
       <workItem from="1641824209946" duration="3223000" />
       <workItem from="1641844158899" duration="1263000" />
-      <workItem from="1641907919995" duration="1041000" />
+      <workItem from="1641907919995" duration="1043000" />
     </task>
     <servers />
   </component>

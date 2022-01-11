@@ -22,14 +22,14 @@ a:hover {
   color: var(--DarkOrange)
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=number] {
   border-radius: 30px;
   width: 80%;
   padding: 15px;
   margin: 5px 0 22px 0;
   display: flex;
   border: none;
-  background-color: var(--White);
+  background-color: var(--LightOrange);
 }
 
 input[type=text]:focus, input[type=password]:focus {

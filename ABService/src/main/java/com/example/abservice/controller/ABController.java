@@ -64,6 +64,7 @@ public class ABController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/books/{ISBN}")
     ResponseEntity<?> deletebooks(@PathVariable String ISBN)
     {
@@ -72,6 +73,7 @@ public class ABController {
 
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/books")
     ResponseEntity<?> addbook(@RequestBody Carte carte){
 
@@ -242,6 +244,7 @@ public class ABController {
 
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/authors")
     ResponseEntity<?> getautor(@RequestParam String name, @RequestParam Boolean match)
     {
@@ -273,12 +276,14 @@ public class ABController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/authors")
     ResponseEntity<?> addAutor(@RequestBody Autor autor)
     {
         return new ResponseEntity<>(abService.addAuthor(autor),HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/authors/{ID}")
     ResponseEntity<?> getAuthorsById(@PathVariable Integer ID)
     {
@@ -292,6 +297,7 @@ public class ABController {
         return new ResponseEntity<>(a,HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping ("/authors/{ID}")
     ResponseEntity<?> deleteauthors(@PathVariable Integer ID)
     {
@@ -300,23 +306,27 @@ public class ABController {
 
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping (value="/", method = RequestMethod.OPTIONS)
     ResponseEntity<?> getAll()
     {
         return ResponseEntity.ok().allow(HttpMethod.OPTIONS).build();
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping (value = "/books", method = RequestMethod.OPTIONS)
     ResponseEntity<?> getRelativeToBook()
     {
         return ResponseEntity.ok().allow(HttpMethod.OPTIONS, HttpMethod.GET, HttpMethod.POST).build();
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping (value = "/authors", method = RequestMethod.OPTIONS)
     ResponseEntity <?> getRelativeToAuthors(){
         return ResponseEntity.ok().allow(HttpMethod.OPTIONS, HttpMethod.POST, HttpMethod.GET).build();
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping (value = "/books/{ISBN}/authors")
     ResponseEntity <?> addAuthorsToBook(@PathVariable String ISBN,@RequestBody List<Integer> autori){
         JSONObject error=new JSONObject();
@@ -354,6 +364,7 @@ public class ABController {
         return new ResponseEntity<>(autors,HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping(value="/books/stockChange")
     ResponseEntity<?> stock_endpoint(@RequestBody List<Order> orders) {
         List <Order> temporary=new ArrayList<>();

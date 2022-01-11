@@ -55,22 +55,17 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-export default function CustomDialogForm({
+export default function CustomDialogFormAutor({
     open,
     handleClose,
     handleClickOpen,
 }) {
     const [items, setItems] = useState([]);
-    const [isbn, setIsbn] = useState("");
-    const [titlu, setTitlu] = useState("");
-    const [editura, setEditura] = useState("");
-    const [anpublicare, setAnpublicare] = useState("");
-    const [genliterar, setGenliterar] = useState("");
-    const [stock, setStock] = useState("");
-    const [price, setPrice] = useState("");
+    const [nume,setNume] = useState("");
+    const [prenume,setPrenume] = useState("");
     var token = localStorage.getItem("token");
 
-    function addBooks(isbn, titlu, editura, anpublicare, genliterar, stock, price) {
+    function addAutor(nume, prenume) {
         if (!localStorage.getItem("token")) {
             return <Redirect to="/login" />;
         } else {
@@ -79,13 +74,13 @@ export default function CustomDialogForm({
             }
         }
 
-        fetch(HOST() + "/books", {
+        fetch(HOST() + "/authors", {
             method: "POST",
             headers: {
                 'Authorization': token,
                 'Content-type': 'application/json',
             },
-            body: JSON.stringify({ isbn, titlu, editura, anpublicare, genliterar, stock, price }),
+            body: JSON.stringify({ nume, prenume }),
         })
             .then((data) => {
                 if (data.ok) {
@@ -106,15 +101,15 @@ export default function CustomDialogForm({
             .catch((error) => {
                 console.log(error);
             });
-    };
+    }
 
     function clickOpen() {
         handleClickOpen();
     };
 
-    function submit(isbn, titlu, editura,anpublicare,genliterar,stock,price)
+    function submit(nume,prenume)
     {
-        addBooks(isbn, titlu, editura,anpublicare,genliterar,stock,price);
+        addAutor(nume,prenume);
         handleClose();
         window.location.reload();
     };
@@ -122,7 +117,7 @@ export default function CustomDialogForm({
     return (
         <div>
             <Button variant="outlined" onClick={clickOpen}>
-                Add book
+                Add Autor
             </Button>
             <BootstrapDialog
                 onClose={handleClose}
@@ -130,66 +125,27 @@ export default function CustomDialogForm({
                 open={open}
             >
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                    Add book
+                    Add Autor
                 </BootstrapDialogTitle>
                 <DialogContent dividers>
                 <form>
-                    <label>ISBN:
+                    <label>Nume:
                     <input
                         type="text" 
-                        value={isbn}
-                        onChange={(e) => setIsbn(e.target.value)}
+                        value={nume}
+                        onChange={(e) => setNume(e.target.value)}
                     />
                     </label>
-                    <label>Titlu:
+                    <label>Prenume:
                     <input
                         type="text" 
-                        value={titlu}
-                        onChange={(e) => setTitlu(e.target.value)}
-                    />
-                    </label>
-                    <label>Editura:
-                    <input
-                        type="text" 
-                        value={editura}
-                        onChange={(e) => setEditura(e.target.value)}
-                    />
-                    </label>
-                    <label>An publicare:
-                    <input
-                        type="number"
-                        min="1950"
-                        max="2022" 
-                        value={anpublicare}
-                        onChange={(e) => setAnpublicare(e.target.value)}
-                    />
-                    </label>
-                    <label>Gen literar:
-                    <input
-                        type="text" 
-                        value={genliterar}
-                        onChange={(e) => setGenliterar(e.target.value)}
-                    />
-                    </label>
-                    <label>Pret:
-                    <input
-                        type="number" 
-                        value={price}
-                        min="1"
-                        onChange={(e) => setPrice(e.target.value)}
-                    />
-                    </label>
-                    <label>Stoc:
-                    <input
-                        type="number"
-                        min="1" 
-                        value={stock}
-                        onChange={(e) => setStock(e.target.value)}
+                        value={prenume}
+                        onChange={(e) => setPrenume(e.target.value)}
                     />
                     </label>
                 </form>
                 </DialogContent>
-                <Button onClick={()=>submit(isbn, titlu, editura,anpublicare,genliterar,stock,price)}>Adauga cartea</Button>
+                <Button onClick={()=>submit(nume,prenume)}>Add Autor</Button>
             </BootstrapDialog>
         </div>
     );
