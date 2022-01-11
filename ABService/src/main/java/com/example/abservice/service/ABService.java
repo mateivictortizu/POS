@@ -3,12 +3,14 @@ package com.example.abservice.service;
 import com.example.abservice.model.Autor;
 import com.example.abservice.model.Carte;
 import com.example.abservice.model.CarteAutor;
+import com.example.abservice.model.Order;
 import com.example.abservice.repository.AutorRepository;
 import com.example.abservice.repository.CarteAutorRepository;
 import com.example.abservice.repository.CarteRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -50,8 +52,6 @@ public class ABService {
 
     public Integer getIndexAutor (Carte carte) { return carteAutorRepository.getMaxIndex(carte);};
 
-    public Autor checkAutor (Autor autor) { return autorRepository.findAutorByNumeAndPrenumeAndID(autor.getNume(),autor.getPrenume(),autor.getID());}
-
     public Boolean checkStoc(String ISBN, Integer stock){
         Carte c=carteRepository.findByISBN(ISBN);
         if(c==null)
@@ -82,5 +82,15 @@ public class ABService {
         if(a != null) {
             autorRepository.deleteAutorByID(ID);
         }
+    }
+
+    public List<Autor> getAutorsforBook(String ISBN){
+        List<Autor> autori=new ArrayList<>();
+        Carte c=carteRepository.findByISBN(ISBN);
+        List<CarteAutor> ca=carteAutorRepository.getCarteAutorByCarte(c);
+        for(CarteAutor a:ca){
+            autori.add(a.getAutor());
+        }
+        return autori;
     }
 }

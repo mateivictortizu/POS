@@ -3,7 +3,6 @@ package com.example.abservice.model;
 import org.springframework.hateoas.RepresentationModel;
 import javax.persistence.*;
 import java.io.Serializable;
-import com.example.abservice.model.*;
 
 @Entity
 public class CarteAutor extends RepresentationModel<CarteAutor> implements Serializable {
@@ -11,11 +10,12 @@ public class CarteAutor extends RepresentationModel<CarteAutor> implements Seria
     public CarteAutor(){
     }
 
+
     @EmbeddedId
     private CarteAutorPK id;
 
     @ManyToOne
-    @MapsId("autor_id") //This is the name of attr in EmployerDeliveryAgentPK class
+    @MapsId("autor_id")
     @JoinColumn(name = "AUTOR_ID")
     private Autor autor;
 
@@ -26,6 +26,7 @@ public class CarteAutor extends RepresentationModel<CarteAutor> implements Seria
 
     @Column(name="index_autor")
     private Integer index_autor;
+
 
     public void setAutor(Autor autor) {
         this.autor = autor;

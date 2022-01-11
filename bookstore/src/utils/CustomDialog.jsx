@@ -62,6 +62,8 @@ export default function CustomDialog({
 }) {
 
   const [items, setItems] = useState([]);
+  const [autori,setAutori]=useState([]);
+
   var token = localStorage.getItem("token");
 
   function getBooksByisbn(isbn) {
@@ -99,10 +101,48 @@ export default function CustomDialog({
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  function getAuthorsByisbn(isbn) {
+    if (!localStorage.getItem("token")) {
+      return <Redirect to="/login" />;
+    } else {
+      if (check_expired()) {
+        return <Redirect to="/login" />;
+      }
+    }
+
+    fetch(HOST()+"/books/"+isbn+"/authors", {
+      method: "GET",
+      headers: {
+        'Authorization': token,
+        'Content-type': 'application/json',
+      },
+    })
+      .then((data) => {
+        if (data.ok) {
+          data.json().then((message) => {
+            setAutori(message);
+          });
+        }
+        else if (data.status === 404) {
+          setAutori([]);
+        }
+        else if (data.status === 403) {
+          localStorage.removeItem("token");
+        }
+        else {
+          throw new Error("Internal server error");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   function clickOpen() {
-    getBooksByisbn(isbn)
+    getBooksByisbn(isbn);
+    getAuthorsByisbn(isbn);
     handleClickOpen();
   }
 
@@ -134,6 +174,13 @@ export default function CustomDialog({
           </Typography>
           <Typography gutterBottom>
             Gen literar:{items["genliterar"]}
+          </Typography>
+          <Typography gutterBottom>
+            Autori:
+            {autori.map((val, key) => {
+              return(val.nume+","+val.prenume+"; ");
+            })
+            }
           </Typography>
         </DialogContent>
         <DialogActions>

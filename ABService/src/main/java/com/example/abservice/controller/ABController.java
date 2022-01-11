@@ -318,7 +318,7 @@ public class ABController {
     }
 
     @PostMapping (value = "/books/{ISBN}/authors")
-    ResponseEntity <?> addAuthorsToBook(@PathVariable String ISBN,@RequestBody List<Autor> autori){
+    ResponseEntity <?> addAuthorsToBook(@PathVariable String ISBN,@RequestBody List<Integer> autori){
         JSONObject error=new JSONObject();
         Carte c=abService.getBookByISBN(ISBN);
         if (c==null)
@@ -327,23 +327,31 @@ public class ABController {
             return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
         }
         int index=Objects.requireNonNullElse(abService.getIndexAutor(c) ,-1) +1;
-        for (Autor a:autori) {
-            Autor checkAutor = abService.checkAutor(a);
+        for (Integer a:autori) {
+            Autor checkAutor = abService.getAuthorByID(a);
             if(checkAutor == null)
             {
                 error.put("message","No author found");
                 return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
             }
             CarteAutor ca= new CarteAutor();
-            ca.setAutor(a);
+            ca.setAutor(checkAutor);
             ca.setCarte(c);
-            ca.setId(a.getID(),ISBN);
+            ca.setId(a,ISBN);
             ca.setIndex_autor(index);
             abService.addRelationBookAuthor(ca);
             index=index+1;
 
         }
-        return new ResponseEntity<>(autori,HttpStatus.CREATED);
+        error.put("message","Autorii au fost adaugat cartii "+ISBN);
+        return new ResponseEntity<>(error,HttpStatus.CREATED);
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping (value = "/books/{ISBN}/authors")
+    ResponseEntity <?> getAuthors(@PathVariable String ISBN){
+        List<Autor> autors=abService.getAutorsforBook(ISBN);
+        return new ResponseEntity<>(autors,HttpStatus.OK);
     }
 
     @PostMapping(value="/books/stockChange")
@@ -368,4 +376,5 @@ public class ABController {
         }
         return new ResponseEntity<>(value,HttpStatus.OK);
     }
+
 }

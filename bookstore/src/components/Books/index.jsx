@@ -16,19 +16,18 @@ export default function Books() {
   const [alertMessage, setAlertMessage] = useState("");
   const [severity, setSeverity] = useState("error");
   const [items, setItems] = useState("");
-  const [itp, setitp] = useState("-1")
-  const [genre, setGenre] = useState("all")
-  const [year, setYear] = useState("-1")
+  const [itp, setitp] = useState("-1");
+  const [genre, setGenre] = useState("all");
+  const [year, setYear] = useState("-1");
   const [page, setPage] = useState(0);
   const [links, setLinks] = useState([]);
-  const [token, setToken] = useState("")
-  const [decoded, setDecoded] = useState("")
+  const [token, setToken] = useState("");
+  const [decoded, setDecoded] = useState("");
   const years = [];
 
   for (var i = 1990; i <= 2022; i++) {
     years.push(<option value={i}>{i}</option>);
   }
-
   function deleteBook(isbn) {
     fetch(HOST() + "/books/" + isbn, {
       method: "DELETE",
